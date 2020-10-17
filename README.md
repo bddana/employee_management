@@ -26,4 +26,4 @@ TODO - I will expect the list to grow as we dulve into the implementation.
 - []  signin page and assocaited backend
 - []  registeration page and assocaited backend
 - []  report page - quary for report
-- [] add logo and final touch up
+- []  add logo and final touch up

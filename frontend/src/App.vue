@@ -1,37 +1,20 @@
 <template>
     <v-app>
-         <v-app-bar
-            app
-            class="primary"
-            dark
-        >
-            <h1><span class="font-weight-light">WORK</span><span class="font-weight-regular grey--text text--darken-4">SCHEDULE</span></h1>
-        </v-app-bar>
+        <Navbar/>
         <v-content class="grey darken-4 d-flex" dark>
-            <calendar></calendar>
-            <event-form></event-form>
-            <notifications></notifications>
+            <router-view></router-view>
        </v-content>
     </v-app>
 </template>
 
 <script>
-import Calendar from '@/components/Calendar'
-import EventForm from '@/components/EventForm'
-import Notifications from '@/components/Notifications'
-
-
+import Navbar from '@/components/Navbar'
 export default {
-    name: 'App',
-
-    components: {
-        Calendar,
-        EventForm,
-        Notifications    
-    },
-
-    data: () => ({
-
-    }),
+  components: { Navbar },
+  name: 'App',
+  data () {
+    return {
+    }
+  },
 };
 </script>
