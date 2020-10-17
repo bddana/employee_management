@@ -1,6 +1,10 @@
-# Nodejs-Express-Sequelizejs-Mysql
+## Project setup
+```
+npm install
+```
 
-Sequelize is a promise-based ORM for Node.js v4 and later
+### Compiles and hot-reloads for development
+```
+npm run start
+```
 
-Sequelize is a promise-based Node.js ORM for Postgres, MySQL, SQLite and Microsoft SQL Server. 
-It has many solid features for transaction, relations, read replication and more.

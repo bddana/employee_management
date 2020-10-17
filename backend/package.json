@@ -1,13 +1,13 @@
 {
-  "name": "nodejs-express-sequelizejs-mysql",
+  "name": "employee_management_backend",
   "version": "1.0.0",
-  "description": "nodejs-express-sequelizejs-mysql",
+  "description": "Employee Mangement backend",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "NodeJs-Express-SequelizeJs-MySQL"
+    "Employee Mangement backend"
   ],
   "author": "Lily Dawit",
   "license": "ISC",

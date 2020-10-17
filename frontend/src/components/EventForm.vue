@@ -180,7 +180,7 @@ export default {
 
         originalEditedEvent: {},
 
-        formTitle: 'Add a New Event',
+        formTitle: 'Add a New Schedule',
 
         nameInput: '',
         detailsInput: '',
@@ -283,7 +283,7 @@ export default {
         clearForm(){
             this.dialog = false
 
-            this.formTitle = "Add a New Event"
+            this.formTitle = "Add a New Schedule"
 
             this.id = undefined
             this.selectedColor = '#F07F1D'
