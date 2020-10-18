@@ -52,6 +52,8 @@ export default {
       menuItems: [
           { title: 'Home', path: '/', icon: 'mdi-home'},
           { title: 'About', path: '/about', icon:'mdi-adjust'},
+          { title: 'Boat', path: '/boat', icon:'mdi-adjust'},
+          { title: 'Employee', path: '/employee', icon:'mdi-adjust'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
           { title: 'Sign In', path: '/user', icon: 'mdi-account'},
      ]
