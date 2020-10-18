@@ -2,7 +2,6 @@
   <v-card
     class="mx-auto"
     max-width="1000"
-    dark
   >
 
     <v-card-title>

@@ -8,7 +8,6 @@
         fab 
         x-large 
         color="primary" 
-        dark 
         @click="dialog = true"
         >
             <v-icon x-large>
@@ -21,7 +20,7 @@
             :fullscreen="$vuetify.breakpoint.xsOnly"
             @click:outside="clearForm"
         >
-            <v-card class="pa-4" dark>
+            <v-card class="pa-4">
                 <v-form ref="form" v-model="valid">
                     <v-card-title>
                         <span
@@ -103,7 +102,7 @@
             v-model="editDialog"
             width="80%"
     >
-        <v-card dark>
+        <v-card>
             <v-card-title>
                 You're editing {{ currEvent.type }} recurring Event: {{ currEvent.name }} ?
             </v-card-title>

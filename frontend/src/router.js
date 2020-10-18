@@ -5,7 +5,7 @@ const routerOptions = [
   { path: "/", component: "Landing" },
   { path: "/about", component: "About" },
   { path: "/schedule", component: "Schedule" },
-  { path: "/signin", component: "Signin" },
+  { path: "/user", component: "User" },
   { path: "/signup", component: "Signup" },
   // { path: "/home", component: "Home", meta: { requiresAuth: true } },
   { path: "*", component: "NotFound" }

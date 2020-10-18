@@ -2,12 +2,12 @@
   <v-container class="pa-0">
     <v-row class="fill-height">
       <v-col class="px-2 py-0">
-        <v-sheet height="7vh" dark tile color="grey darken-4">
-          <v-toolbar flat dark class="fill-height" tile color="grey darken-4" >
+        <v-sheet height="7vh" tile>
+          <v-toolbar flat class="fill-height" tile >
             <v-btn color="primary" text class="ml-2 mr-6" @click="setToday">
               Today
             </v-btn>
-            <v-btn elevation="1" dark color="primary" left fab  small @click="prev">
+            <v-btn elevation="1" color="primary" left fab  small @click="prev">
               <v-icon>mdi-chevron-left</v-icon>
             </v-btn>
             <v-spacer></v-spacer>
@@ -18,7 +18,7 @@
               :calendar-type="type"
             >{{ title }}</calendar-picker>
             <v-spacer></v-spacer>
-            <v-btn elevation="1" dark color="primary" right fab  small @click="next">
+            <v-btn elevation="1" color="primary" right fab  small @click="next">
               <v-icon >mdi-chevron-right</v-icon>
             </v-btn>
             <v-menu bottom right>
@@ -50,7 +50,6 @@
         <v-divider></v-divider>
         <v-sheet height="86vh">
           <v-calendar
-            dark
             ref="calendar"
             v-model="focus"
             color="primary"

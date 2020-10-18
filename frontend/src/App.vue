@@ -1,19 +1,30 @@
 <template>
     <v-app>
         <Navbar/>
-        <v-content class="grey darken-4 d-flex" dark>
+        <v-content>
             <router-view></router-view>
        </v-content>
     </v-app>
 </template>
 
 <script>
-import Navbar from '@/components/Navbar'
+import Navbar from '@/components/Navbar';
+import { mapGetters } from 'vuex';
 export default {
-  components: { Navbar },
-  name: 'App',
-  data () {
-    return {
+    name: 'App',
+    components: { Navbar },
+    
+    async created() {
+        await this.$store.dispatch('authStore/initiateAppSession');
+        if (this.isSessionActive) {
+            //this.initiateApp();
+        } else {
+            //TODO: reset user data here
+        }
+    },
+    data () {
+        return {
+            isLoading: false,
     }
   },
 };

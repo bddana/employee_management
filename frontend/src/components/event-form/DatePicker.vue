@@ -16,9 +16,7 @@
                 :color="color"
             ></v-text-field>
         </template>
-    <v-sheet
-        dark
-    >
+    <v-sheet>
         <v-date-picker
             color="primary"
             ref="datepicker"

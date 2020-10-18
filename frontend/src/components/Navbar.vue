@@ -2,12 +2,13 @@
 <nav>
     <v-app-bar
       color="primary"
-      dark
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
       <v-toolbar-title>
+      <router-link to="/" tag="span" style="cursor: pointer">
         <h1><span class="font-weight-light">WORK</span><span class="font-weight-regular grey--text text--darken-4">SCHEDULE</span></h1>     
+      </router-link>
       </v-toolbar-title>
     </v-app-bar>
 
@@ -15,7 +16,6 @@
       v-model="drawer"
       app
       temporary
-      dark
     >
       <v-list
         nav
@@ -53,8 +53,7 @@ export default {
           { title: 'Home', path: '/', icon: 'mdi-home'},
           { title: 'About', path: '/about', icon:'mdi-adjust'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
-          { title: 'Sign In', path: '/signin', icon: 'mdi-account'},
-          { title: 'Sign up', path: '/signup', icon: 'mdi-face'},
+          { title: 'Sign In', path: '/user', icon: 'mdi-account'},
      ]
     }
   }

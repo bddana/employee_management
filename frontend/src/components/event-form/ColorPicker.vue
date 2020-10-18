@@ -18,7 +18,6 @@
         >
             <v-card
                 class="pa-2"
-                dark
             >
                 <v-color-picker
                     show-swatches
