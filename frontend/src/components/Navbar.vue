@@ -55,7 +55,7 @@ export default {
           { title: 'Boat', path: '/boat', icon:'mdi-adjust'},
           { title: 'Employee', path: '/employee', icon:'mdi-adjust'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
-          { title: 'Sign In', path: '/user', icon: 'mdi-account'},
+          { title: 'Sign In', path: '/login', icon: 'mdi-account'},
      ]
     }
   }

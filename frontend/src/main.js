@@ -10,6 +10,7 @@ Vue.use(Form);
 Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tooltip);
+import VueAxios from './plugins/axios';
 
 Vue.config.productionTip = false
 

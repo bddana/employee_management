@@ -11,14 +11,16 @@ export default {
     actions: {
         // eslint-disable-next-line no-unused-vars
         async registerUser({ state }, payload) {
+          console.log("registerUser");
             if (!payload) return null;
-    
+            console.log(payload);
             try {
-            const { data } = await Vue.prototype.$axios({
+              const { data } = await Vue.prototype.$axios({
                 method: 'post',
                 url: ProxyUrls.registerUrl,
                 data: payload,
-            });
+              });
+              console.log("registerUser2");
     
             if (data && data.httpStatus === 200) {
                 return true;
