@@ -2,6 +2,8 @@
 <nav>
     <v-app-bar
       color="primary"
+      dense
+      dark
     >
       <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
 
@@ -10,7 +12,54 @@
         <h1><span class="font-weight-light">WORK</span><span class="font-weight-regular grey--text text--darken-4">SCHEDULE</span></h1>     
       </router-link>
       </v-toolbar-title>
-    </v-app-bar>
+
+      <v-spacer></v-spacer>
+    <v-menu
+      bottom
+      right
+      transition="scale-transition"
+      origin="top left"
+    >
+        <template v-slot:activator="{ on }">   
+        <v-chip
+          class="ma-2"
+          color="primary"
+          text-color="white"
+          to="/user"
+          v-if="!isLoggedIn"
+        >
+          <v-avatar left>
+            <v-icon>mdi-account-circle</v-icon>
+          </v-avatar>
+          Login
+        </v-chip>
+
+          <v-chip
+          v-else
+            class="ma-2"
+            color="primary"
+            text-color="white"
+            v-on="on"    
+          >
+            <v-avatar left>
+              <v-icon>mdi-account-circle</v-icon>
+            </v-avatar>
+            {{ nameOfUser }}
+          </v-chip>
+        </template>
+        <v-card width="150" >
+          <v-list>
+            <v-list-item @click="logoutClicked()">
+              <v-list-item-action>
+                <v-icon>mdi-account-arrow-right-outline</v-icon>
+              </v-list-item-action>
+              <v-list-item-subtitle>Logout</v-list-item-subtitle>
+            </v-list-item>
+          </v-list>
+        </v-card>
+    </v-menu>
+
+    </v-app-bar> 
 
     <v-navigation-drawer
       v-model="drawer"
@@ -42,23 +91,51 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   data() {
     return {
-      appTitle: 'Awesome App',
+      appTitle: 'Work Schedule',
       sidebar: false,
       drawer: false,
       group: null,
       menuItems: [
           { title: 'Home', path: '/', icon: 'mdi-home'},
           { title: 'About', path: '/about', icon:'mdi-adjust'},
-          { title: 'Boat', path: '/boat', icon:'mdi-adjust'},
-          { title: 'Employee', path: '/employee', icon:'mdi-adjust'},
+          { title: 'Boat', path: '/boat', icon:'mdi-sail-boat'},
+          { title: 'Employee', path: '/employee', icon:'mdi-human-queue'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
-          { title: 'Sign In', path: '/login', icon: 'mdi-account'},
-     ]
+     ],
     }
-  }
+  },
+
+  // methods: {
+  //   loginClicked() {
+  //     this.$router.push('/user');
+  //   },
+  // },
+  computed: {
+    nameOfUser() {
+      return this.$store.getters['authStore/getFirstName'];
+    },
+    statOflog() {
+      return this.$store.getters['authStore/getIsLoggedIn'];
+    },
+    ...mapGetters({
+      isLoggedIn: 'authStore/getIsLoggedIn',
+    }),
+  },
+  methods: {
+    async logoutClicked() {
+    try {
+        console.log("test");
+        const data = await this.$store.dispatch('authStore/logout');
+      console.log("success");
+    } catch (err) {
+      console.log(err, "fail here");
+      }
+    }
+  },
 }
 </script>
 

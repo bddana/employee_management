@@ -1,27 +1,24 @@
 <template>
     <v-app>
-        <Navbar/>
         <v-content>
+            <Navbar/>
             <router-view></router-view>
+            <Footer-Bar/>
        </v-content>
     </v-app>
 </template>
 
 <script>
 import Navbar from '@/components/Navbar';
+import FooterBar from '@/components/FooterBar';
 import { mapGetters } from 'vuex';
 export default {
     name: 'App',
-    components: { Navbar },
+    components: { Navbar, FooterBar },
     
-    // async created() {
-    //     await this.$store.dispatch('authStore/initiateAppSession');
-    //     if (this.isSessionActive) {
-    //         //this.initiateApp();
-    //     } else {
-    //         //TODO: reset user data here
-    //     }
-    // },
+    async created() {
+        await this.$store.dispatch('authStore/initiateAppSession');
+    },
     data () {
         return {
             isLoading: false,

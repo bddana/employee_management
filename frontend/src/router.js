@@ -1,28 +1,70 @@
 import Vue from "vue";
 import Router from "vue-router";
-
-const routerOptions = [
-  { path: "/", component: "Landing" },
-  { path: "/about", component: "About" },
-  { path: "/schedule", component: "Schedule" },
-  { path: "/login", component: "Login" },
-  { path: "/signup", component: "Signup" },
-  { path: "/boat", component: "Boat" },
-  { path: "/employee", component: "Employee" },
-  // { path: "/home", component: "Home", meta: { requiresAuth: true } },
-  { path: "*", component: "NotFound" }
-];
-
-const routes = routerOptions.map(route => {
-  return {
-    ...route,
-    component: () => import(`./views/${route.component}.vue`)
-  };
-});
+import Landing from "@/views/Landing";
+import About from "@/views/About";
+import Schedule from "@/views/Schedule";
+import User from "@/views/User";
+import NotFound from "@/views/NotFound";
+// import Signup from "@/views/Signup";
+import Boat from "@/views/Boat";
+import Employee from "@/views/Employee";
 
 Vue.use(Router);
 
-export default new Router({
-  mode: "history",
-  routes
+const router = new Router({
+  // mode: 'history',
+  base: process.env.BASE_URL,
+  routes: [
+    {
+      path: '/',
+      component: Landing,
+      children: [
+      ],
+    },
+    {
+      path: '/about',
+      component: About,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/boat',
+      component: Boat,
+    },
+    {
+      path: '/Employee',
+      component: Employee,
+    },
+    {
+      path: '/schedule',
+      component: Schedule,
+      meta: {
+        requiresAuth: true,
+      },
+    },
+    {
+      path: '/user',
+      component: User,
+    },
+
+    {
+      path: '*',
+      name: 'NotFound',
+      component: NotFound,
+    },
+  ],
 });
+
+router.beforeEach((to, from, next) => {
+  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const authenticatedUser = null;
+  const authenticatedUser2 = (localStorage.getItem('email') === 'undefined');
+  console.log(`router before each to ${requiresAuth} and ${authenticatedUser2}`);
+
+  // Check for protected route
+  if (requiresAuth && authenticatedUser2) next('user')
+  else next();
+});
+
+export default router;

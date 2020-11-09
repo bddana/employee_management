@@ -20,7 +20,7 @@
           justify="center"
         >
           <div class="display-3">
-            {{ slide }} Slide
+            {{ slide }} 
           </div>
         </v-row>
       </v-sheet>
@@ -40,11 +40,11 @@
           'deep-purple accent-4',
         ],
         slides: [
-          'First',
-          'Second',
-          'Third',
-          'Fourth',
-          'Fifth',
+          'Employee of the month',
+          'Supervisor Info',
+          'Owner',
+          'Our fleets'
+        
         ],
       }
     },
