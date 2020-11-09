@@ -3,6 +3,7 @@ import App from './App.vue'
 import vuetify from './plugins/vuetify';
 import router from './router.js'
 import store from './store/store.js';
+<<<<<<< HEAD
 import axios from 'axios';
 import { Button, Table, Form, TableColumn, Popover, Tooltip } from "element-ui";
 Vue.use(Button);
@@ -11,6 +12,19 @@ Vue.use(Form);
 Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tooltip);
+=======
+import ElementUI from "element-ui";
+import 'element-ui/lib/theme-chalk/index.css';
+Vue.use(ElementUI);
+// Vue.use(Button);
+// Vue.use(Table);
+// Vue.use(Form);
+// Vue.use(TableColumn);
+// Vue.use(Popover);
+// Vue.use(Tooltip);
+// Vue.use(Container);
+// Vue.use(Dialog);
+>>>>>>> c4b8321... Add function
 
 const baseURL = process.env.VUE_APP_API_BASE_URL;
 const instance = axios.create({
