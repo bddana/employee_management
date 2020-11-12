@@ -19,11 +19,11 @@ TODO - I will expect the list to grow as we dulve into the implementation.
 - [x] Backend able to read and write from/to sql database
 - [x] Frontend able to start and lunch main page
 - [x] Initial calendar page and other initial event planing features
-- []  connect the frontend to backend. End to End data pipe plumbing
+- [x]  connect the frontend to backend. End to End data pipe plumbing
 - []  Update the schedule form to meet scheduling requrements
 - []  dabase relation design (sql script deliverable to any mysql database) and sample data entry 
 - []  split admin veiw and employee veiw
-- []  signin page and assocaited backend
-- []  registeration page and assocaited backend
+- [x]  signin page and assocaited backend
+- [x]  registeration page and assocaited backend
 - []  report page - quary for report
 - []  add logo and final touch up

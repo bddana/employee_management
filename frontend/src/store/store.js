@@ -11,6 +11,4 @@ export default new Vuex.Store({
   modules: {
     authStore: AuthStore,
   },
-
-  // plugins: [vuexLocal.plugin],
 });
