@@ -8,6 +8,8 @@ import NotFound from "@/views/NotFound";
 // import Signup from "@/views/Signup";
 import Boat from "@/views/Boat";
 import Employee from "@/views/Employee";
+import Report from "@/views/report";
+
 
 Vue.use(Router);
 
@@ -52,6 +54,10 @@ const router = new Router({
       path: '*',
       name: 'NotFound',
       component: NotFound,
+    },
+    {
+      path: '/Report',
+      component: Report,
     },
   ],
 });

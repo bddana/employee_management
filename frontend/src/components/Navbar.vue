@@ -105,6 +105,8 @@ export default {
           { title: 'Boat', path: '/boat', icon:'mdi-sail-boat'},
           { title: 'Employee', path: '/employee', icon:'mdi-human-queue'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
+          { title: 'Report', path: '/report', icon: 'mdi-calendar'},
+
      ],
     }
   },
