@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         employeeType: {
-            type: Sequelize.ENUM('Owner', 'Supervisor', 'Captain'),
+            type: Sequelize.STRING(45)
         }
  
  

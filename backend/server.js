@@ -28,7 +28,7 @@ app.set('views',path.join(__dirname,'views'));
 // Database connection imports
 const db = require('./config/db.config.js');
 // force: true will drop the table if it already exists
-db.sequelize.sync({force: false}).then(() => {
+db.sequelize.sync({force: true}).then(() => {
   console.log('Databse successfuly initialized!');
 }).catch((err) => {
   console.log(err, "Something went wrong with the Database Update!");

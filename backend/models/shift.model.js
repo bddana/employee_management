@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         shift: {
-            type: Sequelize.ENUM('Morning Shift', 'Evening Shift'),
+            type: Sequelize.STRING(45),
         }
  
  

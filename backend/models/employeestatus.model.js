@@ -9,10 +9,8 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         employeeStatus: {
-            type: Sequelize.ENUM('Active', 'Inactive', 'Pending', 'Terminated', 'Resigned','Pending Termination', 'Temporary Inactive'),
-            defaultValue: 'active'
+            type: Sequelize.STRING(45),
         }
- 
  
     });
  

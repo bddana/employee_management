@@ -8,7 +8,7 @@
         v-for="n in 2"
         :key="n"
       >
-      <v-content>
+      <v-main>
         <v-container>
             <div v-if="n==1">
                 <v-card width="400" class="mx-auto mt-5" ref="form">
@@ -56,8 +56,8 @@
                     />
 
                     <v-combobox
-                        prepend-icon="mdi-linux"
-                        v-model="select"
+                        prepend-icon="mdi-briefcase-account"
+                        v-model="role"
                         label="Job Title"
                         :items="items"
                         chips
@@ -68,7 +68,16 @@
                         prepend-icon="mdi-email"
                         v-model="email"
                     />
-
+                    <v-text-field 
+                        label="Phone" 
+                        prepend-icon="mdi-card-account-phone"
+                        v-model="phone"
+                    />
+                    <v-text-field 
+                        label="address" 
+                        prepend-icon="mdi-home-map-marker"
+                        v-model="address"
+                    />
                     <v-text-field 
                         :type="showPassword ? 'text' : 'password'" 
                         label="Enter Password"
@@ -86,7 +95,7 @@
                 </v-card>
             </div>
         </v-container>
-        </v-content>
+        </v-main>
       </v-tab-item>
     </v-tabs>
   </v-card>
@@ -99,16 +108,18 @@ export default {
     data () {
       return {
         showPassword: false,
-        select: ['Employee'],
+        role:'',
         items: [
-          'Employee',
-          'Manager',
+          'Captain',
+          'Manager'
         ],
         errorMessages: '',
         formHasErrors: false,
         firstname: '',
         lastname: '',
         email: '',
+        phone: '',
+        address: '',
         password:''
       }
     },
@@ -152,18 +163,21 @@ export default {
             console.log(err, "fail here");
           }
         },
+
         async registerClicked() {
           try {
             console.log("registerClicked");
+            console.log(this.role);
               await this.$store.dispatch(
                 'authStore/registerUser',
                  {firstname : this.firstname,
                  lastname: this.lastname,
+                 role: this.role,
                  email: this.email,
                  password: this.password
                  });
                 console.log("success register");
-                this.$emit('login');
+                this.$emit('register');
 
             } catch (err) {
               console.log('Error **register**', err);

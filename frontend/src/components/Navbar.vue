@@ -120,9 +120,6 @@ export default {
     nameOfUser() {
       return this.$store.getters['authStore/getFirstName'];
     },
-    statOflog() {
-      return this.$store.getters['authStore/getIsLoggedIn'];
-    },
     ...mapGetters({
       isLoggedIn: 'authStore/getIsLoggedIn',
     }),
@@ -132,7 +129,9 @@ export default {
     try {
         console.log("test");
         const data = await this.$store.dispatch('authStore/logout');
+
       console.log("success");
+      this.$router.push('/');
     } catch (err) {
       console.log(err, "fail here");
       }

@@ -8,21 +8,20 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-        employeeID: {
-            type: Sequelize.INTEGER,
+        employeeId: {
+            type: Sequelize.INTEGER
         },
  
         username: {
-            type: Sequelize.TEXT
+            type: Sequelize.STRING(45)
         },
  
         password: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(45),
             allowNull: false
         },
- 
- 
-    });
+    }
+    );
  
     return useraccount;
  

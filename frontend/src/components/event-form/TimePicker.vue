@@ -10,7 +10,6 @@
         @change="updateTime"
         outlined
         dense
-        prepend-icon="mdi-calendar-clock"
     >
     </v-autocomplete>
 </template>

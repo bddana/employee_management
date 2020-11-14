@@ -1,52 +1,37 @@
 
-<template>
-  <v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }} 
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
-</template>
 
-<script>
-  export default {
-    data () {
-      return {
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-        slides: [
-          'Employee of the month',
-          'Supervisor Info',
-          'Owner',
-          'Our fleets'
-        
-        ],
-      }
-    },
-  }
-</script>
+<template>
+  <v-parallax
+    dark
+    src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+  >
+    <v-row
+      align="center"
+      justify="center"
+    >
+      <v-col
+        class="text-center"
+        cols="12"
+      ><v-card>
+            <v-card-title class="headline">
+              To see your schedule
+            </v-card-title>
+
+            <v-card-subtitle>If your are new hire, please register.</v-card-subtitle>
+
+            <v-card-actions>
+              <v-btn text>
+                Login Now
+              </v-btn>
+                            <v-btn text>
+                Login Now
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        <h4 class="subheading">
+          Build your application today!
+        </h4>
+      </v-col>
+    </v-row>
+  </v-parallax>
+</template>

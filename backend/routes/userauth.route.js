@@ -16,6 +16,7 @@ router.post('/signin', passport.authenticate('local-signin'), (req, res, next) =
   res.status(200).send({
     email: req.user.email,
     firstname: req.user.firstname,
+    role: req.user.role,
   })
 }
 

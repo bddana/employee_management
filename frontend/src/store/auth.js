@@ -6,7 +6,7 @@ export default {
     state: {
       email: '',
       name: '',
-      role: 'captain',
+      role: '',
       captainStatus: 'Active',
       isLoggedIn: false,
     },
@@ -44,7 +44,7 @@ export default {
               if (data) {
                 commit('setEmail', data.email);
                 commit('setName', data.firstname);
-                commit('setRole', 'captain');
+                commit('setRole', data.role);
                 commit('setCaptainStatus', 'Active');
                 commit('setLoggedIn', true);
               }
@@ -96,6 +96,7 @@ export default {
         },
     
         setRole(state, role) {
+          console.log(role);
             state.role = role;
             localStorage.setItem('role', role);
         },
@@ -127,6 +128,9 @@ export default {
       
         getEmail(state) {
           return state.email;
+        },
+        getRole(state) {
+          return state.role;
         },
     
         getFirstName(state) {

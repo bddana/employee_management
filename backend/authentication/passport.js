@@ -43,11 +43,13 @@ export default {
                         });
                     } else {
                         var userPassword = generateHash(password);
+                        console.log(req.body.role);
                         var data = {
                                 email: email,
                                 password: userPassword,
                                 firstname: req.body.firstname,
-                                lastname: req.body.lastname
+                                lastname: req.body.lastname,
+                                role: req.body.role
                             };
                 
                         User.create(data).then(function(newUser, created) {

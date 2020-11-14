@@ -1,6 +1,6 @@
 module.exports = function(sequelize, Sequelize) {
  
-    var employee = sequelize.define('user', {
+    var employee = sequelize.define('employee', {
  
         employeeId: {
             autoIncrement: true,
@@ -8,39 +8,41 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-        firstname: {
-            type: Sequelize.STRING,
+        firstName: {
+            type: Sequelize.STRING(45),
             notEmpty: true
         },
  
-        lastname: {
-            type: Sequelize.STRING,
+        lastName: {
+            type: Sequelize.STRING(45),
             notEmpty: true
         },
  
         email: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(45),
             validate: {
                 isEmail: true
             }
         },
  
         Phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(10),
             notEmpty: true
         },
  
         address:{
-            type: Sequelize.STRING
+            type: Sequelize.STRING(45)
         },
-     employeeTypeId:{
-         type: sequelize.INTEGER
-     },
-    employeeStatusId:{
-        type:sequelize.INTEGER
-    }
+
+        employeeTypeId:{
+            type: Sequelize.INTEGER
+        },
+        employeeStatusId:{
+            type:Sequelize.INTEGER
+        }
  
-    });
+    }
+    );
  
     return employee;
  
