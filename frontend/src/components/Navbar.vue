@@ -101,11 +101,10 @@ export default {
       group: null,
       menuItems: [
           { title: 'Home', path: '/', icon: 'mdi-home'},
-          { title: 'About', path: '/about', icon:'mdi-adjust'},
           { title: 'Boat', path: '/boat', icon:'mdi-sail-boat'},
           { title: 'Employee', path: '/employee', icon:'mdi-human-queue'},
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
-          { title: 'Report', path: '/report', icon: 'mdi-calendar'},
+          { title: 'Report', path: '/report', icon: 'mdi-tooltip-text-outline'},
 
      ],
     }

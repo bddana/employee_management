@@ -24,13 +24,6 @@ const router = new Router({
       ],
     },
     {
-      path: '/about',
-      component: About,
-      meta: {
-        requiresAuth: true,
-      },
-    },
-    {
       path: '/boat',
       component: Boat,
     },

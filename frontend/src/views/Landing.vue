@@ -1,37 +1,42 @@
-
-
 <template>
-  <v-parallax
-    dark
-    src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-  >
-    <v-row
-      align="center"
-      justify="center"
-    >
-      <v-col
-        class="text-center"
-        cols="12"
-      ><v-card>
-            <v-card-title class="headline">
-              To see your schedule
-            </v-card-title>
-
-            <v-card-subtitle>If your are new hire, please register.</v-card-subtitle>
-
-            <v-card-actions>
-              <v-btn text>
-                Login Now
+  <section id="hero">
+    <v-parallax dark src="@/assets/bruce-warrington-unsplash.jpg" height="500">
+      <v-row align="center" justify="center">
+        <v-col cols="10">
+          <v-row align="center" justify="center">
+            <v-col cols="12" md="6" xl="8">
+              <h1 class="display-2 font-weight-bold mb-4">Diversitechnologies</h1>
+              <h1 class="font-weight-light">
+                Scheduling and Boat status logging system <br />
+                To get started Please login in to the application<br />
+              </h1>
+              <v-btn
+                rounded
+                outlined
+                large
+                dark
+                @click="$vuetify.goTo('#features')"
+                class="mt-5"
+              >
+                Login now
+                <v-icon class="ml-2">mdi-arrow-down</v-icon>
               </v-btn>
-                            <v-btn text>
-                Login Now
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        <h4 class="subheading">
-          Build your application today!
-        </h4>
-      </v-col>
-    </v-row>
-  </v-parallax>
+            </v-col>
+            <v-col cols="12" md="6" xl="4" class="hidden-sm-and-down"> </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+
+    </v-parallax>
+  <About />
+  </section>
 </template>
+<script>
+import About from "@/views/About.vue";
+export default {
+   name: "Landing",
+    components: {
+    About
+  },
+};
+</script>
