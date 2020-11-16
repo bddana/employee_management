@@ -1,5 +1,62 @@
 <template>
   <v-row class="fill-height">
+    <v-col cols="2">
+      <v-sheet rounded="lg">
+      <v-container
+          fluid
+    class="pa-0">
+        <v-row align="center">
+      <v-col
+        cols="12"
+        sm="6"
+      >
+      <div class="my-2">
+        <v-btn
+          class="mx-1"
+          color="primary"
+          @click="messages++"
+        >
+          +
+        </v-btn>
+      </div>
+<div class="my-2">
+      <v-badge
+        :content="3"
+        :value="3"
+        color="primary"
+        overlap
+      >
+        <v-btn
+          color="secondary"
+          @click="messages = 0"
+          block
+        >
+          schedule request
+        </v-btn>
+      </v-badge>
+  </div>
+      <div class="my-2">
+      <v-badge
+        :content="messages"
+        :value="messages"
+        color="primary"
+        overlap
+      >
+        <v-btn
+          color="secondary"
+          @click="messages = 0"
+          block
+        >
+          vacation request
+        </v-btn>
+      </v-badge>
+  </div>
+
+      </v-col>
+      </v-row>
+  </v-container>
+  </v-sheet>
+    </v-col>
     <v-col>
       <v-sheet height="64">
         <v-toolbar
@@ -65,9 +122,6 @@
               </v-list-item>
               <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = '4day'">
-                <v-list-item-title>4 days</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -207,6 +261,8 @@ import { bus } from '@/main'
 
   export default {
     data: () => ({
+      messages: 0,
+      show: false,
       scheduledEmployees: ['Hamish', 'Bev', 'Arly', 'Wally', 'Evelina', 'Mercedes', 'Neille'],
       deleteDialog: false,
       today: new Date().toISOString().substr(0,10),

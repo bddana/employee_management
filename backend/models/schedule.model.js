@@ -7,29 +7,14 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        employeeId:{
-            type: Sequelize.INTEGER
-        },
-
-        shiftId:{
-                type: Sequelize.INTEGER
-            },  
 
         scheduleDate: {
                 type: Sequelize.DATEONLY
             },
-    }, 
-    {
-        indexes:[
-            {
-                unique:false,
-                fields:["shiftId" ]
-            },
-            {
-                unique:false,
-                fields:["employeeId" ]
-            }
-        ]
+
+        shift: {
+            type: Sequelize.DATEONLY
+        },
     });
  
     return schedule;

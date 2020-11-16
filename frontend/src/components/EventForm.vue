@@ -95,7 +95,7 @@ export default {
 
         formTitle: 'Add a New Schedule',
         select: ['Hamish'],
-        shifts: ['Morning Shift', 'Evening Shift'],
+        shifts: ['10am Shift', '11am Shift', '3pm Shift'],
         items: ['Hamish', 'Bev', 'Arly', 'Wally', 'Evelina', 'Mercedes', 'Neille'],
         nameInput: '',
         detailsInput: '',

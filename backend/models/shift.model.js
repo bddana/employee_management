@@ -11,9 +11,7 @@ module.exports = function(sequelize, Sequelize) {
         shift: {
             type: Sequelize.STRING(45),
         }
- 
- 
-    });
+     });
  
     return shift;
 }

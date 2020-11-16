@@ -23,6 +23,14 @@ module.exports = function(sequelize, Sequelize) {
         vacationEndDate:{
             type: Sequelize.DATEONLY
         },
+        employeeId: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            references: {         // WorkingDays hasMany Users n:n
+              model: 'employee',
+              key: 'id'
+            }
+        }
  
     },   {
         indexes:[

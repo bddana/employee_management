@@ -33,14 +33,12 @@ module.exports = function(sequelize, Sequelize) {
         address:{
             type: Sequelize.STRING(45)
         },
-
-        employeeTypeId:{
-            type: Sequelize.INTEGER
+        employeeStatus:{
+            type: Sequelize.STRING(45)
         },
-        employeeStatusId:{
-            type:Sequelize.INTEGER
-        }
- 
+        employeeType:{
+            type: Sequelize.STRING(45)
+        },
     }
     );
  

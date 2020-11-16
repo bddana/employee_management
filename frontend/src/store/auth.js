@@ -33,17 +33,18 @@ export default {
         },
         async login({ commit }, payload) {
             if (!payload) return null;
-      
+            console.log(payload);
             try {
               const { data } = await Vue.prototype.$axios({
                 method: 'post',
                 url: ProxyUrls.loginUrl,
                 data: payload,
               });
-      
+      console.log(data);
+
               if (data) {
                 commit('setEmail', data.email);
-                commit('setName', data.firstname);
+                commit('setName', data.firstName);
                 commit('setRole', data.role);
                 commit('setCaptainStatus', 'Active');
                 commit('setLoggedIn', true);

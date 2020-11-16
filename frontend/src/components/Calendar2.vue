@@ -1,5 +1,104 @@
 <template>
   <v-row class="fill-height">
+      <v-col cols="3">
+      <v-sheet height="86vh">
+
+
+  <v-card ref="form">
+                <v-card-title class="headline">
+               Request vacation
+            </v-card-title>
+  <v-card-text>
+      <v-menu
+        ref="menu"
+        v-model="menu"
+        :close-on-content-click="false"
+        :return-value.sync="dates"
+        transition="scale-transition"
+        offset-y
+      >
+        <template v-slot:activator="{ on, attrs }">
+          <v-combobox
+            v-model="dates"
+            multiple
+            chips
+            small-chips
+            label="Pick date"
+            readonly
+            v-bind="attrs"
+            v-on="on"
+          ></v-combobox>
+        </template>
+        <v-date-picker
+          v-model="dates"
+          multiple
+          no-title
+          scrollable
+        >
+          <v-spacer></v-spacer>
+          <v-btn
+            text
+            color="primary"
+            @click="menu = false"
+          >
+            Cancel
+          </v-btn>
+          <v-btn
+            text
+            color="primary"
+            @click="$refs.menu.save(dates)"
+          >
+            OK
+          </v-btn>
+        </v-date-picker>
+      </v-menu>
+    <v-text-field
+    ref="name"
+    v-model="name"
+    :rules="[() => !!name || 'This field is required']"
+    :error-messages="errorMessages"
+    label="Reason"
+    placeholder="Going to south padre"
+    required
+  ></v-text-field>
+
+    </v-card-text>
+        <v-card-actions>
+         <v-btn text>
+            Cancel
+          </v-btn>
+          <v-spacer></v-spacer>
+          <v-slide-x-reverse-transition>
+            <v-tooltip
+              v-if="formHasErrors"
+              left
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  icon
+                  class="my-0"
+                  v-bind="attrs"
+                  @click="resetForm"
+                  v-on="on"
+                >
+                  <v-icon>mdi-refresh</v-icon>
+                </v-btn>
+              </template>
+              <span>Refresh form</span>
+            </v-tooltip>
+          </v-slide-x-reverse-transition>
+          <v-btn
+            color="primary"
+            text
+            @click="submit"
+          >
+            Submit
+          </v-btn>
+        </v-card-actions> 
+      </v-card>
+  </v-sheet>
+    </v-col>
+  
     <v-col>
       <v-sheet height="64">
         <v-toolbar
@@ -65,9 +164,6 @@
               </v-list-item>
               <v-list-item @click="type = 'month'">
                 <v-list-item-title>Month</v-list-item-title>
-              </v-list-item>
-              <v-list-item @click="type = '4day'">
-                <v-list-item-title>4 days</v-list-item-title>
               </v-list-item>
             </v-list>
           </v-menu>
@@ -136,20 +232,21 @@
 <script>
   export default {
     data: () => ({
+      dates: ['2018-09-15', '2018-09-20'],
+      menu: true,
       focus: '',
       type: 'month',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
         day: 'Day',
-        '4day': '4 Days',
       },
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
       events: [],
-      colors: ['deep-purple', 'cyan', 'green'],
-      names: ['Working', 'Holiday', 'PTO'],
+      colors: ['green'],
+      names: ['Working'],
       // categories: ['John Smith', 'Tori Walker' , 'Tori2 Walker', 'Tori3 Walker'],
     }),
     mounted () {
@@ -198,7 +295,7 @@
         const days = (max.getTime() - min.getTime()) / 86400000
         const eventCount = this.rnd(days, days + 20)
 
-        for (let i = 0; i < eventCount; i++) {
+        for (let i = 0; i < 5; i++) {
           const allDay = this.rnd(0, 3) === 0
           const firstTimestamp = this.rnd(min.getTime(), max.getTime())
           const first = new Date(firstTimestamp - (firstTimestamp % 900000))

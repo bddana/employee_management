@@ -2,7 +2,7 @@ module.exports = function(sequelize, Sequelize) {
  
     var employeeStatus = sequelize.define('employeestatus', {
  
-        id: {
+        employeeStatusId: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER

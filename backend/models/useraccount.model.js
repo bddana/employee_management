@@ -8,16 +8,23 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-        employeeId: {
-            type: Sequelize.INTEGER
-        },
- 
+        // employeeId: {
+        //     type: Sequelize.INTEGER
+        // },
+        // employeeId: {
+        //     type: Sequelize.INTEGER,
+        //     // allowNull: false,
+        //     references: {         // WorkingDays hasMany Users n:n
+        //       model: 'employee',
+        //       key: 'employeeId'
+        //     }
+        // },
         username: {
-            type: Sequelize.STRING(45)
+            type: Sequelize.STRING
         },
  
         password: {
-            type: Sequelize.STRING(45),
+            type: Sequelize.STRING,
             allowNull: false
         },
     }
