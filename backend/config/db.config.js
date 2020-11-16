@@ -20,5 +20,10 @@ db.sequelize = sequelize;
 //Models/tables
 db.customers = require('../models/customer.model.js')(sequelize, Sequelize);
 db.users = require('../models/user.model.js')(sequelize, Sequelize);
+db.employees = require('../models/employee.model.js')(sequelize, Sequelize);
+db.employeetype = require('../models/employeetype.model.js')(sequelize, Sequelize);
+db.employeestatus = require('../models/employeestatus.model.js')(sequelize, Sequelize);
+db.boatrental = require('../models/boatrental.model')(sequelize, Sequelize);
+
 
 module.exports = db;

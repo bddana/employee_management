@@ -10,17 +10,9 @@ export default {
   components: {
     UserAccount,
   },
-
-  data() {
-    return {
-      userLoggedIn: false
-    };
-  },
-
   methods: {
     loggedIn() {
-      // Do something when logged in.
-      console.log("test2");
+      // once logged in.
       this.$router.push('/');
     },
   },

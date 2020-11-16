@@ -8,6 +8,7 @@
         v-for="n in 2"
         :key="n"
       >
+      <v-content>
         <v-container>
             <div v-if="n==1">
                 <v-card width="400" class="mx-auto mt-5" ref="form">
@@ -85,6 +86,7 @@
                 </v-card>
             </div>
         </v-container>
+        </v-content>
       </v-tab-item>
     </v-tabs>
   </v-card>
@@ -92,9 +94,7 @@
 
 <script>
 import moment from 'moment';
-
-
-  export default {
+export default {
     name: 'UserAccount',
     data () {
       return {
@@ -171,5 +171,5 @@ import moment from 'moment';
         },
     }
 
-  }
+}
 </script>

@@ -6,10 +6,11 @@ export default {
     state: {
       email: '',
       name: '',
-      isSessionActive: false,
+      role: 'captain',
+      captainStatus: 'Active',
+      isLoggedIn: false,
     },
     actions: {
-        // eslint-disable-next-line no-unused-vars
         async registerUser({ state }, payload) {
           console.log("registerUser");
             if (!payload) return null;
@@ -42,8 +43,10 @@ export default {
       
               if (data) {
                 commit('setEmail', data.email);
-                commit('setName', data.name);
-                commit('setSessionActive', true);
+                commit('setName', data.firstname);
+                commit('setRole', 'captain');
+                commit('setCaptainStatus', 'Active');
+                commit('setLoggedIn', true);
               }
               return data;
             } catch (err) {
@@ -66,24 +69,22 @@ export default {
             }
         },
         async initiateAppSession({ commit }) {
-            const res = await Vue.prototype.$axios({
-              method: 'get',
-              url: ProxyUrls.isSessionActive,
-            });
-            if (res && res.data === true) {
-              commit('setEmail', localStorage.getItem('email'));
-              commit('setName', localStorage.getItem('name'));
-              commit('setSessionActive', true);
-            } else {
-              commit('setSessionActive', false);
-            }
+          const res = await Vue.prototype.$axios({
+            method: 'get',
+            url: ProxyUrls.isLoggedIn,
+          });
+          if (res && res.data === true) {
+            commit('setEmail', localStorage.getItem('email'));
+            commit('setName', localStorage.getItem('name'));
+            commit('setRole', localStorage.getItem('role'));
+            commit('setCaptainStatus', localStorage.getItem('captainStatus'));
+            commit('setLoggedIn', true);
+          } else {
+            commit('setLoggedIn', false);
+          }
         },
     },
     mutations:{
-        // setEmailConfirmed(state, val) {
-        //   state.emailConfirmed = val;
-        //   localStorage.setItem('emailConfirmed', val);
-        // },
         setEmail(state, email) {
             state.email = email;
             localStorage.setItem('email', email);
@@ -94,23 +95,29 @@ export default {
             localStorage.setItem('name', name);
         },
     
-        setSessionActive(state, val) {
-            state.isSessionActive = val;
-            if (!val) {
-            localStorage.removeItem('email');
-            localStorage.removeItem('name');
-            // localStorage.removeItem('emailConfirmed');
-            localStorage.removeItem('sessionDT');
-            }
+        setRole(state, role) {
+            state.role = role;
+            localStorage.setItem('role', role);
         },
-    
+        setCaptainStatus(state, status) {
+          state.captainStatus = status;
+          localStorage.setItem('captainStatus', status);
+        },
+        setLoggedIn(state, val) {
+          state.isLoggedIn = val;
+          localStorage.setItem('isLoggedIn', val);
+        },
         logoutUser(state) {
             state.name = '';
             state.email = '';
+            state.role = '';
+            state.captainStatus = '';
+            state.isLoggedIn = false;
+            localStorage.setItem('isLoggedIn', false);
             localStorage.removeItem('email');
             localStorage.removeItem('name');
-            // localStorage.removeItem('emailConfirmed');
-            state.isSessionActive = false;
+            localStorage.removeItem('role');
+            localStorage.removeItem('captainStatus');
         },
     },
     getters:{
@@ -118,20 +125,16 @@ export default {
             return state.name;
           },
       
-          getEmail(state) {
-            return state.email;
-          },
-      
-          getFirstName(state) {
-            if (!state.name) return '';
-            return state.name.split(' ')[0];
-          },
-          isSessionActive(state) {
-            return state.isSessionActive;
-          },
-      
-          // emailConfirmed(state) {
-          //   return state.emailConfirmed;
-          // },
+        getEmail(state) {
+          return state.email;
+        },
+    
+        getFirstName(state) {
+          if (!state.name) return '';
+          return state.name.split(' ')[0];
+        },
+        getIsLoggedIn(state) {
+          return state.isLoggedIn;
+        },
     },
 };

@@ -5,16 +5,21 @@ import config from  'config';
 import path from  'path';
 import session from  'express-session';
 import hbs from  'express-handlebars';
+//let models = require('./models');
+
 
 // Use babel npm package to transpile your ES6 to a commonjs target
 import babelCore from 'babel-core/register';
 import babelPolyfill from 'babel-polyfill';
+
 
 var app = express();
 
 // Body Parser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json())
+
+
 
 // view engine setup
 app.set('views', './views');
@@ -66,12 +71,14 @@ import indexRouter from './routes/index.route.js';
 import customerRouter from './routes/customer.route.js';
 import userauthRouter from './routes/userauth.route.js';
 
+
+
 app.use('/', indexRouter);
 app.use('/customer', customerRouter);
 app.use('/user', userauthRouter);
 
 
-
+//require("./routes/employee.route")(app);
 
 // Create a Server
 var server = app.listen(8081, function () {

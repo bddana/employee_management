@@ -2,7 +2,7 @@ export default {
     registerUrl: '/user/signup',
     loginUrl: '/user/signin',
     logoutUrl: '/user/signout',
-    isSessionActive: '/security/isLoggedIn',
+    isLoggedIn: '/user/isLoggedIn',
     // forgotPassword: '/security/forgotPassword?email=',
     // validateResetToken: '/security/validatePasswordResetToken/',
     // resetPassword: '/security/resetPassword',

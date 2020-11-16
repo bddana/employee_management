@@ -1,6 +1,6 @@
 import express from 'express';
 import authController from '../controllers/userauth.controller.js';
-import pass from '../authentication/passport'
+// import pass from '../authentication/passport'
 import passport from 'passport';
 var router = express.Router();
  
@@ -12,10 +12,14 @@ router.get('/', function(req, res, next) {
 router.get('/signup', authController.signup);
 router.get('/signin', authController.signin);
 router.get('/dashboard', isLoggedIn, authController.dashboard);
-router.post('/signin', passport.authenticate('local-signin', {
-  successRedirect: '/user/dashboard',
-  failureRedirect: '/user/signin'
-}));
+router.post('/signin', passport.authenticate('local-signin'), (req, res, next) => {
+  res.status(200).send({
+    email: req.user.email,
+    firstname: req.user.firstname,
+  })
+}
+
+);
 
 router.post('/signup', passport.authenticate('local-signup', {
   successRedirect: '/user/dashboard',
@@ -26,7 +30,7 @@ router.post('/signup', passport.authenticate('local-signup', {
 router.get('/signout',authController.signout);
 
 router.get('/isLoggedIn', (req, res, next) => {
-  return res.status(HttpStatusCode.OK).send(req.isAuthenticated())
+  return res.status(200).send(req.isAuthenticated())
 })
 
 function isLoggedIn(req, res, next) {

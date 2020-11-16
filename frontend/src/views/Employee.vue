@@ -57,17 +57,17 @@
     :row-class-name="tableRowClassName">
     <el-table-column
 
-      prop="id"
+      prop="employeeId"
       label="ID"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="firstName"
+      prop="firstname"
       label="First Name"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="lastName"
+      prop="lastname"
       label="Last Name"
       width="180">
     </el-table-column>
@@ -77,8 +77,8 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="tel"
-      label="Tel"
+      prop="Phone"
+      label="phone"
       width="180">
     </el-table-column>
     <!-- <el-table-column
@@ -92,14 +92,16 @@
       width="580">
     </el-table-column>
     <el-table-column
-      prop="employeeType"
+      prop="employeeTypeId"
       label="Employee Type"
-      width="180">
+      width="180"
+      :formatter="formatEmployeeType">
     </el-table-column>
     <el-table-column
-      prop="employeeStatus"
+      prop="employeeStatusId"
       label="Employee Status"
-      width="180">
+      width="180"
+      :formatter="formatEmployeeStatus">
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -120,6 +122,20 @@
 <script>
   export default {
     methods: {
+      formatEmployeeType(row,column){
+        return row.employeeTypeId === 1 ? 'Owner' :
+                row.employeeTypeId === 2 ? 'Supervisor' :
+                'Captain'
+      },
+      formatEmployeeStatus(row,column){
+        return row.employeeStatusId === 1 ? 'Active' :
+                row.employeeStatusId === 2 ? 'Inactive' :
+                row.employeeStatusId === 2 ? 'Pending' :
+                row.employeeStatusId === 2 ? 'Terminated' :
+                row.employeeStatusId === 2 ? 'Resigned' :
+                row.employeeStatusId === 2 ? 'Pending Termination' :
+                'Temporary Inactive'
+      },
       handleClick(row) {
         console.log(row);
       },
@@ -127,8 +143,9 @@
         this.tableData.splice(index,1);
       } , 
       onSubmit(){
-        this.tableData.push(this.form);
-        this.form='';
+        this.$http.post('employee',this.form).then(res => {
+          console.log(res.data);
+        })
       },
       onCancel(){
         resetField(form);
@@ -136,32 +153,28 @@
     },
     data() {
       
-      const item = {
-        id: '1',
-        firstName: 'Chonghe',
-        lastName: 'Ping',
-        email: 'cping@uh.edu',
-        tel: '7138887878',
-        address: '4800 Calhoun Rd, Houston, TX 77004',
-        employeeType: 'captain',
-        employeeStatus:'Active'
-      };
       return {
-        tableData: Array(10).fill(item),
+        tableData:[],
+        //zhiwei:this.employeeTypeId,
         dialogVisible:false,
         form: {
-          id: '',
-          firstName: '',
-          lastName: '',
+          employeeId: '',
+          firstname: '',
+          lastname: '',
           email: '',
-          tel: '',
+          Phone: '',
           address: '',
-          employeeType: '',
-          employeeStatus:''
+          employeeTypeId: '',
+          employeeStatusId:''
         }
 
       };
     },
+    created(){
+      this.$http.get('employee').then(res => {
+        this.tableData = res.data
+      })
+    }
 
   }
 </script>

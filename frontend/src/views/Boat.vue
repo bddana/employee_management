@@ -44,35 +44,54 @@
     :data="tableData"
     style="width: 100%"
     :row-class-name="tableRowClassName">
-    
     <el-table-column
-      prop="id"
+      prop="boatRentalId"
       label="ID"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="model"
-      label="Model"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="serialNumber"
-      label="Serial number"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="captain"
-      label="Captain"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="status"
+      prop="boatRentalStatusId"
       label="Status"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="date"
+      prop="boatId"
+      label="Boat"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="employeeId"
+      label="Captain"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="customerId"
+      label="customer"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="bookingDate"
       label="DATE"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="bookingTime"
+      label="Time"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="passengers"
+      label="passengers"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="requestedCoolers"
+      label="requestedCoolers"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="specialNotes"
+      label="specialNotes"
       width="180">
     </el-table-column>
     <el-table-column
@@ -119,27 +138,26 @@
     },
 
     data() {
-      const item = {
-        id: '1',
-        model: 'PRESTIGE 520',
-        serialNumber: '301',
-        captain: 'Chonghe Ping',
-        status: 'working',
-        date: '10-25-2020',
-      };
       return {
-        tableData: Array(10).fill(item),
+        tableData:[],
         dialogVisible:false,
         form: {
-          id: '',
-          model:'',
-          serialNumber:'',
-          captain:'',
-          status:'',
-          date:'',
+          employeeId: '',
+          firstname: '',
+          lastname: '',
+          email: '',
+          Phone: '',
+          address: '',
+          employeeTypeId: '',
+          employeeStatusId:''
         }
       };
     },
+    created(){
+      this.$http.get('boat').then(res => {
+        this.tableData = res.data
+      })
+    }
   }
 </script>
 
