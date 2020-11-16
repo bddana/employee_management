@@ -2,26 +2,19 @@ module.exports = function(sequelize, Sequelize) {
  
     var schedule = sequelize.define('schedule', {
  
-        schedykeId: {
+        scheduleId: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        employeeTypeId:{
-            type: sequelize.INTEGER
-        },
-
-        shift:{
-                type: sequelize.INTEGER
-            },  
-        
 
         scheduleDate: {
-                type: Sequelize.DATE
+                type: Sequelize.DATEONLY
             },
-     
- 
- 
+
+        shift: {
+            type: Sequelize.DATEONLY
+        },
     });
  
     return schedule;

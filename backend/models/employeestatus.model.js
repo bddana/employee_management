@@ -2,7 +2,7 @@ module.exports = function(sequelize, Sequelize) {
  
     var employeeStatus = sequelize.define('employeestatus', {
  
-        id: {
+        employeeStatusId: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
@@ -12,10 +12,6 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.ENUM('Active', 'Inactive', 'Pending', 'Terminated', 'Resigned','Pending Termination', 'Temporary Inactive'),
             defaultValue: 'active'
         }},
-        {
-            freezeTableName: true,
-            timestamps: false
-        },
         {
             freezeTableName: true,
             timestamps: false

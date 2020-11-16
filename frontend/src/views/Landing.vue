@@ -1,52 +1,42 @@
-
 <template>
-  <v-carousel
-    cycle
-    height="400"
-    hide-delimiter-background
-    show-arrows-on-hover
-  >
-    <v-carousel-item
-      v-for="(slide, i) in slides"
-      :key="i"
-    >
-      <v-sheet
-        :color="colors[i]"
-        height="100%"
-      >
-        <v-row
-          class="fill-height"
-          align="center"
-          justify="center"
-        >
-          <div class="display-3">
-            {{ slide }} 
-          </div>
-        </v-row>
-      </v-sheet>
-    </v-carousel-item>
-  </v-carousel>
-</template>
+  <section id="hero">
+    <v-parallax dark src="@/assets/bruce-warrington-unsplash.jpg" height="500">
+      <v-row align="center" justify="center">
+        <v-col cols="10">
+          <v-row align="center" justify="center">
+            <v-col cols="12" md="6" xl="8">
+              <h1 class="display-2 font-weight-bold mb-4">Diversitechnologies</h1>
+              <h1 class="font-weight-light">
+                Scheduling and Boat status logging system <br />
+                To get started Please login in to the application<br />
+              </h1>
+              <v-btn
+                rounded
+                outlined
+                large
+                dark
+                @click="$vuetify.goTo('#features')"
+                class="mt-5"
+              >
+                Login now
+                <v-icon class="ml-2">mdi-arrow-down</v-icon>
+              </v-btn>
+            </v-col>
+            <v-col cols="12" md="6" xl="4" class="hidden-sm-and-down"> </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
 
+    </v-parallax>
+  <About />
+  </section>
+</template>
 <script>
-  export default {
-    data () {
-      return {
-        colors: [
-          'indigo',
-          'warning',
-          'pink darken-2',
-          'red lighten-1',
-          'deep-purple accent-4',
-        ],
-        slides: [
-          'Employee of the month',
-          'Supervisor Info',
-          'Owner',
-          'Our fleets'
-        
-        ],
-      }
-    },
-  }
+import About from "@/views/About.vue";
+export default {
+   name: "Landing",
+    components: {
+    About
+  },
+};
 </script>

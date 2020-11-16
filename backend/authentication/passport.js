@@ -1,27 +1,22 @@
 var bCrypt = require('bcrypt-nodejs');
 var LocalStrategy = require('passport-local').Strategy;
 import db from '../config/db.config.js';
-const User = db.users;
+const User = db.useraccount;
 
 export default {
+
+  
     initializePassport(passport) { 
-        //serialize: initialization of the local strategy.
         passport.serializeUser(function(user, done) {
-            done(null, user.id);
-        });
+            done(null, user);
+          });
+          
+          passport.deserializeUser(function(user, done) {
+            done(null, user);
+          });
 
-        // deserialize user 
-        passport.deserializeUser(function(id, done) {
-            User.findById(id).then(function(user) {
-                if (user) {
-                    done(null, user.get());
-                } else {
-                    done(user.errors, null);
-                }
-            });
-        });
 
-        // define our custome strategy with our instance of the LocalStrategy
+          // define our custome strategy with our instance of the LocalStrategy
         passport.use('local-signup', new LocalStrategy({
                 usernameField: 'email',
                 passwordField: 'password',
@@ -34,7 +29,7 @@ export default {
 
                 User.findOne({
                     where: {
-                        email: email
+                        username: email
                     }
                 }).then(function(user) {
                     if (user) {
@@ -43,14 +38,26 @@ export default {
                         });
                     } else {
                         var userPassword = generateHash(password);
+                        console.log(req.body.role);
                         var data = {
-                                email: email,
+                                username: email,
                                 password: userPassword,
-                                firstname: req.body.firstname,
-                                lastname: req.body.lastname
+                                employee :{
+                                    firstName: req.body.firstName,
+                                    lastName: req.body.lastName,
+                                    email: req.body.email,
+                                    Phone: req.body.phone,
+                                    address: req.body.address,
+                                    employeeType: req.body.role,
+                                    employeeStatus: "Active",
+                                }
                             };
                 
-                        User.create(data).then(function(newUser, created) {
+                        User.create(data,
+                            {
+                            include: [{ all: true, nested: true }]
+                            }
+                            ).then(function(newUser, created) {
                             if (!newUser) {
                                 return done(null, false);
                             }
@@ -77,8 +84,9 @@ export default {
             }
             User.findOne({
                 where: {
-                    email: email
-                }
+                    username: email
+                }, 
+                include: [{ all: true, nested: true }]
             }).then(function(user) {
                 if (!user) {
                     return done(null, false, {

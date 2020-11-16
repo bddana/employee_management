@@ -19,8 +19,8 @@ exports.create = (req, res) => {
 	  email:  req.body.email,
 	  phone:  req.body.Phone,
 	  address: req.body.address,
-	  employeeTypeId:  req.body.employeeTypeId,
-	  employeeStatusId:  req.body.employeeStatusId,
+	  employeeStatus:  req.body.employeeStatus,
+	  employeeType:  req.body.employeeType,
 	}).then(employee => {		
 		// Send created customer to client
 		res.send(employee);

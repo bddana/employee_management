@@ -1,5 +1,11 @@
 var express = require('express');
-const customers = require('../controllers/customer.controller.js');
+const customer = require('../controllers/customer.controller.js');
+// import db from '../config/db.config.js';
+// const customer = db.customer;
+// var enterdata = {
+//   "firstName": "sample1",
+//   "lastName": "name"
+// };
 
 var router = express.Router();
 
@@ -9,18 +15,18 @@ router.get('/', function(req, res, next) {
 });
 
 // Create a new Customer
-router.post('/one', customers.create);
+router.post('/one', customer.create)
 
 // Retrieve all Customer
-router.get('/all', customers.findAll);
+router.get('/all', customer.findAll);
 
 // Retrieve a single Customer by Id
-router.get('/one/:customerId', customers.findById);
+router.get('/one/:customerId', customer.findById);
 
 // Update a Customer with Id
-router.put('/one/:customerId', customers.update);
+router.put('/one/:customerId', customer.update);
 
 // Delete a Customer with Id
-router.delete('/one/:customerId', customers.delete);
+router.delete('/one/:customerId', customer.delete);
 
 module.exports = router;

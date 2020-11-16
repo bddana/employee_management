@@ -62,12 +62,12 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="firstname"
+      prop="firstName"
       label="First Name"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="lastname"
+      prop="lastName"
       label="Last Name"
       width="180">
     </el-table-column>
@@ -92,16 +92,14 @@
       width="580">
     </el-table-column>
     <el-table-column
-      prop="employeeTypeId"
-      label="Employee Type"
-      width="180"
-      :formatter="formatEmployeeType">
+      prop="employeeStatus"
+      label="Employee Status"
+      width="180">
     </el-table-column>
     <el-table-column
-      prop="employeeStatusId"
-      label="Employee Status"
-      width="180"
-      :formatter="formatEmployeeStatus">
+      prop="employeeType"
+      label="Employee Type"
+      width="180">
     </el-table-column>
     <el-table-column
       fixed="right"
@@ -122,20 +120,20 @@
 <script>
   export default {
     methods: {
-      formatEmployeeType(row,column){
-        return row.employeeTypeId === 1 ? 'Owner' :
-                row.employeeTypeId === 2 ? 'Supervisor' :
-                'Captain'
-      },
-      formatEmployeeStatus(row,column){
-        return row.employeeStatusId === 1 ? 'Active' :
-                row.employeeStatusId === 2 ? 'Inactive' :
-                row.employeeStatusId === 2 ? 'Pending' :
-                row.employeeStatusId === 2 ? 'Terminated' :
-                row.employeeStatusId === 2 ? 'Resigned' :
-                row.employeeStatusId === 2 ? 'Pending Termination' :
-                'Temporary Inactive'
-      },
+      // formatEmployeeType(row,column){
+      //   return row.employeeTypeId === 1 ? 'Owner' :
+      //           row.employeeTypeId === 2 ? 'Supervisor' :
+      //           'Captain'
+      // },
+      // formatEmployeeStatus(row,column){
+      //   return row.employeeStatusId === 1 ? 'Active' :
+      //           row.employeeStatusId === 2 ? 'Inactive' :
+      //           row.employeeStatusId === 3 ? 'Pending' :
+      //           row.employeeStatusId === 4 ? 'Terminated' :
+      //           row.employeeStatusId === 5 ? 'Resigned' :
+      //           row.employeeStatusId === 6 ? 'Pending Termination' :
+      //           'Temporary Inactive'
+      //    },
       handleClick(row) {
         console.log(row);
       },

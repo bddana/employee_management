@@ -2,7 +2,7 @@ const { employees, employeetype } = require("../config/db.config");
 //const employeeType = require('./employeetype.model');
 module.exports = function(sequelize, Sequelize) {
  
-    var employee = sequelize.define('employee', {
+    var employee = sequelize.define('employees', {
  
         employeeId: {
             autoIncrement: true,
@@ -10,38 +10,44 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
  
-        firstname: {
-            type: Sequelize.STRING,
+        firstName: {
+            type: Sequelize.STRING(45),
             notEmpty: true
         },
  
-        lastname: {
-            type: Sequelize.STRING,
+        lastName: {
+            type: Sequelize.STRING(45),
             notEmpty: true
         },
  
         email: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(45),
             validate: {
                 isEmail: true
             }
         },
  
         Phone: {
-            type: Sequelize.STRING,
+            type: Sequelize.STRING(10),
             notEmpty: true
         },
  
         address:{
-            type: Sequelize.STRING
+            type: Sequelize.STRING(45)
         },
-        employeeTypeId:{
-            type: Sequelize.INTEGER,
+        employeeStatus:{
+            type: Sequelize.STRING(45)
+        },
+        employeeType:{
+            type: Sequelize.STRING(45)
+        },
+        // employeeTypeId:{
+        //     type: Sequelize.INTEGER,
             
-        },
-        employeeStatusId:{
-            type:Sequelize.INTEGER
-        }
+        // },
+        // employeeStatusId:{
+        //     type:Sequelize.INTEGER
+        // }
     },
     
     {
@@ -49,31 +55,31 @@ module.exports = function(sequelize, Sequelize) {
         timestamps: false
     });
 
-    var employeeType = sequelize.define('employeeType', {
+    // var employeeType = sequelize.define('employeeType', {
  
-        employeeTypeId: {
-            autoIncrement: true,
-            primaryKey: true,
-            type: Sequelize.INTEGER,
+    //     employeeTypeId: {
+    //         autoIncrement: true,
+    //         primaryKey: true,
+    //         type: Sequelize.INTEGER,
             
-        },
+    //     },
 
-        employeeType: {
-            type: Sequelize.ENUM('Owner', 'Supervisor', 'Captain'),
-        }},
-        {
-            freezeTableName: true,
-            timestamps: false
+    //     employeeType: {
+    //         type: Sequelize.ENUM('Owner', 'Supervisor', 'Captain'),
+    //     }},
+    //     {
+    //         freezeTableName: true,
+    //         timestamps: false
  
  
-    });
-    employee.associate = function(){
-        employee.hasOne(employeeType,{foreignKey:'employeeTypeId'});
+    // });
+    // employee.associate = function(){
+    //     employee.hasOne(employeeType,{foreignKey:'employeeTypeId'});
         
-    };
-    employeeType.associate = function(){
-        employeeType.hasOne(employee,{foreignKey:'employeeTypeId'});
-    };
+    // };
+    // employeeType.associate = function(){
+    //     employeeType.hasOne(employee,{foreignKey:'employeeTypeId'});
+    // };
     //employees.associate = function(){
         //models.employeetype.hasMany(employee,{foreginKey:'employeeTypeId',sourceKey:'employeeTypeId'})
     //employees.hasOne(employeetype,{foreignKey:'employeeTypeId'});

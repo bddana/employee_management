@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         vacationStatus: {
-            type: Sequelize.ENUM('New Request', 'Pending', 'Approved', 'Declined', 'Canceled', 'Closed'),
+            type: Sequelize.STRING(45)
         }
  
  

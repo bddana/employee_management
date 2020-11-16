@@ -7,8 +7,8 @@ POST http://localhost:8081/customer/one HTTP/1.1
 content-type: application/json
 
 {
-    "firstname": "sample1",
-    "lastname": "name"
+    "firstName": "sample1",
+    "lastName": "name"
 }
 
 ###
@@ -16,8 +16,8 @@ POST http://localhost:8081/user/signup HTTP/1.1
 content-type: application/json
 
 {
-    "firstname": "Lil3",
-    "lastname": "Daw3",
+    "firstName": "Lil3",
+    "lastName": "Daw3",
     "email":"test3@yahoo.com",
     "about":"excelent student",
     "status": "active",
@@ -29,6 +29,25 @@ POST http://localhost:8081/user/signin HTTP/1.1
 content-type: application/json
 
 {
-    "email":"test2@yahoo.com",
+    "email":"test9@yahoo.com",
     "password":"123"
+}
+
+### post request
+GET http://localhost:8081/customer/all HTTP/1.1
+### post request
+GET http://localhost:8081/user/isLoggedIn HTTP/1.1
+
+###
+POST http://localhost:8081/user/signup HTTP/1.1
+content-type: application/json
+
+{
+    "firstName": "Lil3",
+    "lastName": "Daw3",
+    "email":"test9@yahoo.com",
+    "password":"123",
+    "phone": "51234343",
+    "address": "123 main st",
+    "role": "Captain"
 }

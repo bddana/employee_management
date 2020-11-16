@@ -1,13 +1,19 @@
 const db = require('../config/db.config.js');
-const Customer = db.customers;
+const Customer = db.useraccount;
 
 // Post a Customer
 exports.create = (req, res) => {	
 	// Save to MySQL database
 	Customer.create({ 
-	  firstname: req.body.firstname,
-	  lastname:  req.body.lastname,
-	  age: req.body.age
+	  username: req.body.firstName,
+	  password:  req.body.lastName,
+	  employee :{
+		  firstName:"Lily"
+	  }
+	}, {
+		include: [{
+			association: db.ue,
+		  }]
 	}).then(customer => {		
 		// Send created customer to client
 		res.send(customer);
@@ -16,7 +22,7 @@ exports.create = (req, res) => {
  
 // FETCH all Customers
 exports.findAll = (req, res) => {
-	Customer.findAll().then(customers => {
+	Customer.findAll({include: ['employee']}).then(customers => {
 	  // Send all customers to Client
 	  res.send(customers);
 	});

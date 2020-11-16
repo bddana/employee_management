@@ -9,7 +9,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         vacationType: {
-            type: Sequelize.ENUM('Travel', 'Sick', 'Appointment', 'Attending Event', 'Personal Issue', 'Emergency'),
+            type: Sequelize.STRING(45)
         }
  
  

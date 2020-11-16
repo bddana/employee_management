@@ -2,16 +2,35 @@ const boatrental = require("../config/db.config");
 //const employeeType = require('./employeetype.model');
 module.exports = function(sequelize, Sequelize) {
  
-    var boatrental = sequelize.define('boatrental', {
+    var boatrental = sequelize.define('boatstatusreport', {
  
-        boatRentalId: {
+        boatStatusReportId: {
             autoIncrement: true,
             primaryKey: true,
             type: Sequelize.INTEGER
         },
  
-        boatRentalStatusId: {
-            type: Sequelize.INTEGER,
+        firstName: {
+            type: Sequelize.STRING,
+            notEmpty: true
+        },
+ 
+        lastName: {
+            type: Sequelize.STRING,
+            notEmpty: true
+        },
+ 
+        scheduleDate: {
+            type: Sequelize.DATEONLY,
+            notEmpty: true
+        },
+
+        shift:{
+            type: Sequelize.TIME
+        },
+
+        boatStatus: {
+            type: Sequelize.STRING,
             notEmpty: true
         },
  
@@ -20,35 +39,15 @@ module.exports = function(sequelize, Sequelize) {
             notEmpty: true
         },
  
-        employeeId: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
-
-        customerId: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
- 
-        bookingDate: {
-            type: Sequelize.DATEONLY,
-            notEmpty: true
-        },
- 
-        bookingTime:{
-            type: Sequelize.TIME
-        },
-        passengers:{
-            type: Sequelize.INTEGER,
+        
+        name:{
+            type: Sequelize.STRING,
             
         },
-        requestedCoolers:{
-            type:Sequelize.INTEGER
+        description:{
+            type:Sequelize.STRING
         },
-        specialNotes: {
-            type: Sequelize.STRING,
-            notEmpty: true
-        },
+        
     },
     
     {

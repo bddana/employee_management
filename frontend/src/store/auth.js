@@ -6,7 +6,7 @@ export default {
     state: {
       email: '',
       name: '',
-      role: 'captain',
+      role: '',
       captainStatus: 'Active',
       isLoggedIn: false,
     },
@@ -33,18 +33,19 @@ export default {
         },
         async login({ commit }, payload) {
             if (!payload) return null;
-      
+            console.log(payload);
             try {
               const { data } = await Vue.prototype.$axios({
                 method: 'post',
                 url: ProxyUrls.loginUrl,
                 data: payload,
               });
-      
+      console.log(data);
+
               if (data) {
                 commit('setEmail', data.email);
-                commit('setName', data.firstname);
-                commit('setRole', 'captain');
+                commit('setName', data.firstName);
+                commit('setRole', data.role);
                 commit('setCaptainStatus', 'Active');
                 commit('setLoggedIn', true);
               }
@@ -96,6 +97,7 @@ export default {
         },
     
         setRole(state, role) {
+          console.log(role);
             state.role = role;
             localStorage.setItem('role', role);
         },
@@ -127,6 +129,9 @@ export default {
       
         getEmail(state) {
           return state.email;
+        },
+        getRole(state) {
+          return state.role;
         },
     
         getFirstName(state) {

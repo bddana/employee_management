@@ -11,16 +11,15 @@ const Op = db.Sequelize.Op;
 exports.create = (req, res) => {	
 	// Save to MySQL database
 	boatrental.create({ 
-		boatRentalId: req.body.boatRentalId,
-		boatRentalStatusId: req.body.boatRentalStatusId,
+		boatStatusReportId: req.body.boatStatusReportId,
+		firstName: req.body.firstName,
+		lastName:  req.body.lastName,
+		scheduleDate:  req.body.scheduleDate,
+		shift:  req.body.shift,
+		boatStatus: req.body.boatStatus,
 		boatId:  req.body.boatId,
-		employeeId:  req.body.employeeId,
-		customerId:  req.body.customerId,
-		bookingDate: req.body.bookingDate,
-		bookingTime:  req.body.bookingTime,
-		passengers:  req.body.passengers,
-		requestedCoolers:  req.body.requestedCoolers,
-		specialNotes:  req.body.specialNotes,
+		name:  req.body.name,
+		description:  req.body.description,
 
 	}).then(boatrental => {		
 		// Send created customer to client

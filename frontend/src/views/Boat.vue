@@ -7,30 +7,45 @@
       <el-dialog title="Add Employee" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form ref="form" :model="form" label-width="80px">
           <el-form-item label="ID">
-            <el-input v-model="form.id"></el-input>
+            <el-input v-model="tableData.boatStatusReportId"></el-input>
           </el-form-item>
-          <el-form-item label="Model">
-            <el-input v-model="form.model"></el-input>
+          <el-form-item label="firstName">
+            <el-input v-model="tableData.firstName"></el-input>
           </el-form-item>
-          <el-form-item label="Serial number">
-            <el-input v-model="form.serialNumber"></el-input>
+          <el-form-item label="lastName">
+            <el-input v-model="tableData.lastName"></el-input>
           </el-form-item>
-          <el-form-item label="Captain">
-            <el-input v-model="form.captain"></el-input>
+          <el-form-item label="scheduleDate">
+            <el-col :span="11">
+              <el-date-picker type="date" placeholder="Pick a date" v-model="form.date1" style="width: 100%;"></el-date-picker>
+            </el-col>
           </el-form-item>
-          <el-form-item label="Status">
-            <el-input v-model="form.status"></el-input>
+          <el-form-item label="shift">
+            <el-col :span="11">
+              <el-time-picker placeholder="Pick a time" v-model="form.date2" style="width: 100%;"></el-time-picker>
+            </el-col>
           </el-form-item>
-          <el-form-item label="Date">
+          <el-form-item label="boatStatus">
+            <el-input v-model="tableData.status"></el-input>
+          </el-form-item>
+          <!-- <el-form-item label="Date">
             <el-col :span="11">
               <el-date-picker type="date" placeholder="Pick a date" v-model="form.date1" style="width: 100%;" format="MM-dd-yyyy"></el-date-picker>
             </el-col>
-            <!-- <el-col class="line" :span="2">-</el-col>
+            <el-col class="line" :span="2">-</el-col>
             <el-col :span="11">
               <el-time-picker placeholder="Pick a time" v-model="form.date2" style="width: 100%;"></el-time-picker>
-            </el-col> -->
+            </el-col>
+          </el-form-item> -->
+          <el-form-item label="boatId">
+            <el-input v-model="tableData.boatId"></el-input>
           </el-form-item>
-          
+          <el-form-item label="Boat name">
+            <el-input v-model="tableData.name"></el-input>
+          </el-form-item>
+          <el-form-item label="description">
+            <el-input v-model="tableData.description"></el-input>
+          </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="onSubmit">Conform</el-button>
             <!-- <el-button @click="onCancel">Cancel</el-button> -->
@@ -45,53 +60,49 @@
     style="width: 100%"
     :row-class-name="tableRowClassName">
     <el-table-column
-      prop="boatRentalId"
+      prop="boatStatusReportId"
       label="ID"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="boatRentalStatusId"
-      label="Status"
+      prop="firstName"
+      label="firstName"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="lastName"
+      label="lastName"
+      width="180">
+    </el-table-column>
+    
+    <el-table-column
+      prop="scheduleDate"
+      label="scheduleDate"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="shift"
+      label="shift"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="boatStatus"
+      label="boatStatus"
       width="180">
     </el-table-column>
     <el-table-column
       prop="boatId"
-      label="Boat"
+      label="boatId"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="employeeId"
-      label="Captain"
+      prop="name"
+      label="name"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="customerId"
-      label="customer"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="bookingDate"
-      label="DATE"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="bookingTime"
-      label="Time"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="passengers"
-      label="passengers"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="requestedCoolers"
-      label="requestedCoolers"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="specialNotes"
-      label="specialNotes"
+      prop="description"
+      label="description"
       width="180">
     </el-table-column>
     <el-table-column
@@ -111,6 +122,16 @@
 <script>
   export default {
     methods: {
+      // formatBoatRentalStatus(row,column){
+      //   return row.boatRentalStatusId === 1 ? 'Docked' :
+      //           row.boatRentalStatusId === 2 ? 'Out Bound' :
+      //           'In Bound'
+      // },
+      // formatBoatId(row,column){
+      //   return row.boatId === 1 ? '24 Bentley Tritoon 243 Cruise' :
+      //           row.boatId === 2 ? '25 Bentley Tritoon 243 Cruise' :
+      //           '24 Bentley Tritoon 243 Cruise'
+      // },
       tableRowClassName({row, rowIndex}) {
         if (rowIndex === 1) {
           return 'warning-row';

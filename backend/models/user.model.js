@@ -22,7 +22,7 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TEXT
         },
  
-        about: {
+        role: {
             type: Sequelize.TEXT
         },
  

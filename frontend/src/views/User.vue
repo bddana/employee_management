@@ -1,5 +1,5 @@
 <template>
-  <user-account @login="loggedIn()"></user-account>
+  <user-account @login="loggedIn()" @register="Registered()"></user-account>
 </template>
 
 <script>
@@ -13,6 +13,11 @@ export default {
   methods: {
     loggedIn() {
       // once logged in.
+      this.$router.push('/schedule');
+    },
+
+    Registered() {
+      // once registered
       this.$router.push('/');
     },
   },
