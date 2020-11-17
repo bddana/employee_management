@@ -1,7 +1,11 @@
 const env = {
   "username": "cis_admin@cis4375",
   "password": "rootuser;23",
+<<<<<<< HEAD
   "database": "diversitechnologies",
+=======
+  "database": "diversititechnology",
+>>>>>>> 6111ed96fe614d50a399e28ff489522fcd8c506a
   "host": "cis4375.mysql.database.azure.com",
   "port": 3306,
   "dialect": "mysql",
