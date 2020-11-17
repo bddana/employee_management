@@ -50,6 +50,11 @@ db.useraccountemployee = db.useraccount.belongsTo(db.employee, {foreignKey: 'emp
 
 // db.shift.hasMany(db.schedule, {foreignKey: 'shiftId'});
 // db.employeesch = db.schedule.belongsTo(db.shift, {foreignKey: 'shiftId'});
+db.employees = require('../models/employee.model.js')(sequelize, Sequelize);
+db.employeetype = require('../models/employeetype.model.js')(sequelize, Sequelize);
+db.employeestatus = require('../models/employeestatus.model.js')(sequelize, Sequelize);
+db.boatrental = require('../models/boatrental.model')(sequelize, Sequelize);
+db.vacation = require('../models/vacation.model')(sequelize, Sequelize);
 
 
 
