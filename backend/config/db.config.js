@@ -24,6 +24,8 @@ db.employees = require('../models/employee.model.js')(sequelize, Sequelize);
 db.employeetype = require('../models/employeetype.model.js')(sequelize, Sequelize);
 db.employeestatus = require('../models/employeestatus.model.js')(sequelize, Sequelize);
 db.boatrental = require('../models/boatrental.model')(sequelize, Sequelize);
+db.vacation = require('../models/vacation.model')(sequelize, Sequelize);
+
 
 
 module.exports = db;

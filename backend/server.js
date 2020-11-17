@@ -73,13 +73,13 @@ app.use(cors(corsOptions));
 import indexRouter from './routes/index.route.js';
 import customerRouter from './routes/customer.route.js';
 import userauthRouter from './routes/userauth.route.js';
-
+import vacationRouter from './routes/vacation.route';
 
 
 app.use('/', indexRouter);
 app.use('/customer', customerRouter);
 app.use('/user', userauthRouter);
-
+app.use('/vacation', vacationRouter);
 
 //require("./routes/employee.route")(app);
 
