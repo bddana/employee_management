@@ -75,6 +75,7 @@ import customerRouter from './routes/customer.route.js';
 import userauthRouter from './routes/userauth.route.js';
 import vacationRouter from './routes/vacation.route';
 import vacationtypeRouter from './routes/vacationtype.route';
+import vacationstatusRouter from './routes/vacationstatus.route';
 
 
 
@@ -83,6 +84,8 @@ app.use('/customer', customerRouter);
 app.use('/user', userauthRouter);
 app.use('/vacation', vacationRouter);
 app.use('/vacationtype', vacationtypeRouter);
+app.use('/vacationstatus', vacationstatusRouter);
+
 
 
 //require("./routes/employee.route")(app);

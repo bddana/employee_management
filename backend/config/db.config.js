@@ -26,6 +26,8 @@ db.employeestatus = require('../models/employeestatus.model.js')(sequelize, Sequ
 db.boatrental = require('../models/boatrental.model')(sequelize, Sequelize);
 db.vacation = require('../models/vacation.model')(sequelize, Sequelize);
 db.vacationtype = require('../models/vacationtype.model')(sequelize, Sequelize);
+db.vacationstatus = require('../models/vacationstatus.model')(sequelize, Sequelize);
+
 
 
 
