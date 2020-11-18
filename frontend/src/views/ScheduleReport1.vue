@@ -1,7 +1,7 @@
 <template>
 
   <el-table
-    :data="vacationreport"
+    :data="schedulereport"
     border
     style="width: 100%"
     :row-class-name="tableRowClassName">
@@ -23,49 +23,22 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="phone"
-      label="Phone"
+      prop="scheduleDate"
+      label="Schedule Date"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="vacationEndDate"
-      label="Vacation end date"
+      prop="shift"
+      label="Shift"
       width="180">
-    </el-table-column>
-    <el-table-column
-      prop="vacationStartDate"
-      label="Vacation start date"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="vacationStatus"
-      label="Vacation status"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="vacationType"
-      label="Vacation type"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      fixed="vacationStatus"
-      label="Vacation status"
-      width="180">
-        <template slot-scope="scope">
-        <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">DELETE</el-button>
-        <el-button type="text" size="small">MODIFY</el-button> -->
-      </template>
     </el-table-column>
   </el-table>
 </template>
 
 
 <script>
-// import VacationService from "../services/vacationService.js";
-// import VacationStatusService from "../services/vacationstatusService.js";
-// import VacationTypeService from "../services/vacationtypeService.js";
 
-import VacationReportService from "../services/vacationreportService.js";
+import ScheduleReportService from "../services/schedulereportService.js";
 
 export default {
   // methods: {
@@ -88,7 +61,7 @@ export default {
       // vacation: [],
       // vacationstatus: [],
       // vacationtype: []
-      vacationreport: []
+      schedulereport: []
 
 
     };
@@ -98,7 +71,7 @@ export default {
       // this.vacation = await VacationService.getAll();
       // this.vacationstatus = await VacationStatusService.getAll();
       // this.vacationtype = await VacationTypeService.getAll();
-      this.vacationreport = await VacationReportService.getAll();
+      this.schedulereport = await ScheduleReportService.getAll();
 
 
       // this.testTutors = await TutorService.getTutors();

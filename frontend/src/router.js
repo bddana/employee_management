@@ -9,6 +9,7 @@ import NotFound from "@/views/NotFound";
 import Boat from "@/views/Boat";
 import Employee from "@/views/Employee";
 import VacationReport from "@/views/VacationReport";
+// import ScheduleReport from "@view/SchedReport";
 
 
 Vue.use(Router);
@@ -51,6 +52,12 @@ const router = new Router({
     {
       path: '/VacationReport',
       component: VacationReport,
+    },
+    {
+      path: '/SchedReport1',
+      component: function(){
+        return import('./views/ScheduleReport1.vue')
+      },
     },
   ],
 });
