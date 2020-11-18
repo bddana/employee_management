@@ -73,6 +73,7 @@ import vacationtypeRouter from './routes/vacationtype.route';
 import vacationstatusRouter from './routes/vacationstatus.route';
 import vacationreportRouter from './routes/vacationreport.route';
 import schedulereportRouter from './routes/schedulereport.route';
+import boatstatusreportRouter from './routes/boatstatusreport.route';
 
 
 
@@ -84,6 +85,7 @@ app.use('/vacationtype', vacationtypeRouter);
 app.use('/vacationstatus', vacationstatusRouter);
 app.use('/vacationreport', vacationreportRouter);
 app.use('/schedulereport', schedulereportRouter);
+app.use('/boatstatusreport', boatstatusreportRouter);
 
 
 

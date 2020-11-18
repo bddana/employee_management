@@ -1,15 +1,20 @@
 <template>
 
   <el-table
-    :data="vacationreport"
+    :data="boatstatusreport"
     border
     style="width: 100%"
     :row-class-name="tableRowClassName">
     <el-table-column
       :render-header="renderHeader"
       fixed
-      prop="employeeId"
-      label="ID"
+      prop="boatStatus"
+      label="Boat status"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="description"
+      label="Description"
       width="180">
     </el-table-column>
     <el-table-column
@@ -23,39 +28,21 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="phone"
-      label="Phone"
+      prop="name"
+      label="Name of the boat"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="vacationEndDate"
-      label="Vacation end date"
+      prop="scheduleDate"
+      label="Schedule date"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="vacationStartDate"
-      label="Vacation start date"
+      prop="shift"
+      label="Shift"
       width="180">
     </el-table-column>
-    <el-table-column
-      prop="vacationStatus"
-      label="Vacation status"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="vacationType"
-      label="Vacation type"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      fixed="vacationStatus"
-      label="Vacation status"
-      width="180">
-        <template>
-        <!-- <el-button @click="handleClick(scope.row)" type="text" size="small">DELETE</el-button>
-        <el-button type="text" size="small">MODIFY</el-button> -->
-      </template>
-    </el-table-column>
+    
   </el-table>
 </template>
 
@@ -65,7 +52,7 @@
 // import VacationStatusService from "../services/vacationstatusService.js";
 // import VacationTypeService from "../services/vacationtypeService.js";
 
-import VacationReportService from "../services/vacationreportService.js";
+import BoatStatusReportService from "../services/boatstatusreportService.js";
 
 export default {
   // methods: {
@@ -88,7 +75,7 @@ export default {
       // vacation: [],
       // vacationstatus: [],
       // vacationtype: []
-      vacationreport: []
+      boatstatusreport: []
 
 
     };
@@ -98,7 +85,7 @@ export default {
       // this.vacation = await VacationService.getAll();
       // this.vacationstatus = await VacationStatusService.getAll();
       // this.vacationtype = await VacationTypeService.getAll();
-      this.vacationreport = await VacationReportService.getAll();
+      this.boatstatusreport = await BoatStatusReportService.getAll();
 
 
       // this.testTutors = await TutorService.getTutors();

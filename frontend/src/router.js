@@ -57,6 +57,13 @@ const router = new Router({
       path: '/SchedReport1',
       component: function(){
         return import('./views/ScheduleReport1.vue')
+      }, 
+    },
+
+    {
+      path: '/BoatStatusReport',
+      component: function(){
+        return import('./views/BoatStatusReport.vue')
       },
     },
   ],
