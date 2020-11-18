@@ -77,6 +77,7 @@ import vacationRouter from './routes/vacation.route';
 import vacationtypeRouter from './routes/vacationtype.route';
 import vacationstatusRouter from './routes/vacationstatus.route';
 import vacationreportRouter from './routes/vacationreport.route';
+import schedulereportRouter from './routes/schedulereport.route';
 
 
 
@@ -87,6 +88,7 @@ app.use('/vacation', vacationRouter);
 app.use('/vacationtype', vacationtypeRouter);
 app.use('/vacationstatus', vacationstatusRouter);
 app.use('/vacationreport', vacationreportRouter);
+app.use('/schedulereport', schedulereportRouter);
 
 
 
