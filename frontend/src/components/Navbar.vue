@@ -106,6 +106,7 @@ export default {
           { title: 'Schedule', path: '/schedule', icon: 'mdi-calendar'},
           { title: 'Vacation Report', path: '/VacationReport', icon: 'mdi-tooltip-text-outline'},
           { title: 'Schedule Report', path: '/SchedReport1', icon: 'mdi-tooltip-text-outline'},
+          { title: 'Boat Status Report', path: '/BoatStatusReport', icon: 'mdi-tooltip-text-outline'},
 
      ],
     }

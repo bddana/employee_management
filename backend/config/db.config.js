@@ -29,6 +29,7 @@ db.vacationtype = require('../models/vacationtype.model')(sequelize, Sequelize);
 db.vacationstatus = require('../models/vacationstatus.model')(sequelize, Sequelize);
 db.vacationreport = require('../models/vacationreport.model')(sequelize, Sequelize);
 db.schedulereport = require('../models/schedulereport.model')(sequelize, Sequelize);
+db.boatstatusreport = require('../models/boatstatusreport.model')(sequelize, Sequelize);
 
 
 
