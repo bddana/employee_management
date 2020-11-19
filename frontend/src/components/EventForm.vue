@@ -14,16 +14,6 @@
                         >{{ formTitle }}</span>
                     </v-card-title>
                     <v-container>
-                        <!-- <v-text-field
-                            :color="componentColor"
-                            v-model="nameInput"
-                            dense
-                            label="Schedule Name"
-                            outlined
-                            :rules="[rules.required, rules.nameCounter, rules.nonWhiteSpaces]"
-                            counter="140"
-                        >
-                        </v-text-field> -->
                         <v-combobox
                         v-model="nameInput"
                         :items="shifts"
@@ -33,7 +23,7 @@
                         ></v-combobox>
 
                         <v-combobox
-                        v-model="select"
+                        v-model="selectedemployee"
                         :items="items"
                         label="Add employee"
                         multiple
@@ -43,9 +33,6 @@
 
                     </v-container>
                     <v-card-actions>
-                        <color-picker
-                            v-model="selectedColor"
-                        ></color-picker>
                         <v-spacer></v-spacer>
                         <v-btn 
                             color="primary"
@@ -60,49 +47,31 @@
                     >Save</v-btn>
                 </v-card-actions>
             </v-form>
-        </v-card>
-    </v-dialog>
+            </v-card>
+        </v-dialog>
     </v-row>
 </template>
 
 <script>
-
-import ColorPicker from './event-form/ColorPicker'
-import StartAndEndTimePicker from './event-form/StartAndEndTimePicker'
-
 import EventService from '@/services/EventService'
+import ScheduleService from '@/services/scheduleService'
 import DateArithmetic from '@/services/DateArithmetic'
 
 import { bus } from '@/main'
 
 export default {
-    components: {
-       ColorPicker,
-       StartAndEndTimePicker
-    },
-
     data: () => ({
         componentColor: 'primary',
-
-        editOptionSelected: 'Only this event',
-        editOptions: [
-        'Only this event',
-        'This and all sibling events',
-        'This and all following sibling events'
-        ],
 
         originalEditedEvent: {},
 
         formTitle: 'Add a New Schedule',
-        select: ['Hamish'],
+        selectedemployee: ['Hamish'],
         shifts: ['10am Shift', '11am Shift', '3pm Shift'],
         items: ['Hamish', 'Bev', 'Arly', 'Wally', 'Evelina', 'Mercedes', 'Neille'],
         nameInput: '',
-        detailsInput: '',
 
         selectedDate: '',
-        startDate: '',
-        endDate: '',
 
         dates:{
             start: '',
@@ -117,7 +86,7 @@ export default {
         startTime: '',
         endTime: '',
 
-        selectedColor: '#F07F1D',
+        selectedColor: "primary",
 
         id: undefined,
 
@@ -127,8 +96,6 @@ export default {
         valid: false,
         rules: {
             required: v => !!v || 'Required',
-            nameCounter: v => v.length <= 140 || 'Max 100 Characters',
-            descriptionCounter: v => v.length <= 500 || 'Max 500 Characters',
             nonWhiteSpaces: v => { 
                 const regEx = /\S+/ //any non white space character
                 return regEx.test(v) || 'Invalid, Please enter more than just spaces.'
@@ -148,11 +115,14 @@ export default {
             });
         },
 
+// insert into database here
         submitForm(){
             if(this.isEditing){
+                ScheduleService.addSchedule(this.currEvent)
                 EventService.addOrUpdate(this.currEvent)
                 this.sendEditedEventNotification(`Successfully edited event "${this.currEvent.name}!"`)
             } else {    
+                ScheduleService.addSchedule(this.currEvent)
                 EventService.addOne(this.currEvent)
                 this.sendAddedEventNotification(`Successfully added event "${this.currEvent.name}"!`)
             }
@@ -163,7 +133,7 @@ export default {
             this.editDialog = true
         },
         editEvent(){
-            this.formTitle = `Edit Event "${this.currEvent.name}"`
+            this.formTitle = `Edit Schedule "${this.currEvent.name}"`
             this.originalEditedEvent = this.currEvent
             this.dialog = true
         },
@@ -176,7 +146,7 @@ export default {
             this.formTitle = "Add a New Schedule"
 
             this.id = undefined
-            this.selectedColor = '#F07F1D'
+            this.selectedColor = "primary"
 
             this.resetTextInputFields()
             this.resetTimePickers()
@@ -185,7 +155,6 @@ export default {
 
         resetTextInputFields(){
             this.nameInput = ''
-            this.detailsInput = ''
         },
         resetTimePickers(){
             this.times = {
@@ -229,25 +198,14 @@ export default {
     },
     created(){
         this.setToday()
-
         bus.$on('sendSelectedDate', date => {
-           this.selectedDate = date
-           this.dates = {
-               start:date,
-               end:date
-           }
-        })
-        bus.$on('sendPickedDates', (dates) => {
-            this.dates.start = dates[0]
-            this.dates.end = dates[1]
+            this.selectedDate = date
+            this.dates = {
+                start:date,
+                end:date
+            }
         })
         bus.$on('openForm', () => this.dialog = true)
-        bus.$on('sendStartTime', time => {
-                this.times = {
-                    start: time,
-                    end: ''
-                }
-        })
         bus.$on('editEvent', event => {
             this.currEvent = event
             this.editEvent()
@@ -280,9 +238,7 @@ export default {
                 return ' ' + this.times.end
             }
         },
-        eventStartInWords(){
-            return DateArithmetic.getDateInWords(this.currEvent.start)
-        },
+
         startDateAndTime:{
             get(){
                 return this.dates.start + this.startTimeAutocomplete
@@ -323,7 +279,6 @@ export default {
             get(){
                     const event = {
                         name: this.nameInput,
-                        details: this.detailsInput,
                         start: this.startDateAndTime,
                         end: this.endDateAndTime,
                         id: this.id,
@@ -333,7 +288,6 @@ export default {
             },
             set(newEvent){
                 this.nameInput = newEvent.name
-                this.detailsInput = newEvent.details
                 this.startDateAndTime = newEvent.start
                 this.endDateAndTime = newEvent.end
                 this.id = newEvent.id

@@ -8,13 +8,19 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
 
-        scheduleDate: {
-                type: Sequelize.DATEONLY
-            },
-
-        shift: {
-            type: Sequelize.DATEONLY
+        name: {
+            type: Sequelize.STRING(45),
         },
+
+        start: {
+            type: Sequelize.STRING(45),
+        },
+        end: {
+            type: Sequelize.STRING(45),
+        },
+        color: {
+            type: Sequelize.STRING(45),
+        }
     });
  
     return schedule;

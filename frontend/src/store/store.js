@@ -4,11 +4,13 @@ import Vuex from 'vuex';
 
 // Import modules here.
 import AuthStore from '@/store/auth';
+import scheduleStore from '@/store/schedule';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   modules: {
     authStore: AuthStore,
+    schedule: scheduleStore,
   },
 });

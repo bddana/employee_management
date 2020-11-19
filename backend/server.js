@@ -76,6 +76,7 @@ import schedulereportRouter from './routes/schedulereport.route';
 import boatstatusreportRouter from './routes/boatstatusreport.route';
 
 
+import scheduleRouter from './routes/schedule.route.js';
 
 app.use('/', indexRouter);
 app.use('/customer', customerRouter);
@@ -87,6 +88,7 @@ app.use('/vacationreport', vacationreportRouter);
 app.use('/schedulereport', schedulereportRouter);
 app.use('/boatstatusreport', boatstatusreportRouter);
 
+app.use('/schedule', scheduleRouter);
 
 
 
