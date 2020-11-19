@@ -3,6 +3,8 @@ export default {
     loginUrl: '/user/signin',
     logoutUrl: '/user/signout',
     isLoggedIn: '/user/isLoggedIn',
+    scheduleaddOne: '/schedule/one',
+    scheduleFindall: '/schedule/all',
     // forgotPassword: '/security/forgotPassword?email=',
     // validateResetToken: '/security/validatePasswordResetToken/',
     // resetPassword: '/security/resetPassword',

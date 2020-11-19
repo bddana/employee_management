@@ -51,3 +51,23 @@ content-type: application/json
     "address": "123 main st",
     "role": "Captain"
 }
+
+###
+GET http://localhost:8081/schedule HTTP/1.1
+
+###
+### post request
+POST http://localhost:8081/schedule/one HTTP/1.1
+content-type: application/json
+
+{
+    "name": "10am Shift", 
+    "start": "2020-11-09", 
+    "end": "2020-11-09", 
+    "color": "primary",
+    "email": "test924@yahoo.com"
+}
+
+###
+### get request
+GET http://localhost:8081/schedule/all HTTP/1.1
