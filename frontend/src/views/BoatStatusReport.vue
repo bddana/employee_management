@@ -8,8 +8,18 @@
     <el-table-column
       :render-header="renderHeader"
       fixed
-      prop="boatStatus"
-      label="Boat status"
+      prop="name"
+      label="Name"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="boatDescription"
+      label="Boat Description"
+      width="180">
+    </el-table-column>
+    <el-table-column
+      prop="maintenanceRequired"
+      label="Maintenance Required"
       width="180">
     </el-table-column>
     <el-table-column
@@ -18,18 +28,13 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="firstName"
-      label="First Name"
+      prop="captainFirstName"
+      label="Captain First Name"
       width="180">
     </el-table-column>
     <el-table-column
-      prop="lastName"
-      label="Last Name"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="name"
-      label="Name of the boat"
+      prop="captainlastName"
+      label="Captain Last Name"
       width="180">
     </el-table-column>
     <el-table-column

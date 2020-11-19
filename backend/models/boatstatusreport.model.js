@@ -7,13 +7,24 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
-        firstName:{
+        name:{
             type: Sequelize.STRING(45)
         },
-        lastName:{
+        boatDescription:{
             type: Sequelize.STRING(45)
         },
-
+        maintenanceRequired:{
+            type: Sequelize.STRING(45)
+        },
+        description:{
+            type: Sequelize.STRING(45)
+        },
+        captainFirstName:{
+            type: Sequelize.STRING(45)
+        },
+        captainLastName:{
+            type: Sequelize.STRING(45)
+        },
         scheduleDate: {
             type: Sequelize.DATEONLY
         },
@@ -21,29 +32,14 @@ module.exports = function(sequelize, Sequelize) {
         shift: {
             type: Sequelize.DATEONLY
         },
-        boatStatus:{
-            type: Sequelize.STRING(45)
-        },
-        name:{
-            type: Sequelize.STRING(45)
-        },
-        description:{
-            type: Sequelize.STRING(45)
-        },
-        // employeeId: {
-        //     type: Sequelize.INTEGER,
-        //     allowNull: false,
-        //     references: {         // WorkingDays hasMany Users n:n
-        //       model: 'employee',
-        //       key: 'id'
-        //     }
-        // }
+
+
  
     },   {
         indexes:[
             {
                 unique:false,
-                fields:["vacationReportId"]
+                fields:["boatStatusReportId"]
             },
             // {
             //     unique:false,
