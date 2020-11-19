@@ -25,9 +25,7 @@ Vue.use(Form);
 Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tooltip);
-import ElementUI from "element-ui";
-import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+
 // Vue.use(Button);
 // Vue.use(Table);
 // Vue.use(Form);
