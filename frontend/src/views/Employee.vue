@@ -2,51 +2,42 @@
   <container>
   <el-header>
     <el-row>
-      <el-button type="primary" @click="dialogVisible = true" round>New</el-button>
+      <template>
+      <el-button type="primary" @click="show()" round>New</el-button>
       <span style="font-size:30px;color:blue">{{this.tableData.length}} Employees</span>
-      <el-dialog title="Add Employee" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
-        <el-form ref="form" :model="form" label-width="80px">
+      <el-dialog  :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+        <el-form ref="form1" :model="form1" label-width="80px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
           <el-form-item label="Employee Id">
-            <el-input v-model="form.id"></el-input>
+            <el-input v-model="form1.employeeId" disabled></el-input>
           </el-form-item>
           <el-form-item label="First Name">
-            <el-input v-model="form.firstName"></el-input>
+            <el-input v-model="form1.firstName"></el-input>
           </el-form-item>
           <el-form-item label="Last Name">
-            <el-input v-model="form.lastName"></el-input>
+            <el-input v-model="form1.lastName"></el-input>
           </el-form-item>
           <el-form-item label="Email">
-            <el-input v-model="form.email"></el-input>
+            <el-input v-model="form1.email"></el-input>
           </el-form-item>
-          <el-form-item label="TEL">
-            <el-input v-model="form.tel"></el-input>
+          <el-form-item label="Phone">
+            <el-input v-model="form1.Phone"></el-input>
           </el-form-item>
-          
-          <!-- <el-form-item label="Date">
-            <el-col :span="11">
-              <el-date-picker type="date" placeholder="Pick a date" v-model="form.date1" style="width: 100%;"></el-date-picker>
-            </el-col>
-            <el-col class="line" :span="2">-</el-col>
-            <el-col :span="11">
-              <el-time-picker placeholder="Pick a time" v-model="form.date2" style="width: 100%;"></el-time-picker>
-            </el-col>
-          </el-form-item> -->
-          
           <el-form-item label="Address">
-            <el-input type="textarea" v-model="form.address"></el-input>
-          </el-form-item>
-          <el-form-item label="Employee Type">
-            <el-input v-model="form.employeeType"></el-input>
+            <el-input type="textarea" v-model="form1.address"></el-input>
           </el-form-item>
           <el-form-item label="Employee Status">
-            <el-input v-model="form.employeeStatus"></el-input>
+            <el-input v-model="form1.employeeStatus"></el-input>
+          </el-form-item>
+          <el-form-item label="Employee Type">
+            <el-input v-model="form1.employeeType"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">Conform</el-button>
-            <!-- <el-button @click="onCancel">Cancel</el-button> -->
+            <el-button type="primary" @click="AddModify()">Add</el-button>
+            <!-- <el-button type="primary" @click="modifyEmployee()">Modify</el-button> -->
           </el-form-item>
         </el-form>
     </el-dialog>
+      </template>
     </el-row>
   </el-header>
   <el-main>
@@ -81,11 +72,6 @@
       label="phone"
       width="180">
     </el-table-column>
-    <!-- <el-table-column
-      prop="date"
-      label="DATE"
-      width="180">
-    </el-table-column> -->
     <el-table-column
       prop="address"
       label="Address"
@@ -106,9 +92,40 @@
       label="Option"
       width="180">
       <template slot-scope="scope">
-        <el-button @click="handleClick(scope.row), deleteEmployee(index)" type="text" size="small">DELETE</el-button>
-        <el-button type="text" size="small">MODIFY</el-button>
-        
+        <el-button @click="handleClick(scope.row), deleteEmployee(scope.row.employeeId),toURL()" type="text" size="small">DELETE</el-button>
+        <el-button type="text" size="small" @click="editShow(scope.row.employeeId)">MODIFY</el-button>
+        <!-- <el-dialog title="Modify Employee" :visible.sync="dialogVisible" :append-to-body="true" width="30%" v-if='dialogVisible'>
+        <el-form ref="form" :model="form" label-width="80px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
+          <el-form-item label="Employee Id">
+            <el-input v-model="form.employeeId" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="First Name">
+            <el-input v-model="form.firstName"></el-input>
+          </el-form-item>
+          <el-form-item label="Last Name">
+            <el-input v-model="form.lastName"></el-input>
+          </el-form-item>
+          <el-form-item label="Email">
+            <el-input v-model="form.email"></el-input>
+          </el-form-item>
+          <el-form-item label="Phone">
+            <el-input v-model="form.Phone"></el-input>
+          </el-form-item>
+          <el-form-item label="Address">
+            <el-input type="textarea" v-model="form.address"></el-input>
+          </el-form-item>
+          <el-form-item label="Employee Status">
+            <el-input v-model="form.employeeStatus"></el-input>
+          </el-form-item>
+          <el-form-item label="Employee Type">
+            <el-input v-model="form.employeeType"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" @click="modifyEmployee()">Conform</el-button>
+            
+          </el-form-item>
+        </el-form>
+    </el-dialog> -->
       </template>
     </el-table-column>
   </el-table>
@@ -120,50 +137,105 @@
 <script>
   export default {
     methods: {
-      // formatEmployeeType(row,column){
-      //   return row.employeeTypeId === 1 ? 'Owner' :
-      //           row.employeeTypeId === 2 ? 'Supervisor' :
-      //           'Captain'
-      // },
-      // formatEmployeeStatus(row,column){
-      //   return row.employeeStatusId === 1 ? 'Active' :
-      //           row.employeeStatusId === 2 ? 'Inactive' :
-      //           row.employeeStatusId === 3 ? 'Pending' :
-      //           row.employeeStatusId === 4 ? 'Terminated' :
-      //           row.employeeStatusId === 5 ? 'Resigned' :
-      //           row.employeeStatusId === 6 ? 'Pending Termination' :
-      //           'Temporary Inactive'
-      //    },
       handleClick(row) {
         console.log(row);
       },
-      deleteEmployee(index){
-        this.tableData.splice(index,1);
-      } , 
-      onSubmit(){
-        this.$http.post('employee',this.form).then(res => {
-          console.log(res.data);
+      async deleteEmployee(employeeId){
+        await this.$http.delete('/employee/'+employeeId).then(res => {
+          //console.log(res.data);
+          this.$message({
+            message:"Delete new Employee success!",
+            type:"warning"
+          })
+          this.$http.get('employee').then(res => {
+            this.tableData = res.data
+          })
         })
       },
-      onCancel(){
-        resetField(form);
-      }
+      async onSubmit(){
+          await this.$http.post('/employees/',this.form1).then(res => {
+          //console.log(res.data);
+          this.$message({
+            message:"Add new Employee success!",
+            type:"success"
+          })
+          this.dialogVisible=false
+          //this.dialogStatus="add"
+          
+          this.$refs[form1].resetFields();
+          
+          this.$http.get('employee').then(res => {
+            this.tableData = res.data
+          })
+        })
+      },
+      AddModify(){
+        this.dialogVisible=false
+        if(this.dialogStatus=='add'){
+          this.onSubmit();
+        
+      
+        }else{
+          this.modifyEmployee()
+        }
+      },
+      async editShow(employeeId){
+        await this.$http.get('/employee/'+employeeId).then(res => {
+          console.log(res.data);
+          this.form1 = res.data
+           this.dialogVisible = true
+           this.dialogStatus='edit'
+        })
+      },
+      show (){
+        this.dialogVisible = true
+        this.dialogStatus='add'
+      },
+      async modifyEmployee(){
+        await this.$http.put('/employee/'+this.form1.employeeId,this.form1).then(res => {
+          console.log(res.data);
+          this.$message({
+            message:"Modify boat success!",
+            type:"success"
+          })
+          this.dialogVisible=false
+          this.$refs[form1].resetFields();
+          //this.dialogStatus='edit'
+          this.$http.get('employee').then(res => {
+            this.tableData = res.data
+          })
+        })
+      },
     },
     data() {
       
       return {
+        titleName:{
+          add:'Add Employee',
+          edit:'Modify Employee'
+        },
+        dialogStatus:'',
         tableData:[],
-        //zhiwei:this.employeeTypeId,
         dialogVisible:false,
         form: {
           employeeId: '',
-          firstname: '',
-          lastname: '',
+          firstName: '',
+          lastName: '',
           email: '',
           Phone: '',
           address: '',
-          employeeTypeId: '',
-          employeeStatusId:''
+          employeeStatus: '',
+          employeeType:''
+        },
+        form1: {
+          employeeId: '',
+          firstName: '',
+          lastName: '',
+          email: '',
+          Phone: '',
+          address: '',
+          employeeStatus: '',
+          employeeType:''
         }
 
       };

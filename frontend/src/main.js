@@ -11,8 +11,8 @@ Vue.use(ElementUI);
 
 
 
-import VueAxios from 'axios';
-Vue.prototype.$http=VueAxios.create({
+//import VueAxios from 'axios';
+Vue.prototype.$http=axios.create({
   baseURL:'http://localhost:8081'
 })
 

@@ -13,7 +13,8 @@ import Navbar from '@/components/Navbar';
 import FooterBar from '@/components/FooterBar';
 import { mapGetters } from 'vuex';
 export default {
-    name: 'App',
+    //name: 'App',
+    inject:['reload'],
     components: { Navbar, FooterBar },
     
     async created() {
