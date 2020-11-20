@@ -11,6 +11,7 @@ import hbs from  'express-handlebars';
 // Use babel npm package to transpile your ES6 to a commonjs target
 import babelCore from 'babel-core/register';
 import babelPolyfill from 'babel-polyfill';
+//var bodyParser = require('body-parser')
 
 
 var app = express();

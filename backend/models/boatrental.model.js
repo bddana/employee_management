@@ -9,13 +9,33 @@ module.exports = function(sequelize, Sequelize) {
             primaryKey: true,
             type: Sequelize.INTEGER
         },
- 
-        firstName: {
+        
+        name:{
+            type: Sequelize.STRING,
+            
+        },
+
+        boatDescription: {
             type: Sequelize.STRING,
             notEmpty: true
         },
  
-        lastName: {
+        maintenanceRequired: {
+            type: Sequelize.STRING,
+            notEmpty: true
+        },
+ 
+        
+        description:{
+            type:Sequelize.STRING
+        },
+
+        captainFirstName: {
+            type: Sequelize.STRING,
+            notEmpty: true
+        },
+ 
+        captainLastName: {
             type: Sequelize.STRING,
             notEmpty: true
         },
@@ -29,24 +49,8 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.TIME
         },
 
-        boatStatus: {
-            type: Sequelize.STRING,
-            notEmpty: true
-        },
- 
-        boatId: {
-            type: Sequelize.INTEGER,
-            notEmpty: true
-        },
- 
         
-        name:{
-            type: Sequelize.STRING,
-            
-        },
-        description:{
-            type:Sequelize.STRING
-        },
+        
         
     },
     
