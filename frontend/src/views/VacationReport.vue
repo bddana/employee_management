@@ -1,5 +1,7 @@
 <template>
 <div>
+  <h1>Vacation Report</h1>
+
       <div>
       <div>
         <v-text-field

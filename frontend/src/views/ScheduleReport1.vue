@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>Schedule Report</h1>
     <div>
       <div>
         <v-text-field
@@ -11,7 +12,6 @@
         ></v-text-field>
       </div>
     </div>
-    <h1>Schedule Report</h1>
     <el-table :data="filteredFeed" border style="width: 100%" :row-class-name="tableRowClassName">
       <el-table-column :render-header="renderHeader" fixed prop="employeeId" label="ID" width="180"></el-table-column>
       <el-table-column prop="firstName" label="First Name" width="180"></el-table-column>
