@@ -1,5 +1,7 @@
 <template>
-
+<div id="app">
+  Filter: <input type="text" v-model="filterValue" />
+ 
   <el-table
     :data="schedulereport"
     border
@@ -33,6 +35,7 @@
       width="180">
     </el-table-column>
   </el-table>
+     </div>
 </template>
 
 
@@ -68,17 +71,75 @@ export default {
   },
   async created() {
     try {
-      // this.vacation = await VacationService.getAll();
-      // this.vacationstatus = await VacationStatusService.getAll();
-      // this.vacationtype = await VacationTypeService.getAll();
+
       this.schedulereport = await ScheduleReportService.getAll();
 
-
-      // this.testTutors = await TutorService.getTutors();
-      // this.tutors = await TutorService.getTutors();
     } catch (err) {
       this.error = err.message;
     }
-  }
+  },
+
+  // data: {
+  //   test: "ABC123",
+  //   filterValue: "",
+  //   events
+  // },
+
+ computed: {
+    searchevents: function(){
+      let result = this.schedulereport
+      if (!this.filterValue)
+        return result
+      
+      const filterValue = this.filterValue.toLowerCase()
+
+      const filter = event => 
+          schedulereport.employeeId.toLowerCase().includes(filterValue) ||
+          schedulereport.firstName.toLowerCase().includes(filterValue) ||
+          schedulereport.lastName.some(tag => tag.toLowerCase().includes(filterValue))
+      
+      return result.filter(filter)
+    },
+    searchevents2: function(){
+      var searchRegex = new RegExp(this.filterValue,'i')
+      return this.events.filter(event => 
+        !this.filterValue || searchRegex.test(schedulereport.employeeId) || schedulereport.test(event.firstName))
+    }
+  },
+  
+
+  
 };
+
+
+// new Vue({
+//   el:"#app",
+//   data: {
+//     test: "ABC123",
+//     filterValue: "",
+//     events
+//   },
+
+//   computed: {
+//     searchevents: function(){
+//       let result = this.schedulereport
+//       if (!this.filterValue)
+//         return result
+      
+//       const filterValue = this.filterValue.toLowerCase()
+
+//       const filter = event => 
+//           schedulereport.employeeId.toLowerCase().includes(filterValue) ||
+//           schedulereport.firstName.toLowerCase().includes(filterValue) ||
+//           schedulereport.lastName.some(tag => tag.toLowerCase().includes(filterValue))
+      
+//       return result.filter(filter)
+//     },
+//     searchevents2: function(){
+//       var searchRegex = new RegExp(this.filterValue,'i')
+//       return this.events.filter(event => 
+//         !this.filterValue || searchRegex.test(schedulereport.employeeId) || schedulereport.test(event.firstName))
+//     }
+//   },
+// })
 </script>

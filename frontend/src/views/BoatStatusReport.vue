@@ -1,4 +1,4 @@
-<template>
+<template v-if="boatstatusreport.maintenanceRequired == 'Yes'">
 
   <el-table
     :data="boatstatusreport"
@@ -33,7 +33,7 @@
       width="180">
     </el-table-column>
     <el-table-column
-      prop="captainlastName"
+      prop="captainLastName"
       label="Captain Last Name"
       width="180">
     </el-table-column>
