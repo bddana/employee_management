@@ -74,12 +74,28 @@ app.use(cors(corsOptions));
 import indexRouter from './routes/index.route.js';
 import customerRouter from './routes/customer.route.js';
 import userauthRouter from './routes/userauth.route.js';
+import vacationRouter from './routes/vacation.route';
+import vacationtypeRouter from './routes/vacationtype.route';
+import vacationstatusRouter from './routes/vacationstatus.route';
+import vacationreportRouter from './routes/vacationreport.route';
+import schedulereportRouter from './routes/schedulereport.route';
+import boatstatusreportRouter from './routes/boatstatusreport.route';
 
 
+import scheduleRouter from './routes/schedule.route.js';
 
 app.use('/', indexRouter);
 app.use('/customer', customerRouter);
 app.use('/user', userauthRouter);
+app.use('/vacation', vacationRouter);
+app.use('/vacationtype', vacationtypeRouter);
+app.use('/vacationstatus', vacationstatusRouter);
+app.use('/vacationreport', vacationreportRouter);
+app.use('/schedulereport', schedulereportRouter);
+app.use('/boatstatusreport', boatstatusreportRouter);
+
+app.use('/schedule', scheduleRouter);
+
 
 
 //require("./routes/employee.route")(app);

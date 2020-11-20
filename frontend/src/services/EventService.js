@@ -55,8 +55,6 @@ let staticEvents = [
 
 let ids = 6
 
-
-
 const getAll = () => {
   return staticEvents
 }
@@ -81,47 +79,6 @@ const updateEvent = eventToUpdate => {
 
 }
 
-const updateRecurringEventsInStatic = eventToUpdate => {
-  let updatedEvents = []
-
-  staticEvents = staticEvents.filter(event => {
-    if(eventToUpdate.recurringId === event.recurringId){
-      const eventWithCorrectId = {
-        ...eventToUpdate,
-        start: event.start,
-        end: event.end,
-        id: event.id
-      }
-      updatedEvents.push(eventWithCorrectId)
-      return false
-    } else {
-      return true
-    }
-  })
-  staticEvents = staticEvents.concat(updatedEvents)
-
-}
-
-const updateRecurringEventsInStaticAfterEventStart = (eventToUpdate) => {
-  let updatedEvents = []
-
-  staticEvents = staticEvents.filter(event => {
-    if(eventToUpdate.recurringId === event.recurringId && DateArithmetic.doesEventStartAfterOrOnDate(event.start,eventToUpdate.start)){
-      const eventWithCorrectId = {
-        ...eventToUpdate,
-        start: event.start,
-        end: event.end,
-        id: event.id
-      }
-      updatedEvents.push(eventWithCorrectId)
-      return false
-    } else {
-      return true
-    }
-  })
-  staticEvents = staticEvents.concat(updatedEvents)
-}
-
 const deleteStaticEventsAndRecurring = recurringEvent => {
   deleteEvent(recurringEvent, 'recurringId')
 }
@@ -143,32 +100,6 @@ const giveNewEventAnId = event => {
   }
 }
 
-const getFirstEventOfRecurringId = (recurringId) => {
-  return staticEvents
-    .filter(event => event.recurringId === recurringId)
-    .reduce((acc, curr) => {
-      return DateArithmetic.isEventBeforeEvent(acc, curr)
-        ? acc
-        : curr
-    })
-}
-
-const getHighestAttributeInArray = (attribute) => {
-  return staticEvents.reduce((acc, curr) => {
-
-    if(!curr && !acc){
-      return 0
-    }
-    return acc[attribute] >= curr[attribute]
-        ? acc[attribute]
-        : curr[attribute]
-  },0)
-}
-
-const getAllEventsInMonth = date => {
-  return staticEvents.filter(event => doesEventStartInMonth(event, date))
-}
-
 const doesEventStartInMonth = (event, date) => {
   const [eventYear, eventMonth, ] = event.start.split('-')
   const [dateYear, dateMonth, ] = date.split('-')
@@ -184,10 +115,4 @@ export default {
   getAll,
   addOrUpdate,
   deleteEvent,
-  getHighestAttributeInArray,
-  getAllEventsInMonth,
-  updateRecurringEventsInStatic,
-  deleteStaticEventsAndRecurring,
-  deleteStaticEventsAndRecurringAfterDate,
-  updateRecurringEventsInStaticAfterEventStart
 }

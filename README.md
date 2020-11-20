@@ -22,8 +22,8 @@ TODO - I will expect the list to grow as we dulve into the implementation.
 - [x]  connect the frontend to backend. End to End data pipe plumbing
 - []  Update the schedule form to meet scheduling requrements
 - []  dabase relation design (sql script deliverable to any mysql database) and sample data entry 
-- []  split admin veiw and employee veiw
+- []  split admin veiw and employee vei w
 - [x]  signin page and assocaited backend
 - [x]  registeration page and assocaited backend
-- []  report page - quary for report
+- [x]  report page - quary for report
 - []  add logo and final touch up

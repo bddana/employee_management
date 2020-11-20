@@ -1,17 +1,19 @@
 <template>
-<div  v-if="role=='Captain'">
-    <calendar2></calendar2>
+<v-row>
+  <div>
+      <calendar2></calendar2>
+  </div>
 
-</div>
+  <div>
+      <calendar></calendar>
+      <event-form></event-form>
+      <notifications></notifications>
+  </div>
 
-<div  v-else-if="role=='Manager'">
-    <calendar></calendar>
-    <event-form></event-form>
-    <notifications></notifications>
-</div>
-<div v-else>
-    <landing></landing>
-</div>
+  <!-- <div>
+      <landing></landing>
+  </div> -->
+</v-row>
 
 </template>
 
@@ -28,10 +30,10 @@ export default {
 
     components: {
       Landing,
-        Calendar,
-        Calendar2,
-        EventForm,
-        Notifications    
+      Calendar,
+      Calendar2,
+      EventForm,
+      Notifications    
     },
 
     data: () => ({

@@ -26,6 +26,15 @@ Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tooltip);
 
+// Vue.use(Button);
+// Vue.use(Table);
+// Vue.use(Form);
+// Vue.use(TableColumn);
+// Vue.use(Popover);
+// Vue.use(Tooltip);
+// Vue.use(Container);
+// Vue.use(Dialog);
+
 const baseURL = process.env.VUE_APP_API_BASE_URL;
 const instance = axios.create({
   baseURL,

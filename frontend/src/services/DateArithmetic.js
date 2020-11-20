@@ -20,13 +20,6 @@ const dateObjectToString = (dateObject) => {
     return dateObject.toISOString().substr(0,10)
 }
 
-const isEventBeforeEvent = (eventOne, eventTwo) => {
-    const eventOneObj = dateStringToObject(eventOne.start.split(' ')[0])
-    const eventTwoObj = dateStringToObject(eventTwo.start.split(' ')[0])
-
-    return eventOneObj < eventTwoObj
-}
-
 const isDateBeforeDate = (stringOne,stringTwo) => {
     const eventOne = dateStringToObject(stringOne)
     const eventTwo = dateStringToObject(stringTwo)
@@ -204,6 +197,5 @@ export default {
     doesEventStartAfterOrOnDate,
     getDateInWords,
     isMoreThanTwoYearsInTheFuture,
-    isEventBeforeEvent,
     isDateBeforeDate
 }

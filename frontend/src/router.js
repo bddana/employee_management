@@ -8,7 +8,8 @@ import NotFound from "@/views/NotFound";
 // import Signup from "@/views/Signup";
 import Boat from "@/views/Boat";
 import Employee from "@/views/Employee";
-import Report from "@/views/report";
+import VacationReport from "@/views/VacationReport";
+// import ScheduleReport from "@view/SchedReport";
 
 
 Vue.use(Router);
@@ -49,8 +50,21 @@ const router = new Router({
       component: NotFound,
     },
     {
-      path: '/Report',
-      component: Report,
+      path: '/VacationReport',
+      component: VacationReport,
+    },
+    {
+      path: '/SchedReport1',
+      component: function(){
+        return import('./views/ScheduleReport1.vue')
+      }, 
+    },
+
+    {
+      path: '/BoatStatusReport',
+      component: function(){
+        return import('./views/BoatStatusReport.vue')
+      },
     },
   ],
 });
