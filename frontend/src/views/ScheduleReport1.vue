@@ -1,106 +1,63 @@
 <template>
-<!-- <div id="app">
-
-
-  <input type="text"
-         placeholder="Filter by department or employee"
-         v-model="filter" />
-
- <tr v-for="(row, index) in filteredRows" :key="`firstName-${index}`">
-  ...
-</tr> -->
-
-  <el-table
-    :data="schedulereport"
-    border
-    style="width: 100%"
-    :row-class-name="tableRowClassName">
-    <el-table-column
-
-      prop="firstName"
-      label="First Name"
-      width="180">
-    </el-table-column>
-    <!-- <el-table-column
-      prop=""
-      label=""
-      width="180">
-    </el-table-column> -->
-    <el-table-column
-      prop="lastName"
-      label="Last Name"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="scheduleDate"
-      label="Schedule Date"
-      width="180">
-    </el-table-column>
-    <el-table-column
-      prop="shift"
-      label="Shift"
-      width="180">
-    </el-table-column>
-  </el-table>
-     <!-- </div> -->
+  <div>
+    <div>
+      <div>
+        <v-text-field
+          class="searchBox"
+          label="Search"
+          placeholder="Search for Name or Date"
+          outlined
+          v-model="filterData"
+        ></v-text-field>
+      </div>
+    </div>
+    <h1>Schedule Report</h1>
+    <el-table :data="filteredFeed" border style="width: 100%" :row-class-name="tableRowClassName">
+      <el-table-column :render-header="renderHeader" fixed prop="employeeId" label="ID" width="180"></el-table-column>
+      <el-table-column prop="firstName" label="First Name" width="180"></el-table-column>
+      <el-table-column prop="lastName" label="Last Name" width="180"></el-table-column>
+      <el-table-column class="schedDate" prop="scheduleDate" label="Schedule Date" width="180"></el-table-column>
+      <el-table-column prop="shift" label="Shift" width="180"></el-table-column>
+    </el-table>
+  </div>
 </template>
-
-
+<style  scoped>
+.searchBox {
+  padding-top: 5px;
+  width: 20%;
+}
+</style>
 <script>
-
 import ScheduleReportService from "../services/schedulereportService.js";
-
+const axios = require("axios");
 export default {
-  // methods: {
-  //   handleClick(row) {
-  //     console.log(row);
-  //   },
-  //   renderHeader() {
-  //     return (
-  //       <div>
-  //         <el-button size="small" on-click={() => this.exportExcel()}>
-  //           {" "}
-  //           <span class="el-icon-upload2"></span> ADD
-  //         </el-button>
-  //       </div>
-  //     );
-  //   }
-  // },
   data() {
     return {
-      // vacation: [],
-      // vacationstatus: [],
-      // vacationtype: []
       schedulereport: [],
-      filter: '',
-
+      filterData: ""
     };
   },
-  async created() {
-    try {
-
-      this.schedulereport = await ScheduleReportService.getAll();
-
-    } catch (err) {
-      this.error = err.message;
-    }
-  },
-
+  //Watches for changes in the DOM and then changes the page's state accordingly
   computed: {
-    filteredRows() {
-      return this.schedulereport.filter(row => {
-        const firstName = schedulereport.firstName.toString().toLowerCase();
-        const lastName = schedulereport.lastName.toLowerCase();
-        const searchTerm = this.filter.toLowerCase();
+    filteredFeed: function() {
+      var Schedules = this.schedulereport;
+      let search = (this.filterData || "").toLowerCase();
 
-        return lastName.includes(searchTerm) ||
-          firstName.includes(searchTerm);
+      return this.schedulereport.filter(function(item) {
+        let date = (item.scheduleDate || "").toLowerCase();
+        let name = (item.firstName || "").toLowerCase();
+        return date.indexOf(search) > -1 || name.indexOf(search) > -1;
       });
     }
   },
 
+  async created() {
+    try {
+      this.schedulereport = await ScheduleReportService.getAll();
+      setTimeout(() => (this.schedulereport = schedulereport), 500);
+    } catch (err) {
+      this.error = err.message;
+    }
+  }
 };
-
-
-
 </script>
