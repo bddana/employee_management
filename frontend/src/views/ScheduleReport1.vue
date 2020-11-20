@@ -1,24 +1,31 @@
 <template>
-<div id="app">
-  Filter: <input type="text" v-model="filterValue" />
- 
+<!-- <div id="app">
+
+
+  <input type="text"
+         placeholder="Filter by department or employee"
+         v-model="filter" />
+
+ <tr v-for="(row, index) in filteredRows" :key="`firstName-${index}`">
+  ...
+</tr> -->
+
   <el-table
     :data="schedulereport"
     border
     style="width: 100%"
     :row-class-name="tableRowClassName">
     <el-table-column
-      :render-header="renderHeader"
-      fixed
-      prop="employeeId"
-      label="ID"
-      width="180">
-    </el-table-column>
-    <el-table-column
+
       prop="firstName"
       label="First Name"
       width="180">
     </el-table-column>
+    <!-- <el-table-column
+      prop=""
+      label=""
+      width="180">
+    </el-table-column> -->
     <el-table-column
       prop="lastName"
       label="Last Name"
@@ -35,7 +42,7 @@
       width="180">
     </el-table-column>
   </el-table>
-     </div>
+     <!-- </div> -->
 </template>
 
 
@@ -64,8 +71,8 @@ export default {
       // vacation: [],
       // vacationstatus: [],
       // vacationtype: []
-      schedulereport: []
-
+      schedulereport: [],
+      filter: '',
 
     };
   },
@@ -79,67 +86,21 @@ export default {
     }
   },
 
-  // data: {
-  //   test: "ABC123",
-  //   filterValue: "",
-  //   events
-  // },
+  computed: {
+    filteredRows() {
+      return this.schedulereport.filter(row => {
+        const firstName = schedulereport.firstName.toString().toLowerCase();
+        const lastName = schedulereport.lastName.toLowerCase();
+        const searchTerm = this.filter.toLowerCase();
 
- computed: {
-    searchevents: function(){
-      let result = this.schedulereport
-      if (!this.filterValue)
-        return result
-      
-      const filterValue = this.filterValue.toLowerCase()
-
-      const filter = event => 
-          schedulereport.employeeId.toLowerCase().includes(filterValue) ||
-          schedulereport.firstName.toLowerCase().includes(filterValue) ||
-          schedulereport.lastName.some(tag => tag.toLowerCase().includes(filterValue))
-      
-      return result.filter(filter)
-    },
-    searchevents2: function(){
-      var searchRegex = new RegExp(this.filterValue,'i')
-      return this.events.filter(event => 
-        !this.filterValue || searchRegex.test(schedulereport.employeeId) || schedulereport.test(event.firstName))
+        return lastName.includes(searchTerm) ||
+          firstName.includes(searchTerm);
+      });
     }
   },
-  
 
-  
 };
 
 
-// new Vue({
-//   el:"#app",
-//   data: {
-//     test: "ABC123",
-//     filterValue: "",
-//     events
-//   },
 
-//   computed: {
-//     searchevents: function(){
-//       let result = this.schedulereport
-//       if (!this.filterValue)
-//         return result
-      
-//       const filterValue = this.filterValue.toLowerCase()
-
-//       const filter = event => 
-//           schedulereport.employeeId.toLowerCase().includes(filterValue) ||
-//           schedulereport.firstName.toLowerCase().includes(filterValue) ||
-//           schedulereport.lastName.some(tag => tag.toLowerCase().includes(filterValue))
-      
-//       return result.filter(filter)
-//     },
-//     searchevents2: function(){
-//       var searchRegex = new RegExp(this.filterValue,'i')
-//       return this.events.filter(event => 
-//         !this.filterValue || searchRegex.test(schedulereport.employeeId) || schedulereport.test(event.firstName))
-//     }
-//   },
-// })
 </script>
