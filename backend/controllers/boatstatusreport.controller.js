@@ -12,7 +12,7 @@ const Op = db.Sequelize.Op;
  
 // FETCH all Customers
 exports.findAll = (req, res) => {
-	BoatStatusReport.findAll().then(boatstatusreport => {
+	BoatStatusReport.findAll({where: { maintenanceRequired: "yes"}}).then(boatstatusreport => {
 		
 		// Send all customers to Client
 		res.send(boatstatusreport);

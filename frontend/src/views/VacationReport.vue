@@ -1,18 +1,26 @@
 <template>
+<div>
+  <h1>Vacation Report</h1>
 
+      <div>
+      <div>
+        <v-text-field
+          class="searchBox"
+          label="Search"
+          placeholder="Search for Name or Date"
+          outlined
+          v-model="filterData"
+        ></v-text-field>
+      </div>
+    </div>
   <el-table
-    :data="vacationreport"
+    :data="filteredFeed"
     border
     style="width: 100%"
     :row-class-name="tableRowClassName">
     <el-table-column
       :render-header="renderHeader"
       fixed
-      prop="employeeId"
-      label="ID"
-      width="180">
-    </el-table-column>
-    <el-table-column
       prop="firstName"
       label="First Name"
       width="180">
@@ -57,8 +65,14 @@
       </template>
     </el-table-column>
   </el-table>
+</div>
 </template>
-
+<style  scoped>
+.searchBox {
+  padding-top: 5px;
+  width: 20%;
+}
+</style>
 
 <script>
 // import VacationService from "../services/vacationService.js";
@@ -88,10 +102,24 @@ export default {
       // vacation: [],
       // vacationstatus: [],
       // vacationtype: []
-      vacationreport: []
+      vacationreport: [],
+      filterData: ""
 
 
     };
+  },
+
+    computed: {
+    filteredFeed: function() {
+      var Vacation = this.vacationreport;
+      let search = (this.filterData || "").toLowerCase();
+
+      return this.vacationreport.filter(function(item) {
+        let date = (item.vacationStartDate || "").toLowerCase();
+        let name = (item.firstName || "").toLowerCase();
+        return date.indexOf(search) > -1 || name.indexOf(search) > -1;
+      });
+    }
   },
   async created() {
     try {
