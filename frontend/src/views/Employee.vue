@@ -32,7 +32,7 @@
             <el-input v-model="form1.employeeType"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="AddModify()">Add</el-button>
+            <el-button type="primary" @click="AddModify()">Conform</el-button>
             <!-- <el-button type="primary" @click="modifyEmployee()">Modify</el-button> -->
           </el-form-item>
         </el-form>
@@ -94,38 +94,7 @@
       <template slot-scope="scope">
         <el-button @click="handleClick(scope.row), deleteEmployee(scope.row.employeeId),toURL()" type="text" size="small">DELETE</el-button>
         <el-button type="text" size="small" @click="editShow(scope.row.employeeId)">MODIFY</el-button>
-        <!-- <el-dialog title="Modify Employee" :visible.sync="dialogVisible" :append-to-body="true" width="30%" v-if='dialogVisible'>
-        <el-form ref="form" :model="form" label-width="80px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
-          <el-form-item label="Employee Id">
-            <el-input v-model="form.employeeId" disabled></el-input>
-          </el-form-item>
-          <el-form-item label="First Name">
-            <el-input v-model="form.firstName"></el-input>
-          </el-form-item>
-          <el-form-item label="Last Name">
-            <el-input v-model="form.lastName"></el-input>
-          </el-form-item>
-          <el-form-item label="Email">
-            <el-input v-model="form.email"></el-input>
-          </el-form-item>
-          <el-form-item label="Phone">
-            <el-input v-model="form.Phone"></el-input>
-          </el-form-item>
-          <el-form-item label="Address">
-            <el-input type="textarea" v-model="form.address"></el-input>
-          </el-form-item>
-          <el-form-item label="Employee Status">
-            <el-input v-model="form.employeeStatus"></el-input>
-          </el-form-item>
-          <el-form-item label="Employee Type">
-            <el-input v-model="form.employeeType"></el-input>
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="modifyEmployee()">Conform</el-button>
-            
-          </el-form-item>
-        </el-form>
-    </el-dialog> -->
+        
       </template>
     </el-table-column>
   </el-table>
@@ -161,12 +130,13 @@
           })
           this.dialogVisible=false
           //this.dialogStatus="add"
+          // this.$http.get('employee').then(res => {
+          //   this.tableData = res.data
+          // })
+          //this.$refs[form1].resetFields();
+          window.location.reload();
           
-          this.$refs[form1].resetFields();
           
-          this.$http.get('employee').then(res => {
-            this.tableData = res.data
-          })
         })
       },
       AddModify(){
@@ -195,15 +165,16 @@
         await this.$http.put('/employee/'+this.form1.employeeId,this.form1).then(res => {
           console.log(res.data);
           this.$message({
-            message:"Modify boat success!",
+            message:"Modify Employee success!",
             type:"success"
           })
           this.dialogVisible=false
-          this.$refs[form1].resetFields();
-          //this.dialogStatus='edit'
-          this.$http.get('employee').then(res => {
-            this.tableData = res.data
-          })
+          // this.$http.get('employee').then(res => {
+          //   this.tableData = res.data
+          // })
+          //this.$refs[form1].resetFields();
+          window.location.reload();
+          
         })
       },
     },
@@ -217,16 +188,16 @@
         dialogStatus:'',
         tableData:[],
         dialogVisible:false,
-        form: {
-          employeeId: '',
-          firstName: '',
-          lastName: '',
-          email: '',
-          Phone: '',
-          address: '',
-          employeeStatus: '',
-          employeeType:''
-        },
+        // form: {
+        //   employeeId: '',
+        //   firstName: '',
+        //   lastName: '',
+        //   email: '',
+        //   Phone: '',
+        //   address: '',
+        //   employeeStatus: '',
+        //   employeeType:''
+        // },
         form1: {
           employeeId: '',
           firstName: '',

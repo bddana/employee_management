@@ -7,6 +7,7 @@ import User from "@/views/User";
 import NotFound from "@/views/NotFound";
 // import Signup from "@/views/Signup";
 import Boat from "@/views/Boat";
+import BoatManager from "@/views/BoatManager";
 import Employee from "@/views/Employee";
 import VacationReport from "@/views/VacationReport";
 // import ScheduleReport from "@view/SchedReport";
@@ -27,6 +28,10 @@ const router = new Router({
     {
       path: '/boat',
       component: Boat,
+    },
+    {
+      path: '/boatmanager',
+      component: BoatManager,
     },
     {
       path: '/Employee',

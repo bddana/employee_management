@@ -2,9 +2,7 @@
 <el-container>
   <el-header>
     <el-row>
-      
       <span style="font-size:30px;color:blue">{{this.tableData.length}} Boats</span>
-      
     </el-row>
   </el-header>
   <el-main>
@@ -12,49 +10,49 @@
     :data="tableData"
     style="width: 100%"
     :row-class-name="tableRowClassName">
-    <el-table-column
+    <!-- <el-table-column
       prop="boatStatusReportId"
       label="ID"
       width="180">
-    </el-table-column>
+    </el-table-column> -->
     <el-table-column
       prop="name"
-      label="name"
+      label="Boat Name"
       width="180">
     </el-table-column>
     <el-table-column
       prop="boatDescription"
-      label="boatDescription"
+      label="Boat Description"
       width="180">
     </el-table-column>
     <el-table-column
       prop="maintenanceRequired"
-      label="maintenanceRequired"
+      label="Maintenance Required"
       width="180">
     </el-table-column>
     <el-table-column
       prop="description"
-      label="description"
+      label="Description"
       width="180">
     </el-table-column>
     <el-table-column
       prop="captainFirstName"
-      label="captainFirstName"
+      label="Captain FirstName"
       width="180">
     </el-table-column>
     <el-table-column
       prop="captainLastName"
-      label="captainLastName"
+      label="Captain LastName"
       width="180">
     </el-table-column>
     <el-table-column
       prop="scheduleDate"
-      label="scheduleDate"
+      label="Schedule Date"
       width="180">
     </el-table-column>
     <el-table-column
       prop="shift"
-      label="shift"
+      label="Shift Time"
       width="180">
     </el-table-column>
     
@@ -69,33 +67,33 @@
         </template>
         <el-dialog title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form :model="form" label-width="80px">
-          <el-form-item label="boatStatusReportId">
+          <el-form-item label="Boat Id">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
           </el-form-item>
-          <el-form-item label="name">
+          <el-form-item label="Boat Name">
             <el-input v-model="form.name"></el-input>
           </el-form-item>
-          <el-form-item label="boatDescription">
+          <el-form-item label="Boat Description">
             <el-input v-model="form.boatDescription"></el-input>
           </el-form-item>
-          <el-form-item label="maintenanceRequired">
+          <el-form-item label="Maintenance Required">
             <el-input v-model="form.maintenanceRequired"></el-input>
           </el-form-item>
-          <el-form-item label="description">
+          <el-form-item label="Description">
             <el-input v-model="form.description"></el-input>
           </el-form-item>
-          <el-form-item label="captainFirstName">
+          <el-form-item label="Captain FirstName">
             <el-input v-model="form.captainFirstName"></el-input>
           </el-form-item>
-          <el-form-item label="captainLastName">
+          <el-form-item label="Captain LastName">
             <el-input v-model="form.captainLastName"></el-input>
           </el-form-item>
-          <el-form-item label="scheduleDate">
+          <el-form-item label="ScheduleDate">
             <el-col :span="11">
               <el-date-picker type="date" placeholder="Pick a date" v-model="form.scheduleDate" style="width: 100%;"></el-date-picker>
             </el-col>
           </el-form-item>
-          <el-form-item label="shift">
+          <el-form-item label="Shift Time">
             <el-col :span="11">
               <el-time-picker placeholder="Pick a time" v-model="form.shift" style="width: 100%;"></el-time-picker>
             </el-col>

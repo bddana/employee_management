@@ -5,6 +5,7 @@ var employee = db.employees;
 
 var modelsEmployee = require('../controllers/employee.controller');
 var modelsBoat = require('../controllers/boatrental.controller');
+//var modelsBoatManager = require('../controllers/boatrentalManager.controller');
 
 var router = express.Router();
 
@@ -17,16 +18,16 @@ router.post("/employees", modelsEmployee.create);
 router.delete("/employee/:employeeId", modelsEmployee.delete);
 router.put("/employee/:employeeId", modelsEmployee.update);
 router.get("/employee/:employeeId", modelsEmployee.findOne);
-//router.put("/employee/:employeeId", modelsEmployee.update);
-// router.put("/employee/:employeeId", async function (req,res,next){
-//   var employeemo=await employee.findByPk(req.params.employeeId);
-// });
 
 
 router.get("/boat", modelsBoat.findAll);
 router.put("/boat/:boatStatusReportId", modelsBoat.update);
-
 router.get("/boat/:boatStatusReportId", modelsBoat.findOne);
 
+router.get("/boatmanager", modelsBoat.findAll);
+router.post("/boatmanager", modelsBoat.create);
+router.delete("/boatmanager/:boatStatusReportId", modelsBoat.delete);
+router.put("/boatmanager/:boatStatusReportId", modelsBoat.update);
+router.get("/boatmanager/:boatStatusReportId", modelsBoat.findOne);
 
 module.exports = router;

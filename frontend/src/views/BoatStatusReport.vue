@@ -9,7 +9,7 @@
       :render-header="renderHeader"
       fixed
       prop="name"
-      label="Name"
+      label="Boat Name"
       width="180">
     </el-table-column>
     <el-table-column

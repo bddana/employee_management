@@ -12,14 +12,14 @@ exports.create = (req, res) => {
 	// Save to MySQL database
 	boatrental.create({ 
 		boatStatusReportId: req.body.boatStatusReportId,
-		firstName: req.body.firstName,
-		lastName:  req.body.lastName,
+		name: req.body.name,
+		boatDescription:  req.body.boatDescription,
+		maintenanceRequired:  req.body.maintenanceRequired,
+		description:  req.body.description,
+		captainFirstName: req.body.captainFirstName,
+		captainLastName:  req.body.captainLastName,
 		scheduleDate:  req.body.scheduleDate,
 		shift:  req.body.shift,
-		boatStatus: req.body.boatStatus,
-		boatId:  req.body.boatId,
-		name:  req.body.name,
-		description:  req.body.description,
 
 	}).then(boatrentals => {		
 		// Send created customer to client
@@ -96,11 +96,11 @@ exports.update = (req, res) => {
 };
  
 // // Delete a Customer by Id
-// exports.delete = (req, res) => {
-// 	const id = req.params.customerId;
-// 	Customer.destroy({
-// 	  where: { id: id }
-// 	}).then(() => {
-// 	  res.status(200).send('deleted successfully a customer with id = ' + id);
-// 	});
-// };
+exports.delete = (req, res) => {
+	const boatStatusReportId = req.params.boatStatusReportId;
+	boatrental.destroy({
+	  where: { boatStatusReportId: boatStatusReportId }
+	}).then(() => {
+	  res.status(200).send('deleted successfully a customer with id = ' + boatStatusReportId);
+	});
+};
