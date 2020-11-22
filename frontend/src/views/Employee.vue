@@ -4,10 +4,11 @@
     <el-row>
       <template>
       <el-button type="primary" @click="show()" round>New</el-button>
-      <span style="font-size:30px;color:blue">{{this.tableData.length}} Employees</span>
+      <el-row align="center" style="text-align:center;font-size:30px;color:blue">
+        The total number of employees:{{this.tableData.length}} employees</el-row>
       <el-dialog  :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
-        <el-form ref="form1" :model="form1" label-width="80px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
-          <el-form-item label="Employee Id">
+        <el-form ref="form1" :model="form1" label-width="180px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
+          <el-form-item label="Employee ID">
             <el-input v-model="form1.employeeId" disabled></el-input>
           </el-form-item>
           <el-form-item label="First Name">
@@ -69,7 +70,7 @@
     </el-table-column>
     <el-table-column
       prop="Phone"
-      label="phone"
+      label="Phone"
       width="180">
     </el-table-column>
     <el-table-column

@@ -2,7 +2,8 @@
 <el-container>
   <el-header>
     <el-row>
-      <span style="font-size:30px;color:blue">{{this.tableData.length}} Boats</span>
+      <el-row align="center" style="text-align:center;font-size:30px;color:blue">
+        The total number of boats:{{this.tableData.length}} Boats</el-row>
     </el-row>
   </el-header>
   <el-main>
@@ -37,12 +38,12 @@
     </el-table-column>
     <el-table-column
       prop="captainFirstName"
-      label="Captain FirstName"
+      label="Captain First Name"
       width="180">
     </el-table-column>
     <el-table-column
       prop="captainLastName"
-      label="Captain LastName"
+      label="Captain Last Name"
       width="180">
     </el-table-column>
     <el-table-column
@@ -66,12 +67,12 @@
         <el-button type="primary"  @click="editShow(scope.row.boatStatusReportId)" round>MODIFY</el-button>
         </template>
         <el-dialog title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
-        <el-form :model="form" label-width="80px">
-          <el-form-item label="Boat Id">
+        <el-form :model="form" label-width="180px">
+          <el-form-item label="Boat ID">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
           </el-form-item>
           <el-form-item label="Boat Name">
-            <el-input v-model="form.name"></el-input>
+            <el-input v-model="form.name" disabled></el-input>
           </el-form-item>
           <el-form-item label="Boat Description">
             <el-input v-model="form.boatDescription"></el-input>
@@ -82,10 +83,10 @@
           <el-form-item label="Description">
             <el-input v-model="form.description"></el-input>
           </el-form-item>
-          <el-form-item label="Captain FirstName">
+          <el-form-item label="Captain First Name">
             <el-input v-model="form.captainFirstName"></el-input>
           </el-form-item>
-          <el-form-item label="Captain LastName">
+          <el-form-item label="Captain Last Name">
             <el-input v-model="form.captainLastName"></el-input>
           </el-form-item>
           <el-form-item label="ScheduleDate">
