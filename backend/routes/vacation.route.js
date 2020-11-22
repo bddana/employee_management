@@ -9,8 +9,10 @@ router.get('/', function(req, res, next) {
 });
 
 
-// Retrieve all Customer
 router.get('/all', vacation.findAll);
+router.get('/allnew', vacation.findAllNew);
+router.post('/add', vacation.create);
+router.post('/update', vacation.update);
 
 
 module.exports = router;

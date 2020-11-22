@@ -25,18 +25,20 @@
           </v-row>
         </v-col>
       </v-row>
-
     </v-parallax>
   <About />
+  <Picture />
   </section>
 </template>
 <script>
 import About from "@/views/About.vue";
+import Picture from "@/views/picture.vue";
 import { mapGetters } from 'vuex';
 export default {
   name: "Landing",
     components: {
-    About
+    About,
+    Picture
   },
   methods: {
   loggedInpage() {

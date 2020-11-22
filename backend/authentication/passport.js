@@ -38,7 +38,6 @@ export default {
                         });
                     } else {
                         var userPassword = generateHash(password);
-                        console.log(req.body.role);
                         var data = {
                                 username: email,
                                 password: userPassword,

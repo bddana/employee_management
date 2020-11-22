@@ -13,11 +13,6 @@ router.get('/signup', authController.signup);
 router.get('/signin', authController.signin);
 router.get('/dashboard', isLoggedIn, authController.dashboard);
 router.post('/signin', passport.authenticate('local-signin'), (req, res, next) => {
-console.log(req.user);
-console.log(req.user.username);
-console.log(req.user.employee.Phone);
-console.log(req.user.employee.employeeType);
-console.log(req.user.employee.employeeStatus);
 
 res.status(200).send({
   email: req.user.username,

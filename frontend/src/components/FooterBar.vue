@@ -4,7 +4,7 @@
       class="text-center"
       cols="12"
     >
-      {{ new Date().getFullYear() }} — <strong>Diversitechnologies</strong>
+       <strong>Powered by:    Diversitechnologies {{ new Date().getFullYear() }}</strong>
     </v-col>
   </v-footer>
 </template>

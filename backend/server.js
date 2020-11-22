@@ -88,11 +88,11 @@ app.use('/', indexRouter);
 app.use('/customer', customerRouter);
 app.use('/user', userauthRouter);
 app.use('/vacation', vacationRouter);
-app.use('/vacationtype', vacationtypeRouter);
-app.use('/vacationstatus', vacationstatusRouter);
-app.use('/vacationreport', vacationreportRouter);
-app.use('/schedulereport', schedulereportRouter);
-app.use('/boatstatusreport', boatstatusreportRouter);
+// app.use('/vacationtype', vacationtypeRouter);
+// app.use('/vacationstatus', vacationstatusRouter);
+// app.use('/vacationreport', vacationreportRouter);
+// app.use('/schedulereport', schedulereportRouter);
+// app.use('/boatstatusreport', boatstatusreportRouter);
 
 app.use('/schedule', scheduleRouter);
 

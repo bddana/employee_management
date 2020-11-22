@@ -25,7 +25,6 @@ Vue.use(Form);
 Vue.use(TableColumn);
 Vue.use(Popover);
 Vue.use(Tooltip);
-
 // Vue.use(Button);
 // Vue.use(Table);
 // Vue.use(Form);
@@ -43,7 +42,6 @@ const instance = axios.create({
 
 console.log("creating axios");
 Vue.prototype.$axios = instance;
-//>>>>>>> 47fda0b3f96a178621148a3968ef7b11824f1ba8
 Vue.config.productionTip = false
 
 export const bus = new Vue();

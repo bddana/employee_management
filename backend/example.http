@@ -71,3 +71,102 @@ content-type: application/json
 ###
 ### get request
 GET http://localhost:8081/schedule/all HTTP/1.1
+
+###
+GET http://localhost:8081/employee HTTP/1.1
+
+
+###
+POST http://localhost:8081/schedule/alluser HTTP/1.1
+content-type: application/json
+
+{
+    "email": "man@gmail.com"
+}
+
+###
+POST http://localhost:8081/schedule/del HTTP/1.1
+content-type: application/json
+
+{
+    "scheduleId": 57
+}
+### post request
+POST http://localhost:8081/schedule/one HTTP/1.1
+content-type: application/json
+
+{
+  "scheduleId" : 1,
+  "name": "11am Shift",
+  "start": "2020-11-04",
+  "end": "2020-11-04",
+  "color": "primary",
+  "unableToCome":false,
+  "unableToCome_reason": null,
+  "employee": [
+    {
+      "employeeId": 8,
+      "firstName": "Lily",
+      "lastName": "Dawit",
+      "email": "bdawitdana@gmail.com",
+      "Phone": "5126622281",
+      "address": "5514 Griggs rd #1313",
+      "employeeStatus": "Active",
+      "employeeType": "Captain"
+    },
+    {
+      "employeeId": 12,
+      "firstName": "manager",
+      "lastName": "man",
+      "email": "man@gmail.com",
+      "Phone": "5126622281",
+      "address": "123 main st",
+      "employeeStatus": "Active",
+      "employeeType": "Manager"
+    },
+    {
+      "employeeId": 21,
+      "firstName": "Ping",
+      "lastName": "chonghe",
+      "email": "ping@gmail.com",
+      "Phone": "511321123",
+      "address": "123 main st",
+      "employeeStatus": "Active",
+      "employeeType": "Captain"
+    }
+  ]
+}
+
+### post request
+POST http://localhost:8081/schedule/updateone HTTP/1.1
+content-type: application/json
+
+{
+  "scheduleId" : 70,
+  "name": "11am Shift",
+  "start": "2020-11-04",
+  "end": "2020-11-04",
+  "color": "secondary",
+  "employee": [
+    {
+      "employeeId": 8,
+      "firstName": "Lily",
+      "lastName": "Dawit",
+      "email": "bdawitdana@gmail.com",
+      "Phone": "5126622281",
+      "address": "5514 Griggs rd #1313",
+      "employeeStatus": "Active",
+      "employeeType": "Captain"
+    },
+    {
+      "employeeId": 12,
+      "firstName": "manager",
+      "lastName": "man",
+      "email": "man@gmail.com",
+      "Phone": "5126622281",
+      "address": "123 main st",
+      "employeeStatus": "Active",
+      "employeeType": "Manager"
+    }
+  ]
+}

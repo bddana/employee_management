@@ -15,22 +15,44 @@
                     </v-card-title>
                     <v-container>
                         <v-combobox
+                        color="blue-grey lighten-2"
                         v-model="nameInput"
                         :items="shifts"
-                        label="Schedule shift"
+                        label="Select Schedule shift"
                         outlined
                         dense
                         ></v-combobox>
-
-                        <v-combobox
+                        <v-autocomplete
                         v-model="selectedemployee"
-                        :items="items"
-                        label="Add employee"
-                        multiple
                         outlined
+                        :items="employees"
+                        chips
+                        color="blue-grey lighten-2"
+                        label="Select employee"
+                        item-text="item.firstName item.lastName"
+                        multiple
                         dense
-                        ></v-combobox>
-
+                        >
+                            <template v-slot:selection="data">
+                                <v-chip
+                                v-bind="data.attrs"
+                                :input-value="data.selected"
+                                @click="data.select"
+                                >
+                                {{ data.item.firstName }} {{ data.item.lastName }}
+                                </v-chip>
+                            </template>
+                            <template v-slot:item="data">
+                                <template v-if="typeof data.item !== 'object'">
+                                <v-list-item-content v-text="data.item"></v-list-item-content>
+                                </template>
+                                <template v-else>
+                                <v-list-item-content>
+                                    <v-list-item-title v-html="data.item.firstName + ' ' + data.item.lastName" ></v-list-item-title>
+                                </v-list-item-content>
+                                </template>
+                            </template>
+                        </v-autocomplete>
                     </v-container>
                     <v-card-actions>
                         <v-spacer></v-spacer>
@@ -44,7 +66,7 @@
                             text 
                             :disabled="!valid" 
                             @click="submitForm"
-                    >Save</v-btn>
+                    >Submit</v-btn>
                 </v-card-actions>
             </v-form>
             </v-card>
@@ -65,10 +87,10 @@ export default {
 
         originalEditedEvent: {},
 
-        formTitle: 'Add a New Schedule',
-        selectedemployee: ['Hamish'],
+        formTitle: 'Add New Schedule',
+        selectedemployee: [],
+        employees: [],
         shifts: ['10am Shift', '11am Shift', '3pm Shift'],
-        items: ['Hamish', 'Bev', 'Arly', 'Wally', 'Evelina', 'Mercedes', 'Neille'],
         nameInput: '',
 
         selectedDate: '',
@@ -88,7 +110,7 @@ export default {
 
         selectedColor: "primary",
 
-        id: undefined,
+        scheduleId: undefined,
 
         editDialog: false,
         dialog: false,
@@ -104,26 +126,23 @@ export default {
         }
     }),
     methods : {
-        addscheduledemployee(){
-            scheduledEmployees.push({
-                name:"lil",
-            });
-        },
-        removescheduledemployee(){
-            scheduledEmployees.push({
-                name:"lil",
-            });
+        async refreshEmployee() {
+            this.$http.get('/employee').then(res => {
+                console.log(res.data);
+                this.employees = res.data;
+            })
         },
 
 // insert into database here
         submitForm(){
-            if(this.isEditing){
-                ScheduleService.addSchedule(this.currEvent)
-                EventService.addOrUpdate(this.currEvent)
+            console.log(this.currEvent);
+            if(this.editDialog){
+                ScheduleService.updateSchedule(this.currEvent)
+                // EventService.addOrUpdate(this.currEvent)
                 this.sendEditedEventNotification(`Successfully edited event "${this.currEvent.name}!"`)
             } else {    
                 ScheduleService.addSchedule(this.currEvent)
-                EventService.addOne(this.currEvent)
+                // EventService.addOne(this.currEvent)
                 this.sendAddedEventNotification(`Successfully added event "${this.currEvent.name}"!`)
             }
             this.clearForm()
@@ -142,10 +161,11 @@ export default {
         },
         clearForm(){
             this.dialog = false
+            this.editDialog = false
 
             this.formTitle = "Add a New Schedule"
 
-            this.id = undefined
+            this.scheduleId = undefined
             this.selectedColor = "primary"
 
             this.resetTextInputFields()
@@ -198,6 +218,7 @@ export default {
     },
     created(){
         this.setToday()
+        this.refreshEmployee()
         bus.$on('sendSelectedDate', date => {
             this.selectedDate = date
             this.dates = {
@@ -207,7 +228,9 @@ export default {
         })
         bus.$on('openForm', () => this.dialog = true)
         bus.$on('editEvent', event => {
+            this.editDialog = true
             this.currEvent = event
+            console.log("edit Event" + JSON.stringify(this.currEvent))
             this.editEvent()
         })
 
@@ -217,7 +240,7 @@ export default {
             return this.dates.start !== this.dates.end
         },
         isEditing(){
-            return !!this.currEvent.id
+            return !!this.currEvent.scheduleId
         },
         startTimeAutocomplete(){
             if(!this.times.start && this.times.end){
@@ -281,8 +304,9 @@ export default {
                         name: this.nameInput,
                         start: this.startDateAndTime,
                         end: this.endDateAndTime,
-                        id: this.id,
+                        scheduleId: this.scheduleId,
                         color: this.selectedColor,
+                        employee: this.selectedemployee,
                     }
                     return event
             },
@@ -290,8 +314,9 @@ export default {
                 this.nameInput = newEvent.name
                 this.startDateAndTime = newEvent.start
                 this.endDateAndTime = newEvent.end
-                this.id = newEvent.id
+                this.scheduleId = newEvent.scheduleId
                 this.selectedColor = newEvent.color
+                this.selectedemployee = newEvent.employee
             }
         },
     }

@@ -170,7 +170,7 @@ export default {
             console.log(this.role);
               await this.$store.dispatch(
                 'authStore/registerUser',
-                 {
+                {
                     firstName : this.firstname,
                     lastName: this.lastname,
                     role: this.role,
@@ -178,7 +178,7 @@ export default {
                     address: this.address,
                     email: this.email,
                     password: this.password
-                 });
+                });
                 console.log("success register");
                 this.$emit('register');
 

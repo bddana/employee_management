@@ -3,7 +3,6 @@ import Vue from 'vue';
 
 export default {
     async addSchedule(payload) {
-        console.log("addSchedule");
         if (!payload) return null;
         console.log(payload);
         try {
@@ -22,25 +21,22 @@ export default {
             throw new Error(err);
         }
     },
-
-    async getAllSchedule() {
-        console.log("scheduleFindall");
+    async updateSchedule(payload) {
+        if (!payload) return null;
+        console.log(payload);
         try {
             const { data } = await Vue.prototype.$axios({
-                method: 'get',
-                url: ProxyUrls.scheduleFindall,
+                method: 'post',
+                url: ProxyUrls.scheduleupdateOne,
+                data: payload,
             });
-            console.log("find all done", JSON.stringify(data));
-            
+
             if (data && data.httpStatus === 200) {
-                return JSON.stringify(data);
+                return true;
             }
             return false;
         } catch (err) {
-        console.log("schedule failed");
-
             throw new Error(err);
         }
     },
-
 };

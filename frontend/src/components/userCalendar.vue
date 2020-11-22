@@ -1,6 +1,7 @@
 <template>
+      <v-sheet>
   <v-row class="fill-height">
-    <v-col>
+    <v-col  cols="auto" >
       <v-sheet height="86vh">
         <v-card ref="form">
           <v-card-title> Request vacation </v-card-title>
@@ -9,44 +10,71 @@
               ref="menu"
               v-model="menu"
               :close-on-content-click="false"
-              :return-value.sync="dates"
+              :return-value.sync="vacationstartdate"
               transition="scale-transition"
               offset-y
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-combobox
-                outlined
-                  v-model="dates"
-                  multiple
+                  outlined
+                  dense
+                  v-model="vacationstartdate"
                   chips
                   small-chips
-                  label="Pick date"
+                  label="Pick start date"
                   readonly
                   v-bind="attrs"
                   v-on="on"
                 ></v-combobox>
               </template>
-              <v-date-picker v-model="dates" multiple no-title scrollable>
+              <v-date-picker v-model="vacationstartdate"  no-title scrollable>
                 <v-spacer></v-spacer>
                 <v-btn text color="primary" @click="menu = false">
                   Cancel
                 </v-btn>
-                <v-btn text color="primary" @click="$refs.menu.save(dates)">
+                <v-btn text color="primary" @click="$refs.menu.save(vacationstartdate)">
                   OK
                 </v-btn>
               </v-date-picker>
             </v-menu>
-            <v-text-field
-            outlined
-            color="primary"
-              ref="name"
-              v-model="name"
-              :rules="[() => !!name || 'This field is required']"
-              :error-messages="errorMessages"
-              label="Reason"
-              placeholder="Going to south padre"
-              required
-            ></v-text-field>
+            <v-menu
+              ref="menu1"
+              v-model="menu1"
+              :close-on-content-click="false"
+              :return-value.sync="vacationenddate"
+              transition="scale-transition"
+              offset-y
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-combobox
+                  outlined
+                  dense
+                  v-model="vacationenddate"
+                  chips
+                  small-chips
+                  label="Pick end date"
+                  readonly
+                  v-bind="attrs"
+                  v-on="on"
+                ></v-combobox>
+              </template>
+              <v-date-picker v-model="vacationenddate"  no-title scrollable>
+                <v-spacer></v-spacer>
+                <v-btn text color="primary" @click="menu1 = false">
+                  Cancel
+                </v-btn>
+                <v-btn text color="primary" @click="$refs.menu1.save(vacationenddate)">
+                  OK
+                </v-btn>
+              </v-date-picker>
+            </v-menu>
+        <v-combobox
+          v-model="reason"
+          :items="vacationTypes"
+          label="Reason"
+          outlined
+          dense
+        ></v-combobox>
           </v-card-text>
           <v-card-actions>
             <v-btn text> Cancel </v-btn>
@@ -67,7 +95,7 @@
                 <span>Refresh form</span>
               </v-tooltip>
             </v-slide-x-reverse-transition>
-            <v-btn color="primary" text @click="submit"> Submit </v-btn>
+            <v-btn color="primary" text @click="submitVacation"> Submit </v-btn>
           </v-card-actions>
         </v-card>
       </v-sheet>
@@ -125,7 +153,7 @@
           @click:event="showEvent"
           @click:more="viewDay"
           @click:date="viewDay"
-          @change="updateRange"
+          @change="refreshEvents"
         ></v-calendar>
         <v-menu
           v-model="selectedOpen"
@@ -133,43 +161,85 @@
           :activator="selectedElement"
           offset-x
         >
-          <v-card color="grey lighten-4" min-width="350px" flat>
+          <v-card color="grey lighten-4" min-width="350px" flat
+          v-if=!this.selectedEvent.unableToCome
+          >
             <v-toolbar :color="selectedEvent.color" dark>
-              <v-btn icon>
-                <v-icon>mdi-pencil</v-icon>
-              </v-btn>
               <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
             </v-toolbar>
             <v-card-text>
-              <span v-html="selectedEvent.details"></span>
+              <h2>I cannot come for this schedule</h2>
             </v-card-text>
+            <v-text-field
+            v-model="reason_not_to_work"
+              outlined
+              color="primary"
+              label="Reason"
+              placeholder="I am not feeling well"
+              required
+            ></v-text-field>
             <v-card-actions>
-              <v-btn text color="secondary" @click="selectedOpen = false">
+              <v-btn text @click="selectedOpen = false">
                 Cancel
               </v-btn>
+              <v-spacer></v-spacer>
+              <v-btn color="primary" text @click="submitchangeForm"> Submit </v-btn>
+            </v-card-actions>
+          </v-card>
+            <v-card color="grey lighten-4" min-width="350px" flat
+            v-else>
+            <v-toolbar :color="selectedEvent.color" dark>
+              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-spacer></v-spacer>
+            </v-toolbar>
+            <v-card-text>
+              <h2>Schedule change has been requested</h2>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click="selectedOpen = false"> Ok </v-btn>
             </v-card-actions>
           </v-card>
         </v-menu>
       </v-sheet>
     </v-col>
   </v-row>
+  </v-sheet>
 </template>
 
 <script>
-// import { bus } from "@/main";
-// import EventService from "@/services/EventService";
+import { bus } from "@/main";
+import ScheduleService from "@/services/scheduleService";
+import { mapGetters } from 'vuex';
 
 export default {
   data: () => ({
-    dates: ["2018-09-15", "2018-09-20"],
+    select:[],
+    reason: '',
+    vacationTypes:[
+      "Travel",
+      "Sick",
+      "Appointment",
+      "Attending event",
+      "Personal Issue",
+      "Emergency"
+    ],
+    vacationStatus:[
+      "New Request",
+      "Pending",
+      "Approved",
+      "Declined",
+      "Canceled",
+      "Closed"
+    ],
+    reason_not_to_work: '',
+    formHasErrors : false,
+    
+    vacationstartdate: '',
+    vacationenddate: '',
     menu: false,
+    menu1: false,
     focus: "",
     type: "month",
     typeToLabel: {
@@ -182,13 +252,29 @@ export default {
     selectedOpen: false,
     events: [],
     colors: ["green"],
-    names: ["Working"],
-    // categories: ['John Smith', 'Tori Walker' , 'Tori2 Walker', 'Tori3 Walker'],
   }),
   mounted() {
     this.$refs.calendar.checkChange();
   },
   methods: {
+    submitchangeForm(){
+        console.log(this.selectedEvent);
+        this.selectedEvent.color = "secondary"
+        this.selectedEvent.unableToCome = true
+        this.selectedEvent.unableToCome_reason = this.reason_not_to_work;
+        this.$http.post('/schedule/cantwork', this.selectedEvent)
+        this.selectedOpen = false;
+    },
+    submitVacation() {
+      this.$http.post('/vacation/add', {
+        email: this.email,
+        reason: this.reason,
+        start: this.vacationstartdate,
+        end: this.vacationenddate,
+        status: this.vacationStatus[0]
+      })
+      console.log(this.reason);
+    },
     viewDay({ date }) {
       this.focus = date;
       this.type = "day";
@@ -223,35 +309,23 @@ export default {
 
       nativeEvent.stopPropagation();
     },
-    updateRange({ start, end }) {
-      const events = [];
-
-      const min = new Date(`${start.date}T00:00:00`);
-      const max = new Date(`${end.date}T23:59:59`);
-      const days = (max.getTime() - min.getTime()) / 86400000;
-      const eventCount = this.rnd(days, days + 20);
-
-      for (let i = 0; i < 5; i++) {
-        const allDay = this.rnd(0, 3) === 0;
-        const firstTimestamp = this.rnd(min.getTime(), max.getTime());
-        const first = new Date(firstTimestamp - (firstTimestamp % 900000));
-        const secondTimestamp = this.rnd(2, allDay ? 288 : 8) * 900000;
-        const second = new Date(first.getTime() + secondTimestamp);
-
-        events.push({
-          name: this.names[this.rnd(0, this.names.length - 1)],
-          start: first,
-          end: second,
-          color: this.colors[this.rnd(0, this.colors.length - 1)],
-          timed: !allDay,
-        });
-      }
-
-      this.events = events;
+    
+    async refreshEvents() {
+      console.log( "refresh" + this.email)
+      this.events = await this.$store.dispatch('userscheduleStore/getAllSchedule',
+      {
+        email: this.email,
+      });
     },
-    rnd(a, b) {
-      return Math.floor((b - a + 1) * Math.random()) + a;
-    },
+  },
+  computed: {
+  ...mapGetters({
+    email: 'authStore/getEmail',
+  }),
+  },
+  created() {
+    this.refreshEvents();
+    bus.$on("refreshEvents", () => this.refreshEvents());
   },
 };
 </script>

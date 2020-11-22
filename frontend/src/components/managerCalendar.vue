@@ -1,26 +1,50 @@
 <template>
   <v-row class="fill-height">
-    <v-col>
+    <v-col cols="auto">
       <v-sheet height="86vh">
-        <v-card ref="form">
-          <v-card-title>
-            Vacation Requested </v-card-title>
-          <v-card-text>
-            <v-btn  outlined color="primary" @click="messages++"> + </v-btn>
-              <v-badge overlap
-                :content="messages"
-                :value="messages"
-                color="primary"
-              >
-                <v-btn 
-                color="primary" 
-                @click="messages = 0"
-                class="ma-2"
-                outlined>
-                  vacation request
-                </v-btn>
-              </v-badge>
-          </v-card-text>
+        <v-card 
+        ref="form"
+        class="mx-auto"
+        width="300"
+        >
+      <v-list>
+      <v-list-item>
+        <v-list-item-title>Vacation Requested</v-list-item-title>
+      </v-list-item>
+
+      <v-list-group
+        :value="true"
+      >
+        <template v-slot:activator>
+          <v-list-item-title>Captains</v-list-item-title>
+        </template>
+
+          <v-list-item
+            v-for="(vacation,i) in vacations"
+            :key="i"
+          >
+           <v-list-item-content> 
+            <v-list-item-title v-text="vacation.employees[0].firstName+' '+vacation.employees[0].lastName"></v-list-item-title>
+            <v-list-item-subtitle v-text="vacation.vacationType"></v-list-item-subtitle>
+            <v-list-item-subtitle v-text="vacation.vacationStartDate +' to '+ vacation.vacationEndDate"></v-list-item-subtitle>
+          </v-list-item-content>
+          <v-list-item-action>
+          <v-btn icon
+          @click="deny(vacation)"
+          >
+            <v-icon color="info">mdi-thumb-down</v-icon>
+          </v-btn>
+        </v-list-item-action>
+        <v-list-item-action>
+          <v-btn icon
+          @click="approve(vacation)"
+          >
+            <v-icon color="success">mdi-thumb-up</v-icon>
+          </v-btn>
+        </v-list-item-action>
+          </v-list-item>
+      </v-list-group>
+    </v-list>
         </v-card>
       </v-sheet>
     </v-col>
@@ -122,7 +146,7 @@
             <v-card-text>
               <v-list>
                 <v-list-item
-                  v-for="employee in scheduledEmployees"
+                  v-for="employee in selectedEvent.employees"
                   :key="employee"
                 >
                   <v-list-item-avatar>
@@ -130,14 +154,8 @@
                   </v-list-item-avatar>
 
                   <v-list-item-content>
-                    <v-list-item-title v-text="employee"></v-list-item-title>
+                    <v-list-item-title v-text="employee.firstName +' '+ employee.lastName"></v-list-item-title>
                   </v-list-item-content>
-
-                  <v-list-item-action>
-                    <v-btn icon>
-                      <v-icon color="grey lighten-1">mdi-delete</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
                 </v-list-item>
               </v-list>
               <span v-html="selectedEvent.details"></span>
@@ -161,17 +179,10 @@ import { bus } from "@/main";
 
 export default {
   data: () => ({
+    vacations: [ ],
     messages: 1, //temp
     show: false, //temp
-    scheduledEmployees: [
-      "Hamish",
-      "Bev",
-      "Arly",
-      "Wally",
-      "Evelina",
-      "Mercedes",
-      "Neille",
-    ],
+    scheduledEmployees:[],
     deleteDialog: false,
     today: new Date().toISOString().substr(0, 10),
     focus: new Date().toISOString().substr(0, 10),
@@ -204,19 +215,11 @@ export default {
     },
 
     //read all from the database
-    refreshEvents() {
-      // this.events = EventService.getAll();
-      console.log("test")
-      // console.log(EventService.getAll());
-      // console.log(ScheduleService.getAllSchedule());
 
-      this.events = ScheduleService.getAllSchedule();
-      console.log("test2")
-
-    },
 
     deleteSelectedEvent(event) {
-      EventService.deleteEvent(event, "id");
+      // EventService.deleteEvent(event, "id");
+      this.$http.post('/schedule/del', event)
       bus.$emit("success", {
         message: `Successfully deleted event "${event.name}"`,
         timeout: 5000,
@@ -230,7 +233,19 @@ export default {
       bus.$emit("editEvent", event);
     },
 
+    async refreshVacations() {
+      this.$http.get('/vacation/allnew').then(res => {
+          console.log(res.data);
+          this.vacations = res.data;
+      })
+      this.$forceUpdate();
+    },
 
+    async refreshEvents() {
+      this.events = await this.$store.dispatch('managerScheduleStore/getAllSchedule');
+      console.log(this.events)
+      this.$forceUpdate();
+    },
     viewDayOrOpenForm(dayAndTime) {
       this.focus = dayAndTime.date;
       bus.$emit("sendSelectedDate", dayAndTime.date);
@@ -251,11 +266,30 @@ export default {
     next() {
       this.$refs.calendar.next();
     },
+    deny(vacation) {
+      vacation.vacationStatus = "Declined";
+      this.$http.post('/vacation/update', vacation)
+      this.refreshVacations();
+      console.log(vacation.vacationId)
+
+    },
+    approve(vacation){
+      vacation.vacationStatus = "Approved";
+      this.$http.post('/vacation/update', vacation)
+      this.refreshVacations();
+
+      console.log(vacation.vacationId)
+    },
     showEvent({ nativeEvent, event }) {
       const open = () => {
         this.selectedEvent = event;
+        this.scheduledEmployees = event.employees.map(function (dat){
+          return dat.firstName;
+        });
+        console.log(this.scheduledEmployee);
         this.selectedElement = nativeEvent.target;
         setTimeout(() => (this.selectedOpen = true), 10);
+        console.log(event)
       };
 
       if (this.selectedOpen) {
@@ -278,6 +312,7 @@ export default {
     },
   },
   created() {
+    this.refreshVacations();
     this.refreshEvents();
     bus.$on("refreshEvents", () => this.refreshEvents());
   },

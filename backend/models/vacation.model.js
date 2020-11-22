@@ -8,14 +8,11 @@ module.exports = function(sequelize, Sequelize) {
             type: Sequelize.INTEGER
         },
 
-        employeeId:{
-            type: Sequelize.INTEGER
+        vacationType:{
+            type: Sequelize.STRING(45)
         },
-        vacationTypeId:{
-            type: Sequelize.INTEGER
-        },
-        vacationStatusId:{
-            type: Sequelize.INTEGER
+        vacationStatus:{
+            type: Sequelize.STRING(45)
         },
         vacationStartDate:{
             type: Sequelize.DATEONLY
@@ -23,30 +20,6 @@ module.exports = function(sequelize, Sequelize) {
         vacationEndDate:{
             type: Sequelize.DATEONLY
         },
-        employeeId: {
-            type: Sequelize.INTEGER,
-            allowNull: false,
-            references: {         // WorkingDays hasMany Users n:n
-              model: 'employee',
-              key: 'id'
-            }
-        }
- 
-    },   {
-        indexes:[
-            {
-                unique:false,
-                fields:["employeeId"]
-            },
-            {
-                unique:false,
-                fields:["vacationTypeId"]
-            },
-            {
-                unique:false,
-                fields:["vacationStatusId"]
-            }
-        ]
     });
  
     return vacation;
