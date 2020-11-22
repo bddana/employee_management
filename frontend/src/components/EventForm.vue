@@ -22,6 +22,15 @@
                         outlined
                         dense
                         ></v-combobox>
+                        <v-combobox
+                        color="blue-grey lighten-2"
+                        v-model="durationInput"
+                        :items="shiftDuration"
+                        label="Select Schedule duration"
+                        outlined
+                        dense
+                        ></v-combobox>
+
                         <v-autocomplete
                         v-model="selectedemployee"
                         outlined
@@ -84,14 +93,24 @@ import { bus } from '@/main'
 export default {
     data: () => ({
         componentColor: 'primary',
-
         originalEditedEvent: {},
 
         formTitle: 'Add New Schedule',
         selectedemployee: [],
         employees: [],
-        shifts: ['10am Shift', '11am Shift', '3pm Shift'],
         nameInput: '',
+        shifts: ['10am Shift', '11am Shift', '3pm Shift'],
+        durationInput:'',
+        shiftDuration: [
+            '3 hours', 
+            '4 hours', 
+            '5 hours',
+            '6 hours',
+            '7 hours',
+            '8 hours',
+            '9 hours',
+            '10 hours',
+            ],
 
         selectedDate: '',
 
@@ -169,19 +188,15 @@ export default {
             this.selectedColor = "primary"
 
             this.resetTextInputFields()
-            this.resetTimePickers()
             this.$refs.form.resetValidation()
         },
 
         resetTextInputFields(){
             this.nameInput = ''
+            this.durationInput = ''
+            this.selectedemployee = ''
         },
-        resetTimePickers(){
-            this.times = {
-                start: '',
-                end: ''
-            }
-        },
+
         setToday(){
             const today = new Date().toISOString().substr(0,10)
             this.dates.start = today
@@ -302,6 +317,7 @@ export default {
             get(){
                     const event = {
                         name: this.nameInput,
+                        duration: this.durationInput,
                         start: this.startDateAndTime,
                         end: this.endDateAndTime,
                         scheduleId: this.scheduleId,
@@ -312,6 +328,7 @@ export default {
             },
             set(newEvent){
                 this.nameInput = newEvent.name
+                this.durationInput = newEvent.duration
                 this.startDateAndTime = newEvent.start
                 this.endDateAndTime = newEvent.end
                 this.scheduleId = newEvent.scheduleId

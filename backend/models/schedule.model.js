@@ -18,6 +18,9 @@ module.exports = function(sequelize, Sequelize) {
         end: {
             type: Sequelize.STRING(45),
         },
+        duration: {
+            type: Sequelize.STRING(45),
+        },
         color: {
             type: Sequelize.STRING(45),
         },

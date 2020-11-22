@@ -117,7 +117,7 @@
               <v-btn icon @click="editEvent(selectedEvent)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-toolbar-title v-html="selectedEvent.name+' for '+selectedEvent.duration"></v-toolbar-title>
               <v-spacer></v-spacer>
               <v-btn icon @click="deleteDialog = true">
                 <v-icon>mdi-delete</v-icon>

@@ -162,10 +162,10 @@
           offset-x
         >
           <v-card color="grey lighten-4" min-width="350px" flat
-          v-if=!this.selectedEvent.unableToCome
+          v-if="!this.selectedEvent.unableToCome"
           >
             <v-toolbar :color="selectedEvent.color" dark>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-toolbar-title v-html="selectedEvent.name+' for '+selectedEvent.duration"></v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>
@@ -190,7 +190,7 @@
             <v-card color="grey lighten-4" min-width="350px" flat
             v-else>
             <v-toolbar :color="selectedEvent.color" dark>
-              <v-toolbar-title v-html="selectedEvent.name"></v-toolbar-title>
+              <v-toolbar-title v-html="selectedEvent.name+' for '+selectedEvent.duration"></v-toolbar-title>
               <v-spacer></v-spacer>
             </v-toolbar>
             <v-card-text>

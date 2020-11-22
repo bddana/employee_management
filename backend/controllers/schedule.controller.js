@@ -19,6 +19,7 @@ exports.create = async(req, res) => {
         start: req.body.start,
         end: req.body.end,
         color: req.body.color,
+        duration: req.body.duration,
     });
 
     oneSchedule.setEmployees(oneEmployee)
@@ -72,6 +73,7 @@ exports.update = async(req, res) => {
         start: req.body.start,
         end: req.body.end,
         color: req.body.color,
+        duration: req.body.duration,
     });
 
     oneSchedule.setEmployees(oneEmployee)
@@ -86,6 +88,7 @@ exports.cantwork = async(req, res) => {
         start: req.body.start,
         end: req.body.end,
         color: req.body.color,
+        duration: req.body.duration,
         unableToCome:req.body.unableToCome,
         unableToCome_reason:req.body.unableToCome_reason,
     }, {
