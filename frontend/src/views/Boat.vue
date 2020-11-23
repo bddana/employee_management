@@ -66,7 +66,7 @@
         <template slot-scope="scope">
         <el-button type="primary"  @click="editShow(scope.row.boatStatusReportId)" round>MODIFY</el-button>
         </template>
-        <el-dialog :showClose="false" title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+        <el-dialog :close-on-click-modal="false" :showClose="false" title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form :model="form" label-width="180px">
           <el-form-item label="Boat ID">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
@@ -91,7 +91,7 @@
           </el-form-item>
           <el-form-item label="ScheduleDate">
             <el-col :span="11">
-              <el-date-picker type="date" placeholder="Pick a date" v-model="form.scheduleDate" format="YYYY-MM-dd" style="width: 100%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="Pick a date" v-model="form.scheduleDate" format="yyyy-MM-dd" style="width: 100%;"></el-date-picker>
             </el-col>
           </el-form-item>
           <el-form-item label="Shift Time">

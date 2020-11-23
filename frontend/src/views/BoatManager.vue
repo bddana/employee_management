@@ -69,7 +69,7 @@
           <el-button @click="handleClick(scope.row), deleteEmployee(scope.row.boatStatusReportId),toURL()" type="text" size="small">DELETE</el-button>
           <el-button type="text" size="small"  @click="editShow(scope.row.boatStatusReportId)">MODIFY</el-button>
         </template>
-        <el-dialog :showClose="false" :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+        <el-dialog :close-on-click-modal="false" :showClose="false" :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form ref="form" :model="form" label-width="180px">
           <el-form-item label="Boat Status Report ID">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
@@ -211,6 +211,7 @@
           console.log(res.data);
           this.form = res.data
            this.dialogVisible = true
+           this.dialogStatus='edit'
         })
       },
       getTime(date){
@@ -224,7 +225,8 @@
     },
 
     data() {
-      return {titleName:{
+      return {
+        titleName:{
           add:'Add Boat',
           edit:'Modify Boat'
         },

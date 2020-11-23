@@ -6,7 +6,7 @@
       <el-button type="primary" @click="show()" round>New</el-button>
       <el-row align="center" style="text-align:center;font-size:30px;color:blue">
         The total number of employees:{{this.tableData.length}} employees</el-row>
-      <el-dialog  :showClose="false" :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+      <el-dialog :close-on-click-modal="false" :showClose="false" :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form ref="form1" :model="form1" label-width="180px" οnsubmit="return validateCallback(this, navTabAjaxDone);">
           <el-form-item label="Employee ID">
             <el-input v-model="form1.employeeId" disabled></el-input>
@@ -27,10 +27,10 @@
             <el-input type="textarea" v-model="form1.address"></el-input>
           </el-form-item>
           <el-form-item label="Employee Status">
-            <el-input v-model="form1.employeeStatus"></el-input>
+            <el-input v-model="form1.employeeStatus" placeholder="ex. Active or Unactive"></el-input>
           </el-form-item>
           <el-form-item label="Employee Type">
-            <el-input v-model="form1.employeeType"></el-input>
+            <el-input v-model="form1.employeeType" placeholder="ex. Captain or Manager"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="AddModify()">Conform</el-button>
