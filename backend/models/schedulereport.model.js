@@ -26,7 +26,7 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         shift: {
-            type: Sequelize.DATEONLY
+            type: Sequelize.STRING(45),
         },
     },
     
