@@ -1,6 +1,7 @@
 const db = require('../config/db.config.js');
 const Schedule = db.schedule;
 const Employee = db.employees;
+const EmployeSchedule = db.employeeschedule;
 const Op = db.Sequelize.Op;
 
 // Post a schedule
@@ -61,7 +62,7 @@ exports.update = async(req, res) => {
     const id = req.body.scheduleId;
     var oneEmployee = await Employee.findAll({
         where: {
-            [Op.or]: req.body.employee
+            [Op.or]: req.body.employees
         }
     });
     const response = await Schedule.destroy({
@@ -82,17 +83,22 @@ exports.update = async(req, res) => {
 
 exports.cantwork = async(req, res) => {
     const id = req.body.scheduleId;
-    console.log(req.body)
-	const response = await Schedule.update({
-        name: req.body.name,
-        start: req.body.start,
-        end: req.body.end,
-        color: req.body.color,
-        duration: req.body.duration,
+    console.log(req.body.employees)
+	const response = await EmployeSchedule.update({
         unableToCome:req.body.unableToCome,
         unableToCome_reason:req.body.unableToCome_reason,
     }, {
-	    where: { scheduleId: id }
+        where: 
+        { 
+            scheduleId: id,
+            employeeId: req.body.employees[0].employeeId
+        }
+    });
+    
+    await Schedule.update({
+        color: "secondary",
+    }, {
+	where: { scheduleId: id }
 	});
    
     return res.status(200).send('deleted successfully a schedule with id = ' + id + response);

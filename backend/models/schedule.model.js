@@ -23,12 +23,6 @@ module.exports = function(sequelize, Sequelize) {
         },
         color: {
             type: Sequelize.STRING(45),
-        },
-        unableToCome: {
-            type: Sequelize.DataTypes.BOOLEAN,
-        },
-        unableToCome_reason: {
-            type: Sequelize.STRING(45),
         }
     });
  

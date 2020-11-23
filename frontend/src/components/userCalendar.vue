@@ -3,7 +3,7 @@
   <v-row class="fill-height">
     <v-col  cols="auto" >
       <v-sheet height="86vh">
-        <v-card ref="form">
+        <v-card ref="form" outlined elevation="10">
           <v-card-title> Request vacation </v-card-title>
           <v-card-text>
             <v-menu
@@ -97,6 +97,19 @@
             </v-slide-x-reverse-transition>
             <v-btn color="primary" text @click="submitVacation"> Submit </v-btn>
           </v-card-actions>
+        </v-card>
+        <v-card>
+          <v-list-item
+            v-for="(vacation,i) in vacations"
+            :key="i"
+          >
+          <v-list-item-content> 
+            <v-list-item-title v-text="vacation.vacationType"></v-list-item-title>
+            <v-list-item-subtitle v-text="vacation.vacationStartDate +' to '+ vacation.vacationEndDate"></v-list-item-subtitle>
+            <v-list-item-subtitle v-text="'Status:'+vacation.vacationStatus"></v-list-item-subtitle>
+          </v-list-item-content>
+    
+          </v-list-item>
         </v-card>
       </v-sheet>
     </v-col>
@@ -217,6 +230,7 @@ export default {
   data: () => ({
     select:[],
     reason: '',
+    vacations:[],
     vacationTypes:[
       "Travel",
       "Sick",
@@ -272,7 +286,8 @@ export default {
         start: this.vacationstartdate,
         end: this.vacationenddate,
         status: this.vacationStatus[0]
-      })
+      });
+      this.refreshVacations();
       console.log(this.reason);
     },
     viewDay({ date }) {
@@ -310,6 +325,15 @@ export default {
       nativeEvent.stopPropagation();
     },
     
+    async refreshVacations() {
+      this.$http.post('/vacation/one',{
+        email: this.email,
+      }).then(res => {
+          console.log(res.data);
+          this.vacations = res.data;
+      })
+      this.$forceUpdate();
+    },
     async refreshEvents() {
       console.log( "refresh" + this.email)
       this.events = await this.$store.dispatch('userscheduleStore/getAllSchedule',
@@ -324,6 +348,7 @@ export default {
   }),
   },
   created() {
+    this.refreshVacations();
     this.refreshEvents();
     bus.$on("refreshEvents", () => this.refreshEvents());
   },

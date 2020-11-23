@@ -2,6 +2,9 @@
 # @name lukeRespose
 GET http://localhost:8081/user/isLoggedIn HTTP/1.1
 
+
+
+
 ### post request
 POST http://localhost:8081/customer/one HTTP/1.1
 content-type: application/json
@@ -29,31 +32,93 @@ POST http://localhost:8081/user/signin HTTP/1.1
 content-type: application/json
 
 {
-    "email":"test9@yahoo.com",
+    "email":"captain@gmail.com",
     "password":"123"
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ### post request
 GET http://localhost:8081/customer/all HTTP/1.1
 ### post request
 GET http://localhost:8081/user/isLoggedIn HTTP/1.1
 
+
+
+
 ###
 POST http://localhost:8081/user/signup HTTP/1.1
 content-type: application/json
 
 {
-    "firstName": "Lil3",
-    "lastName": "Daw3",
-    "email":"test9@yahoo.com",
+    "firstName": "Cap",
+    "lastName": "Captain",
+    "email":"cap@gmail.com",
     "password":"123",
-    "phone": "51234343",
+    "phone": "5124546",
     "address": "123 main st",
     "role": "Captain"
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ###
 GET http://localhost:8081/schedule HTTP/1.1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ###
 ### post request

@@ -146,15 +146,18 @@
             <v-card-text>
               <v-list>
                 <v-list-item
-                  v-for="employee in selectedEvent.employees"
-                  :key="employee"
+                  v-for="(employee, i) in selectedEvent.employees"
+                  :key="i"
                 >
                   <v-list-item-avatar>
                     <v-icon class="grey lighten-1" dark> mdi-account </v-icon>
                   </v-list-item-avatar>
 
                   <v-list-item-content>
-                    <v-list-item-title v-text="employee.firstName +' '+ employee.lastName"></v-list-item-title>
+                    <v-list-item-title v-text="employee.firstName +' '+ employee.lastName"></v-list-item-title>            
+                    <v-list-item-subtitle 
+            v-text="employee.employeeschedule.unableToCome_reason">
+            </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -243,7 +246,7 @@ export default {
 
     async refreshEvents() {
       this.events = await this.$store.dispatch('managerScheduleStore/getAllSchedule');
-      console.log(this.events)
+      console.log("this is event" + JSON.stringify(this.events))
       this.$forceUpdate();
     },
     viewDayOrOpenForm(dayAndTime) {
@@ -289,7 +292,7 @@ export default {
         console.log(this.scheduledEmployee);
         this.selectedElement = nativeEvent.target;
         setTimeout(() => (this.selectedOpen = true), 10);
-        console.log(event)
+        console.log("evenr" + event)
       };
 
       if (this.selectedOpen) {

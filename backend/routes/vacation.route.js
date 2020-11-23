@@ -13,6 +13,7 @@ router.get('/all', vacation.findAll);
 router.get('/allnew', vacation.findAllNew);
 router.post('/add', vacation.create);
 router.post('/update', vacation.update);
+router.post('/one', vacation.findAllforUser);
 
 
 module.exports = router;

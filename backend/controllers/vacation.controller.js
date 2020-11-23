@@ -31,6 +31,18 @@ exports.findAllNew = (req, res) => {
 
 };
 
+exports.findAllforUser = async(req, res) => {
+    const response = await Vacation.findAll({
+        include : {
+            model:Employee,
+            where: {
+                email: req.body.email
+            },
+        }
+    }).map(el => el.get({ plain: true }))
+    return res.status(200).send(response);
+};
+
 // create vacation
 exports.create = async(req, res) => {
     var oneEmployee = await Employee.findOne({
