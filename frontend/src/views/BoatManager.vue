@@ -69,7 +69,7 @@
           <el-button @click="handleClick(scope.row), deleteEmployee(scope.row.boatStatusReportId),toURL()" type="text" size="small">DELETE</el-button>
           <el-button type="text" size="small"  @click="editShow(scope.row.boatStatusReportId)">MODIFY</el-button>
         </template>
-        <el-dialog :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+        <el-dialog :showClose="false" :title="titleName[dialogStatus]" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form ref="form" :model="form" label-width="180px">
           <el-form-item label="Boat Status Report ID">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
@@ -81,7 +81,7 @@
             <el-input v-model="form.boatDescription"></el-input>
           </el-form-item>
           <el-form-item label="Maintenance Required">
-            <el-input v-model="form.maintenanceRequired"></el-input>
+            <el-input v-model="form.maintenanceRequired" placeholder='"Yes" or "No"'></el-input>
           </el-form-item>
           <el-form-item label="Description">
             <el-input v-model="form.description"></el-input>
@@ -98,14 +98,16 @@
             </el-col>
           </el-form-item>
           <el-form-item label="Shift Time">
-            <el-col :span="11">
+            <el-input v-model="form.shift" placeholder="ex. 10 am shift"></el-input>
+            <!-- <el-col :span="11">
               <el-time-picker placeholder="Pick a time" type="TIME" v-model="form.shift" @change="getTime" format="HH:mm:ss" 
               value-format="HH:mm:ss" style="width: 100%;"></el-time-picker>
-            </el-col>
+            </el-col> -->
           </el-form-item>
           <el-form-item>
             <!-- <template slot-scope="scope"> -->
             <el-button type="primary" @click="AddModify()">Conform</el-button>
+            <el-button @click="onCancel">Cancel</el-button>
             <!-- </template> -->
             <!-- <el-button @click="onCancel">Cancel</el-button> -->
           </el-form-item>
@@ -214,6 +216,10 @@
       getTime(date){
           this.time = date;
           console.log(this.time);
+      },
+      onCancel(){
+        this.form = ''
+        this.dialogVisible=false
       }
     },
 

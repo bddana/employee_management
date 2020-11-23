@@ -66,7 +66,7 @@
         <template slot-scope="scope">
         <el-button type="primary"  @click="editShow(scope.row.boatStatusReportId)" round>MODIFY</el-button>
         </template>
-        <el-dialog title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
+        <el-dialog :showClose="false" title="Modify Boat" :visible.sync="dialogVisible" :append-to-body="true" width="30%">
         <el-form :model="form" label-width="180px">
           <el-form-item label="Boat ID">
             <el-input v-model="form.boatStatusReportId" disabled></el-input>
@@ -78,7 +78,7 @@
             <el-input v-model="form.boatDescription"></el-input>
           </el-form-item>
           <el-form-item label="Maintenance Required">
-            <el-input v-model="form.maintenanceRequired"></el-input>
+            <el-input v-model="form.maintenanceRequired" placeholder='"Yes" or "No"'></el-input>
           </el-form-item>
           <el-form-item label="Description">
             <el-input v-model="form.description"></el-input>
@@ -91,19 +91,23 @@
           </el-form-item>
           <el-form-item label="ScheduleDate">
             <el-col :span="11">
-              <el-date-picker type="date" placeholder="Pick a date" v-model="form.scheduleDate" style="width: 100%;"></el-date-picker>
+              <el-date-picker type="date" placeholder="Pick a date" v-model="form.scheduleDate" format="YYYY-MM-dd" style="width: 100%;"></el-date-picker>
             </el-col>
           </el-form-item>
           <el-form-item label="Shift Time">
-            <el-col :span="11">
-              <el-time-picker placeholder="Pick a time" v-model="form.shift" style="width: 100%;"></el-time-picker>
-            </el-col>
+            
+              <el-input v-model="form.shift" placeholder="ex. 10 am shift"></el-input>
+            <!-- <el-col :span="11">
+              <el-time-picker placeholder="Pick a time" type="TIME" v-model="form.shift" @change="getTime" format="HH:mm:ss" 
+              value-format="HH:mm:ss" style="width: 100%;"></el-time-picker>
+            </el-col> -->
+            
           </el-form-item>
           <el-form-item>
             <!-- <template slot-scope="scope"> -->
             <el-button type="primary" @click="modifyEmployee()">Conform</el-button>
             <!-- </template> -->
-            <!-- <el-button @click="onCancel">Cancel</el-button> -->
+            <el-button @click="onCancel">Cancel</el-button>
           </el-form-item>
         </el-form>
     </el-dialog>
@@ -160,7 +164,10 @@
            this.dialogVisible = true
         })
       },
-      
+      onCancel(){
+        this.form = ''
+        this.dialogVisible=false
+      }
     },
 
     data() {

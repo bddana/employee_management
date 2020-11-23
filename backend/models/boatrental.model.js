@@ -46,8 +46,8 @@ module.exports = function(sequelize, Sequelize) {
         },
 
         shift:{
-            type: Sequelize.TIME,
-            defaultValue: Sequelize.literal('CURRENT_TIME'),
+            type: Sequelize.STRING,
+            //defaultValue: Sequelize.literal('CURRENT_TIME'),
         },
 
         
