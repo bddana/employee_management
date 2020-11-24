@@ -16,7 +16,7 @@
                 dark
                 @click="loggedInpage()"
                 class="mt-5"
-                v-show="!islogged"
+                v-show="!role"
               >
                 Login now
               </v-btn>
@@ -47,7 +47,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-    islogged: 'authStore/getIsLoggedIn',
+      role: "authStore/getRole",
   })
   },
 };

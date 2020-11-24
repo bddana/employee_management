@@ -286,8 +286,9 @@ export default {
         start: this.vacationstartdate,
         end: this.vacationenddate,
         status: this.vacationStatus[0]
+      }).then(res => {
+        this.refreshVacations();
       });
-      this.refreshVacations();
       console.log(this.reason);
     },
     viewDay({ date }) {
@@ -325,14 +326,14 @@ export default {
       nativeEvent.stopPropagation();
     },
     
-    async refreshVacations() {
+    refreshVacations() {
       this.$http.post('/vacation/one',{
         email: this.email,
       }).then(res => {
           console.log(res.data);
           this.vacations = res.data;
       })
-      this.$forceUpdate();
+      // this.$forceUpdate();
     },
     async refreshEvents() {
       console.log( "refresh" + this.email)

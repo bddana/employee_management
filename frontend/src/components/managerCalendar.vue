@@ -14,6 +14,7 @@
 
       <v-list-group
         :value="true"
+        v-if="vacations.length"
       >
         <template v-slot:activator>
           <v-list-item-title>Captains</v-list-item-title>
@@ -23,7 +24,9 @@
             v-for="(vacation,i) in vacations"
             :key="i"
           >
-           <v-list-item-content> 
+           <v-list-item-content
+              v-if="vacation.employees.length"
+            > 
             <v-list-item-title v-text="vacation.employees[0].firstName+' '+vacation.employees[0].lastName"></v-list-item-title>
             <v-list-item-subtitle v-text="vacation.vacationType"></v-list-item-subtitle>
             <v-list-item-subtitle v-text="vacation.vacationStartDate +' to '+ vacation.vacationEndDate"></v-list-item-subtitle>
@@ -156,8 +159,8 @@
                   <v-list-item-content>
                     <v-list-item-title v-text="employee.firstName +' '+ employee.lastName"></v-list-item-title>            
                     <v-list-item-subtitle 
-            v-text="employee.employeeschedule.unableToCome_reason">
-            </v-list-item-subtitle>
+                      v-text="employee.employeeschedule.unableToCome_reason">
+                    </v-list-item-subtitle>
                   </v-list-item-content>
                 </v-list-item>
               </v-list>
@@ -238,16 +241,22 @@ export default {
 
     async refreshVacations() {
       this.$http.get('/vacation/allnew').then(res => {
-          console.log(res.data);
           this.vacations = res.data;
       })
       this.$forceUpdate();
     },
 
     async refreshEvents() {
-      this.events = await this.$store.dispatch('managerScheduleStore/getAllSchedule');
-      console.log("this is event" + JSON.stringify(this.events))
-      this.$forceUpdate();
+      // this.events = await this.$store.dispatch('managerScheduleStore/getAllSchedule');
+      this.$http.get('/schedule/all').then(res => {
+          this.events = res.data;
+          console.log("vacations: " + JSON.stringify(this.events))
+      })
+
+      // this.$forceUpdate();
+      // /schedule/all
+      // console.log("this is event" + JSON.stringify(this.events))
+      // this.$forceUpdate();
     },
     viewDayOrOpenForm(dayAndTime) {
       this.focus = dayAndTime.date;
@@ -273,7 +282,6 @@ export default {
       vacation.vacationStatus = "Declined";
       this.$http.post('/vacation/update', vacation)
       this.refreshVacations();
-      console.log(vacation.vacationId)
 
     },
     approve(vacation){
@@ -281,7 +289,6 @@ export default {
       this.$http.post('/vacation/update', vacation)
       this.refreshVacations();
 
-      console.log(vacation.vacationId)
     },
     showEvent({ nativeEvent, event }) {
       const open = () => {
@@ -289,7 +296,6 @@ export default {
         this.scheduledEmployees = event.employees.map(function (dat){
           return dat.firstName;
         });
-        console.log(this.scheduledEmployee);
         this.selectedElement = nativeEvent.target;
         setTimeout(() => (this.selectedOpen = true), 10);
         console.log("evenr" + event)
@@ -318,6 +324,7 @@ export default {
     this.refreshVacations();
     this.refreshEvents();
     bus.$on("refreshEvents", () => this.refreshEvents());
+    bus.$on("refreshVacations", () => this.refreshVacations());
   },
   watch: {
     focus() {

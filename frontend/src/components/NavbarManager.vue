@@ -22,7 +22,7 @@
     >
         <template v-slot:activator="{ on }">   
           <v-chip
-          v-show="isLoggedIn"
+          v-show="role"
             class="ma-2"
             color="primary"
             text-color="white"
@@ -98,17 +98,13 @@ export default {
     }
   },
 
-  // methods: {
-  //   loginClicked() {
-  //     this.$router.push('/user');
-  //   },
-  // },
-  computed: {
+   computed: {
     nameOfUser() {
       return this.$store.getters['authStore/getFirstName'];
     },
     ...mapGetters({
-      isLoggedIn: 'authStore/getIsLoggedIn',
+      role: "authStore/getRole",
+
     }),
   },
   methods: {

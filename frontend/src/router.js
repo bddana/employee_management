@@ -22,8 +22,6 @@ const router = new Router({
     {
       path: '/',
       component: Landing,
-      children: [
-      ],
     },
     {
       path: '/boat',
@@ -40,9 +38,6 @@ const router = new Router({
     {
       path: '/schedule',
       component: Schedule,
-      meta: {
-        requiresAuth: true,
-      },
     },
     {
       path: '/user',
@@ -74,15 +69,5 @@ const router = new Router({
   ],
 });
 
-router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
-  const authenticatedUser = null;
-  const authenticatedUser2 = (localStorage.getItem('email') === 'undefined');
-  console.log(`router before each to ${requiresAuth} and ${authenticatedUser2}`);
-
-  // Check for protected route
-  if (requiresAuth && authenticatedUser2) next('user')
-  else next();
-});
 
 export default router;
