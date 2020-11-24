@@ -3,9 +3,13 @@
   <v-row class="fill-height">
     <v-col  cols="auto" >
       <v-sheet height="86vh">
-        <v-card ref="form" outlined elevation="10">
+        <validation-observer ref="observer" v-slot="{ invalid }">
+        <v-card ref="form" outlined elevation="10" >
           <v-card-title> Request vacation </v-card-title>
+
           <v-card-text>
+            <v-form @submit.prevent="submit">
+
             <v-menu
               ref="menu"
               v-model="menu"
@@ -15,6 +19,11 @@
               offset-y
             >
               <template v-slot:activator="{ on, attrs }">
+                                   <validation-provider
+                        v-slot="{ errors }"
+                        name="Start Date"
+                        rules="required"
+                      >
                 <v-combobox
                   outlined
                   dense
@@ -25,7 +34,11 @@
                   readonly
                   v-bind="attrs"
                   v-on="on"
+                                required
+              :error-messages="errors"
                 ></v-combobox>
+            </validation-provider>
+
               </template>
               <v-date-picker v-model="vacationstartdate"  no-title scrollable>
                 <v-spacer></v-spacer>
@@ -46,6 +59,11 @@
               offset-y
             >
               <template v-slot:activator="{ on, attrs }">
+                                             <validation-provider
+                        v-slot="{ errors }"
+                        name="End Date"
+                        rules="required"
+                      >
                 <v-combobox
                   outlined
                   dense
@@ -56,7 +74,11 @@
                   readonly
                   v-bind="attrs"
                   v-on="on"
+                                                  required
+              :error-messages="errors"
                 ></v-combobox>
+            </validation-provider>
+
               </template>
               <v-date-picker v-model="vacationenddate"  no-title scrollable>
                 <v-spacer></v-spacer>
@@ -68,13 +90,23 @@
                 </v-btn>
               </v-date-picker>
             </v-menu>
+                                                         <validation-provider
+                        v-slot="{ errors }"
+                        name="Reason"
+                        rules="required"
+                      >
         <v-combobox
           v-model="reason"
           :items="vacationTypes"
           label="Reason"
           outlined
           dense
+                              required
+              :error-messages="errors"
         ></v-combobox>
+            </validation-provider>
+
+        </v-form>
           </v-card-text>
           <v-card-actions>
             <v-btn text> Cancel </v-btn>
@@ -95,7 +127,7 @@
                 <span>Refresh form</span>
               </v-tooltip>
             </v-slide-x-reverse-transition>
-            <v-btn color="primary" text @click="submitVacation"> Submit </v-btn>
+            <v-btn :disabled="invalid" color="primary" text @click="submitVacation"> Submit </v-btn>
           </v-card-actions>
         </v-card>
         <v-card>
@@ -111,6 +143,7 @@
     
           </v-list-item>
         </v-card>
+        </validation-observer>
       </v-sheet>
     </v-col>
 
@@ -168,14 +201,19 @@
           @click:date="viewDay"
           @change="refreshEvents"
         ></v-calendar>
+
+
         <v-menu
           v-model="selectedOpen"
           :close-on-content-click="false"
           :activator="selectedElement"
           offset-x
         >
+        <validation-observer ref="observer" v-slot="{ invalid }">
+
           <v-card color="grey lighten-4" min-width="350px" flat
           v-if="!this.selectedEvent.unableToCome"
+          ref="form"
           >
             <v-toolbar :color="selectedEvent.color" dark>
               <v-toolbar-title v-html="selectedEvent.name+' for '+selectedEvent.duration"></v-toolbar-title>
@@ -184,6 +222,11 @@
             <v-card-text>
               <h2>I cannot come for this schedule</h2>
             </v-card-text>
+                                                                     <validation-provider
+                        v-slot="{ errors }"
+                        name="Reason"
+                        rules="required"
+                      >
             <v-text-field
             v-model="reason_not_to_work"
               outlined
@@ -191,7 +234,9 @@
               label="Reason"
               placeholder="I am not feeling well"
               required
+              :error-messages="errors"
             ></v-text-field>
+             </validation-provider>
             <v-card-actions>
               <v-btn text @click="selectedOpen = false">
                 Cancel
@@ -214,6 +259,7 @@
               <v-btn text @click="selectedOpen = false"> Ok </v-btn>
             </v-card-actions>
           </v-card>
+          </validation-observer>
         </v-menu>
       </v-sheet>
     </v-col>
@@ -224,34 +270,81 @@
 <script>
 import { bus } from "@/main";
 import ScheduleService from "@/services/scheduleService";
-import { mapGetters } from 'vuex';
+import { mapGetters } from "vuex";
+import {
+  required,
+  digits,
+  email,
+  max,
+  min,
+  regex,
+} from "vee-validate/dist/rules";
+import {
+  extend,
+  ValidationObserver,
+  ValidationProvider,
+  setInteractionMode,
+} from "vee-validate";
+setInteractionMode("eager");
+
+extend("digits", {
+  ...digits,
+  message: "{_field_} needs to be {length} digits. ({_value_})",
+});
+
+extend("required", {
+  ...required,
+  message: "{_field_} can not be empty",
+});
+
+extend("max", {
+  ...max,
+  message: "{_field_} may not be greater than {length} characters",
+});
+extend("min", {
+  ...min,
+  message: "{_field_} may not be less than {length} characters",
+});
+extend("regex", {
+  ...regex,
+  message: "{_field_} {_value_} does not match {regex}",
+});
+
+extend("email", {
+  ...email,
+  message: "Email must be valid",
+});
 
 export default {
+    components: {
+    ValidationProvider,
+    ValidationObserver,
+  },
   data: () => ({
-    select:[],
-    reason: '',
-    vacations:[],
-    vacationTypes:[
+    select: [],
+    reason: "",
+    vacations: [],
+    vacationTypes: [
       "Travel",
       "Sick",
       "Appointment",
       "Attending event",
       "Personal Issue",
-      "Emergency"
+      "Emergency",
     ],
-    vacationStatus:[
+    vacationStatus: [
       "New Request",
       "Pending",
       "Approved",
       "Declined",
       "Canceled",
-      "Closed"
+      "Closed",
     ],
-    reason_not_to_work: '',
-    formHasErrors : false,
-    
-    vacationstartdate: '',
-    vacationenddate: '',
+    reason_not_to_work: "",
+    formHasErrors: false,
+
+    vacationstartdate: "",
+    vacationenddate: "",
     menu: false,
     menu1: false,
     focus: "",
@@ -271,24 +364,26 @@ export default {
     this.$refs.calendar.checkChange();
   },
   methods: {
-    submitchangeForm(){
-        console.log(this.selectedEvent);
-        this.selectedEvent.color = "secondary"
-        this.selectedEvent.unableToCome = true
-        this.selectedEvent.unableToCome_reason = this.reason_not_to_work;
-        this.$http.post('/schedule/cantwork', this.selectedEvent)
-        this.selectedOpen = false;
+    submitchangeForm() {
+      console.log(this.selectedEvent);
+      this.selectedEvent.color = "secondary";
+      this.selectedEvent.unableToCome = true;
+      this.selectedEvent.unableToCome_reason = this.reason_not_to_work;
+      this.$http.post("/schedule/cantwork", this.selectedEvent);
+      this.selectedOpen = false;
     },
     submitVacation() {
-      this.$http.post('/vacation/add', {
-        email: this.email,
-        reason: this.reason,
-        start: this.vacationstartdate,
-        end: this.vacationenddate,
-        status: this.vacationStatus[0]
-      }).then(res => {
-        this.refreshVacations();
-      });
+      this.$http
+        .post("/vacation/add", {
+          email: this.email,
+          reason: this.reason,
+          start: this.vacationstartdate,
+          end: this.vacationenddate,
+          status: this.vacationStatus[0],
+        })
+        .then((res) => {
+          this.refreshVacations();
+        });
       console.log(this.reason);
     },
     viewDay({ date }) {
@@ -325,28 +420,32 @@ export default {
 
       nativeEvent.stopPropagation();
     },
-    
+
     refreshVacations() {
-      this.$http.post('/vacation/one',{
-        email: this.email,
-      }).then(res => {
+      this.$http
+        .post("/vacation/one", {
+          email: this.email,
+        })
+        .then((res) => {
           console.log(res.data);
           this.vacations = res.data;
-      })
+        });
       // this.$forceUpdate();
     },
     async refreshEvents() {
-      console.log( "refresh" + this.email)
-      this.events = await this.$store.dispatch('userscheduleStore/getAllSchedule',
-      {
-        email: this.email,
-      });
+      console.log("refresh" + this.email);
+      this.events = await this.$store.dispatch(
+        "userscheduleStore/getAllSchedule",
+        {
+          email: this.email,
+        }
+      );
     },
   },
   computed: {
-  ...mapGetters({
-    email: 'authStore/getEmail',
-  }),
+    ...mapGetters({
+      email: "authStore/getEmail",
+    }),
   },
   created() {
     this.refreshVacations();
